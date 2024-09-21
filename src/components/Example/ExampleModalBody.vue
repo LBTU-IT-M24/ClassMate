@@ -5,7 +5,7 @@
         <div class="clock-wrapper">
             <h2>Clock:</h2>
             <div class="clock-body">
-                <AnalogClock />
+                <Clock :size="300" timeFormat="24hour" hourFormat="standard" :outerFont="0.2" :innerFont="0.1" />
             </div>
         </div>
         <div>
