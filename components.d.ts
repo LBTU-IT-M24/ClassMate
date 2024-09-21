@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     BButton: typeof import('bootstrap-vue-next/components/BButton')['BButton']
     BModal: typeof import('bootstrap-vue-next/components/BModal')['BModal']
+    Clock: typeof import('./src/components/Clock/Clock.vue')['default']
     ExampleModal: typeof import('./src/components/Example/ExampleModal.vue')['default']
     ExampleModalBody: typeof import('./src/components/Example/ExampleModalBody.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
