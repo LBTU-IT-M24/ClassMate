@@ -23,8 +23,4 @@ export default {
     </BModal>
 </template>
 
-<style scoped>
-.example-wrapper {
-    align-items: center;
-}
-</style>
+<style scoped></style>

@@ -12,15 +12,12 @@
             <h2>Calendar:</h2>
             <VCalendar />
         </div>
+
+        <div>
+            <h2>Timer:</h2>
+            <Timer :defaultTime="15" />
+        </div>
     </div>
 </template>
 
-<style scoped>
-.example-wrapper {
-    align-items: center;
-}
-
-.clock-body {
-    font-size: 10px;
-}
-</style>
+<style scoped></style>
