@@ -12,6 +12,14 @@ declare module 'vue' {
     BInput: typeof import('bootstrap-vue-next/components/BFormInput')['BInput']
     BModal: typeof import('bootstrap-vue-next/components/BModal')['BModal']
     BRow: typeof import('bootstrap-vue-next/components/BContainer')['BRow']
+    BTab: typeof import('bootstrap-vue-next/components/BTabs')['BTab']
+    BTableSimple: typeof import('bootstrap-vue-next/components/BTable')['BTableSimple']
+    BTabs: typeof import('bootstrap-vue-next/components/BTabs')['BTabs']
+    BTbody: typeof import('bootstrap-vue-next/components/BTable')['BTbody']
+    BTd: typeof import('bootstrap-vue-next/components/BTable')['BTd']
+    BTh: typeof import('bootstrap-vue-next/components/BTable')['BTh']
+    BThead: typeof import('bootstrap-vue-next/components/BTable')['BThead']
+    BTr: typeof import('bootstrap-vue-next/components/BTable')['BTr']
     Clock: typeof import('./src/components/Clock/Clock.vue')['default']
     ExampleModal: typeof import('./src/components/Example/ExampleModal.vue')['default']
     ExampleModalBody: typeof import('./src/components/Example/ExampleModalBody.vue')['default']
@@ -20,6 +28,8 @@ declare module 'vue' {
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']
     IconSupport: typeof import('./src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./src/components/icons/IconTooling.vue')['default']
+    Stopwatch: typeof import('./src/components/Timer/Stopwatch.vue')['default']
+    SwitchableTimer: typeof import('./src/components/Timer/SwitchableTimer.vue')['default']
     Timer: typeof import('./src/components/Timer/Timer.vue')['default']
   }
 }

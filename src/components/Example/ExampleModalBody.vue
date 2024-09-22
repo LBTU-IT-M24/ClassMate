@@ -15,7 +15,7 @@
 
         <div>
             <h2>Timer:</h2>
-            <Timer :defaultTime="15" />
+            <SwitchableTimer />
         </div>
     </div>
 </template>
