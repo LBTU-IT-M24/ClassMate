@@ -6,7 +6,14 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import type { IDraggablePosition } from './interfaces/IDraggablePosition';
+import type { IDraggableStyle } from './interfaces/IDraggableStyle';
+
+interface IDraggableData {
+    position: IDraggablePosition;
+}
+
 export default {
     props: {
         initialX: {
@@ -18,7 +25,7 @@ export default {
             default: 0,
         },
     },
-    data() {
+    data(): IDraggableData {
         return {
             position: {
                 init: false,
@@ -34,27 +41,24 @@ export default {
     },
     computed: {
         style() {
-            if (this.position.init) {
-                return {
-                    position: 'absolute',
-                    left: this.position.x + 'px',
-                    top: this.position.y + 'px',
-                    width: this.position.width + 'px',
-                    height: this.position.height + 'px',
-                    'box-shadow': this.position.isDraging ? '3px 6px 16px rgba(0, 0, 0, 0.15)' : '',
-                    transform: this.position.isDraging ? 'translate(-3px, -6px)' : '',
-                    cursor: this.position.isDraging ? 'grab' : 'pointer',
-                };
-            }
-
-            return {
+            const basePosition = {
                 position: 'absolute',
                 left: this.position.x + 'px',
                 top: this.position.y + 'px',
                 'box-shadow': this.position.isDraging ? '3px 6px 16px rgba(0, 0, 0, 0.15)' : '',
                 transform: this.position.isDraging ? 'translate(-3px, -6px)' : '',
                 cursor: this.position.isDraging ? 'grab' : 'pointer',
-            };
+            } as IDraggableStyle;
+
+            if (this.position.init) {
+                return {
+                    ...basePosition,
+                    width: this.position.width + 'px',
+                    height: this.position.height + 'px',
+                };
+            }
+
+            return basePosition;
         },
     },
     mounted() {
@@ -71,7 +75,7 @@ export default {
         }
     },
     methods: {
-        onMouseDown(e) {
+        onMouseDown(e: MouseEvent) {
             e.stopPropagation();
             const { clientX, clientY } = e;
             this.position.dragStartX = clientX - this.position.x;
@@ -82,18 +86,18 @@ export default {
             document.addEventListener('mouseup', this.onMouseUp);
             document.addEventListener('mousemove', this.onMouseMove);
         },
-        onMouseMove(e) {
+        onMouseMove(e: MouseEvent) {
             e.stopPropagation();
             const { clientX, clientY } = e;
 
             // this might be unnecessary
-            const newXPos = clientX - this.position.dragStartX;
+            const newXPos = clientX - (this.position.dragStartX || 0);
 
             if (newXPos < 0 || newXPos + this.position.width > window.innerWidth) {
                 return;
             }
 
-            const newYPos = clientY - this.position.dragStartY;
+            const newYPos = clientY - (this.position.dragStartY || 0);
 
             if (newYPos < 0 || newYPos + this.position.height > window.innerHeight) {
                 return;
@@ -102,7 +106,7 @@ export default {
             this.position.x = newXPos;
             this.position.y = newYPos;
         },
-        onMouseUp(e) {
+        onMouseUp(e: MouseEvent) {
             e.stopPropagation();
             this.position.isDraging = false;
             this.position.dragStartX = null;
