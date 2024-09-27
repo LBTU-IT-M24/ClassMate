@@ -9,6 +9,7 @@
         </Draggable>
         <Draggable :initialX="200" :initialY="200"><VCalendar /> </Draggable>
         <Draggable :initialX="900" :initialY="300"><SwitchableTimer /> </Draggable>
+        <Draggable><PersonalEditor /> </Draggable>
     </main>
 </template>
 

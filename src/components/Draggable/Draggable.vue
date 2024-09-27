@@ -54,7 +54,6 @@ export default {
                 return {
                     ...basePosition,
                     width: this.position.width + 'px',
-                    height: this.position.height + 'px',
                 };
             }
 
