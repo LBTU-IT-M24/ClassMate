@@ -25,14 +25,12 @@
                 </BCol>
             </BRow>
         </div>
-        <BRow class="base-timer__controls">
-            <BCol v-if="!isEnabled" sm-="12" md="6" @click="startTimer"
-                ><BButton class="w-100 m-1">Start</BButton></BCol
-            >
-            <BCol v-else sm-="12" md="6"><BButton class="w-100 m-1" @click="pauseTimer">Pause</BButton></BCol>
-            <BCol sm-="12" md="6"><BButton class="w-100 m-1" @click="resetTimer">Reset</BButton></BCol>
-        </BRow>
     </div>
+    <BRow class="base-timer__controls">
+        <BCol v-if="!isEnabled" sm-="12" md="6" @click="startTimer"><BButton class="w-100 m-1">Start</BButton></BCol>
+        <BCol v-else sm-="12" md="6"><BButton class="w-100 m-1" @click="pauseTimer">Pause</BButton></BCol>
+        <BCol sm-="12" md="6"><BButton class="w-100 m-1" @click="resetTimer">Reset</BButton></BCol>
+    </BRow>
     <BModal v-model="isModalOpen" hide-header hide-footer>
         <VueDatePicker v-model="time" @closed="closedModal" time-picker enable-seconds :clearable="false" />
     </BModal>
