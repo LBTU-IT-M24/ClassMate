@@ -1,13 +1,24 @@
 <template>
     <div class="clock" :style="{ width: String(size) + 'px', textAlign: 'center' }">
         <canvas :width="size" :height="size" ref="clockCanvas" />
-        <p v-show="showLabel">Current time: {{ timeFormatted.value }}</p>
+        <p v-show="showLabel">Current time: {{ timeFormatted }}</p>
     </div>
 </template>
 
-<script>
-import { ref, onMounted, reactive } from 'vue';
+<script lang="ts">
 import { formatDate } from '../../helpers/Date/DateFunctions';
+type ConvasRenderingType = CanvasRenderingContext2D | null;
+
+interface IClockData {
+    time: Date | null;
+    timeFormatted: string;
+    radius: number;
+    drawingContext: ConvasRenderingType;
+    clockCanvas: HTMLCanvasElement | null;
+    draw24hour: boolean;
+    drawRoman: boolean;
+    timerId: NodeJS.Timeout | undefined;
+}
 
 export default {
     name: 'Clock',
@@ -41,37 +52,45 @@ export default {
             default: true,
         },
     },
-    setup(props) {
-        const time = ref({});
-        const timeFormatted = reactive({});
-        const radius = ref(props.size / 2);
-        const drawingContext = ref(null);
-        const clockCanvas = ref({});
-        const draw24hour = ref(props.timeFormat.toLowerCase().trim() === '24hour');
-        const drawRoman = ref(!draw24hour.value && props.hourFormat.toLowerCase().trim() === 'roman');
-        const timerId = ref({});
+    data(): IClockData {
+        return {
+            time: null,
+            timeFormatted: '',
+            radius: this.size / 2,
+            drawingContext: null,
+            clockCanvas: null,
+            draw24hour: this.timeFormat.toLowerCase().trim() === '24hour',
+            drawRoman: !this.draw24hour && this.hourFormat.toLowerCase().trim() === 'roman',
+            timerId: undefined,
+        };
+    },
+    methods: {
+        drawFace(ctx: ConvasRenderingType, radius: number) {
+            if (!ctx) {
+                return;
+            }
 
-        const fillColor = props.fillColor;
-
-        const drawFace = (ctx, radius) => {
             ctx.beginPath();
             ctx.arc(0, 0, radius, 0, 2 * Math.PI);
-            ctx.fillStyle = fillColor;
+            ctx.fillStyle = this.fillColor;
             ctx.fill();
 
             const grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05);
             grad.addColorStop(0, '#333');
-            grad.addColorStop(0.5, fillColor);
+            grad.addColorStop(0.5, this.fillColor);
             grad.addColorStop(1, '#333');
             ctx.strokeStyle = grad;
             ctx.lineWidth = radius * 0.1;
             ctx.stroke();
-        };
+        },
+        drawNumbers(ctx: ConvasRenderingType, radius: number) {
+            if (!ctx) {
+                return;
+            }
 
-        const drawNumbers = (ctx, radius) => {
             const romans = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
-            const fontBig = radius * props.outerFont + 'px Arial';
-            const fontSmall = radius * props.innerFont + 'px Arial';
+            const fontBig = radius * this.outerFont + 'px Arial';
+            const fontSmall = radius * this.innerFont + 'px Arial';
             let ang, num;
 
             ctx.textBaseline = 'middle';
@@ -83,13 +102,13 @@ export default {
                 ctx.rotate(-ang);
                 ctx.font = fontBig;
                 ctx.fillStyle = 'black';
-                ctx.fillText(drawRoman.value ? romans[num - 1] : num.toString(), 0, 0);
+                ctx.fillText(this.drawRoman ? romans[num - 1] : num.toString(), 0, 0);
                 ctx.rotate(ang);
                 ctx.translate(0, radius * 0.78);
                 ctx.rotate(-ang);
 
                 // Draw inner numerals for 24 hour time format
-                if (draw24hour.value) {
+                if (this.draw24hour) {
                     ctx.rotate(ang);
                     ctx.translate(0, -radius * 0.6);
                     ctx.rotate(-ang);
@@ -107,10 +126,13 @@ export default {
             ctx.fillStyle = '#3D3B3D';
             ctx.translate(0, radius * 0.3);
             ctx.translate(0, -radius * 0.3);
-        };
-
-        const drawTicks = (ctx, radius) => {
+        },
+        drawTicks(ctx: ConvasRenderingType, radius: number) {
             let numTicks, tickAng, tickX, tickY;
+
+            if (!ctx) {
+                return;
+            }
 
             for (numTicks = 0; numTicks < 60; numTicks++) {
                 tickAng = (numTicks * Math.PI) / 30;
@@ -127,10 +149,8 @@ export default {
                 }
                 ctx.stroke();
             }
-        };
-
-        const drawHand = (ctx, position, length, width, color) => {
-            color = color || 'black';
+        },
+        drawHand(ctx: CanvasRenderingContext2D, position: number, length: number, width: number, color = 'black') {
             ctx.beginPath();
             ctx.lineWidth = width;
             ctx.lineCap = 'round';
@@ -141,10 +161,14 @@ export default {
             ctx.lineTo(0, -length);
             ctx.stroke();
             ctx.rotate(-position);
-        };
+        },
+        drawTime(ctx: ConvasRenderingType, radius: number) {
+            const now = this.time;
 
-        const drawTime = (ctx, radius) => {
-            const now = time.value;
+            if (!now || !ctx) {
+                return;
+            }
+
             let hour = now.getHours();
             let minute = now.getMinutes();
             let second = now.getSeconds();
@@ -152,42 +176,40 @@ export default {
             // hour
             hour %= 12;
             hour = (hour * Math.PI) / 6 + (minute * Math.PI) / (6 * 60) + (second * Math.PI) / (360 * 60);
-            drawHand(ctx, hour, radius * 0.5, radius * 0.05);
+            this.drawHand(ctx, hour, radius * 0.5, radius * 0.05);
             // minute
             minute = (minute * Math.PI) / 30 + (second * Math.PI) / (30 * 60);
-            drawHand(ctx, minute, radius * 0.8, radius * 0.05);
+            this.drawHand(ctx, minute, radius * 0.8, radius * 0.05);
             // second
             second = (second * Math.PI) / 30;
-            drawHand(ctx, second, radius * 0.9, radius * 0.02, 'red');
-        };
+            this.drawHand(ctx, second, radius * 0.9, radius * 0.02, 'red');
+        },
+        tick() {
+            this.time = new Date();
+            const r = this.radius;
+            const ctx = this.drawingContext;
 
-        const tick = () => {
-            time.value = new Date();
-            const r = radius.value;
-            let ctx = drawingContext.value;
-            ctx.webkitImageSmoothingEnabled = true;
-            drawFace(ctx, r);
-            drawNumbers(ctx, r);
-            drawTicks(ctx, r);
-            drawTime(ctx, r);
+            this.drawFace(ctx, r);
+            this.drawNumbers(ctx, r);
+            this.drawTicks(ctx, r);
+            this.drawTime(ctx, r);
 
-            timeFormatted.value = formatDate(time.value);
-        };
+            this.timeFormatted = formatDate(this.time);
+        },
+    },
+    mounted() {
+        this.drawingContext = (this.$refs.clockCanvas as HTMLCanvasElement).getContext('2d');
+        this.drawingContext?.translate(this.radius, this.radius);
+        this.radius *= 0.9;
 
-        onMounted(() => {
-            drawingContext.value = clockCanvas.value.getContext('2d');
-            drawingContext.value.translate(radius.value, radius.value);
-            radius.value *= 0.9;
-
-            timerId.value = setInterval(() => tick(), 1000);
-        });
-
-        return { clockCanvas, timeFormatted };
+        this.timerId = setInterval(() => this.tick(), 1000);
+    },
+    beforeUnmount() {
+        clearInterval(this.timerId);
     },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .clock {
     padding: 5px;

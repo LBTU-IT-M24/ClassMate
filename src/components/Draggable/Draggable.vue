@@ -1,5 +1,5 @@
-<template id="myComponent">
-    <div ref="el" class="dragable" :style="style">
+<template id="draggable">
+    <div ref="el" class="draggable__body" :style="style">
         <!-- For testing purposes -->
         <!-- <pre>{{ position }}</pre> -->
         <slot></slot>
@@ -115,26 +115,28 @@ export default {
             document.removeEventListener('mousemove', this.onMouseMove);
         },
     },
-    template: document?.getElementById('myComponent')?.innerHTML,
+    template: document?.getElementById('draggable')?.innerHTML,
 };
 </script>
 
-<style scoped>
-.dragable {
-    display: inline-block;
-    margin: 0;
-    color: rgb(6, 19, 29);
-    background-color: rgb(187, 195, 209);
-    border-radius: 16px;
-    padding: 16px;
-    touch-action: none;
-    user-select: none;
-    -webkit-transform: translate(0px, 0px);
-    transform: translate(0px, 0px);
-    transition:
-        transform 0.1s ease-in,
-        box-shadow 0.1s ease-out;
-    border: 1px solid rgb(6, 19, 29);
+<style scoped lang="scss">
+.draggable {
+    &__body {
+        display: inline-block;
+        margin: 0;
+        color: rgb(6, 19, 29);
+        background-color: rgb(187, 195, 209);
+        border-radius: 16px;
+        padding: 16px;
+        touch-action: none;
+        user-select: none;
+        -webkit-transform: translate(0px, 0px);
+        transform: translate(0px, 0px);
+        transition:
+            transform 0.1s ease-in,
+            box-shadow 0.1s ease-out;
+        border: 1px solid rgb(6, 19, 29);
+    }
 }
 
 pre {
