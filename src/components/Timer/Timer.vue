@@ -143,9 +143,6 @@ export default {
                 this.onTimesUp();
             }
         },
-        currentTime(currentTimeLimit) {
-            console.log(currentTimeLimit);
-        },
     },
     methods: {
         closedModal() {

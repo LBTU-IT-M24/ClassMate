@@ -124,8 +124,6 @@ export default {
             const overallTime = this.time;
 
             this.lapTimes.push({ lap, lapTime, overallTime });
-
-            console.log(JSON.parse(JSON.stringify(this.lapTimes)));
         },
         clockRunning() {
             const currentTime = new Date();
