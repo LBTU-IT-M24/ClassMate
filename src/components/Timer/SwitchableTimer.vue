@@ -17,9 +17,14 @@
 
 <style scoped lang="scss">
 .switchable-timer {
+    min-height: 400px;
+    min-width: 300px;
+
     &__item {
         display: flex;
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
 }
 </style>
