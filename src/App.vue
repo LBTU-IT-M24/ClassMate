@@ -2,7 +2,6 @@
 import {ref} from "vue";
 import SwitchableTimer from "@/components/Timer/SwitchableTimer.vue";
 import Clock from "@/components/Clock/Clock.vue";
-import Draggable from "@/components/Draggable/Draggable.vue";
 const userType = ref('')
 const userTypeChosen = ref(false)
 const showOptions = ref(false);
@@ -17,7 +16,7 @@ const toggleWidget = (index) => {
 </script>
 
 <template>
-  <header v-if="userTypeChosen" class="bg-light py-3">
+  <header v-if="userTypeChosen" class="bg-light ">
     <div class="container d-flex justify-content-between align-items-center">
       <div class="user-type">
         <h5 v-if="userType" class="mb-0">{{ userType }}</h5>
@@ -95,9 +94,9 @@ const toggleWidget = (index) => {
     </div>
   </header>
 
-    <main class="container-fluid d-flex justify-content-center align-items-center bg-page">
+    <main class="container-fluid d-flex justify-content-center  bg-page">
 
-    <div class="row custom-width "  v-if="!userTypeChosen">
+    <div class="row custom-width align-items-center"  v-if="!userTypeChosen">
       <div class="col-12 col-md-5 d-flex flex-column align-items-center justify-content-center mb-4 mb-md-0 text-center bg-light-grey p-4 rounded">
         <h1>Choose your role</h1>
         <button @click="chooseUserType('Teacher')" class="btn btn-outline-primary mb-3 w-75" style="border-radius: 30px;">Teacher</button>
@@ -113,26 +112,40 @@ const toggleWidget = (index) => {
         </p>
       </div>
     </div>
-    <div  v-else class=" custom-width mt-8">
+    <div class="w-100"  v-else >
 
-      <div class="row mb-4 ">
+      <div class="d-flex  mb-4 w-100 ">
         <!-- Analog Clock -->
-        <div class="col-6 col-md-6 d-flex flex-column align-items-center bg-light p-4 rounded shadow" v-if="widgetVisibility[0]">
+        <div class=" me-3 d-flex flex-column align-items-center bg-light p-3 rounded shadow" style="width: 29%" v-if="widgetVisibility[0]">
           <h4>Analog Clock</h4>
           <Clock :size="300" timeFormat="24hour" hourFormat="standard" :outerFont="0.2" :innerFont="0.1" />
         </div>
 
         <!-- Timer/Stopwatch -->
-        <div class="col-6 col-md-6 d-flex flex-column align-items-center bg-light p-4 rounded shadow" v-if="widgetVisibility[1]">>
+        <div class=" me-3 d-flex flex-column align-items-center bg-light p-3 rounded shadow" style="width: 29%" v-if="widgetVisibility[1]">
           <h4>Timer/Stopwatch</h4>
           <SwitchableTimer />
 
         </div>
+
+          <!-- Bookmark Links -->
+          <div class="  d-flex flex-column align-items-start bg-light p-3 rounded shadow" style="width: 39%" v-if="widgetVisibility[5]">
+            <h4>Bookmarks</h4>
+            <div class="  d-flex flex-wrap">
+              <button class="btn btn-link">E-klase.lv</button>
+              <button class="btn btn-link">TavaKlase.lv</button>
+              <button class="btn btn-link">Skolo.lv</button>
+              <button class="btn btn-link">Miro.com</button>
+              <button class="btn btn-link">Tavaklase.lv</button>
+              <button class="btn btn-link">SkolasSoma.lv</button>
+            </div>
+          </div>
+
       </div>
 
-      <div class="row mb-4" v-if="widgetVisibility[2]">
+      <div class="d-flex mb-4 w-100" >
         <!-- Lessons Section -->
-        <div class="col-12 d-flex flex-column bg-light p-4 rounded shadow" >
+        <div class="me-3 d-flex flex-column bg-light p-4 rounded shadow" style="width: 32%" v-if="widgetVisibility[2]">
           <h4>Lessons</h4>
           <ul class="list-unstyled">
             <li>Lesson 1</li>
@@ -141,45 +154,27 @@ const toggleWidget = (index) => {
             <li>Lesson 4</li>
           </ul>
         </div>
-      </div>
 
-      <div class="row mb-4" v-if="widgetVisibility[3]">
-        <!-- Notes Section -->
-        <div class="col-12 d-flex flex-column bg-light p-4 rounded shadow">
+        <div class="me-3 d-flex flex-column bg-light p-4 rounded shadow" style="width: 32%" v-if="widgetVisibility[3]">
           <h4>Notes</h4>
           <textarea class="form-control mb-2" rows="4" placeholder="Write your notes here..."></textarea>
           <button class="btn btn-success">Save</button>
         </div>
-      </div>
-      <div class="row mb-4" v-if="widgetVisibility[4]">
-        <!-- Playlist Section -->
-        <div class="col-12 d-flex flex-column bg-light p-4 rounded shadow">
-          <h4>Playlist</h4>
-          <ul class="list-unstyled">
-            <li>Song 1</li>
-            <li>Song 2</li>
-            <li>Song 3</li>
-          </ul>
-        </div>
-      </div>
-      <div class="row mb-4" v-if="widgetVisibility[5]">
-        <!-- Bookmark Links -->
-        <Draggable>
-        <div class="col-12 d-flex flex-column align-items-start bg-light p-4 rounded shadow">
-          <h4>Bookmarks</h4>
-          <div class="d-flex flex-wrap">
-            <button class="btn btn-link">E-klase.lv</button>
-            <button class="btn btn-link">TavaKlase.lv</button>
-            <button class="btn btn-link">Skolo.lv</button>
-            <button class="btn btn-link">Miro.com</button>
-            <button class="btn btn-link">Tavaklase.lv</button>
-            <button class="btn btn-link">SkolasSoma.lv</button>
+          <div class="me-3 d-flex flex-column bg-light p-3 rounded shadow" style="width: 33%" v-if="widgetVisibility[4]">
+            <h4>Playlist</h4>
+            <iframe width="100%"
+                    height="315"
+                    src="https://www.youtube.com/embed/674KGKRQBPE?si=07PH1zLMEEmkSlhQ"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    ></iframe>
+
+
           </div>
-        </div>
-        </Draggable>
+
+
       </div>
-
-
     </div>
     <div class="overlay"></div>
   </main>

@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { formatDate } from '../../helpers/Date/DateFunctions';
+import { formatDate } from '@/helpers/Date/DateFunctions';
 type ConvasRenderingType = CanvasRenderingContext2D | null;
 
 interface IClockData {
