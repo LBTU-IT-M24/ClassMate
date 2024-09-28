@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     BButton: typeof import('bootstrap-vue-next/components/BButton')['BButton']
     BCol: typeof import('bootstrap-vue-next/components/BContainer')['BCol']
+    BFormCheckbox: typeof import('bootstrap-vue-next/components/BFormCheckbox')['BFormCheckbox']
     BModal: typeof import('bootstrap-vue-next/components/BModal')['BModal']
     BRow: typeof import('bootstrap-vue-next/components/BContainer')['BRow']
     BTab: typeof import('bootstrap-vue-next/components/BTabs')['BTab']
@@ -21,8 +22,6 @@ declare module 'vue' {
     BTr: typeof import('bootstrap-vue-next/components/BTable')['BTr']
     Clock: typeof import('./src/components/Clock/Clock.vue')['default']
     Draggable: typeof import('./src/components/Draggable/Draggable.vue')['default']
-    ExampleModal: typeof import('./src/components/Example/ExampleModal.vue')['default']
-    ExampleModalBody: typeof import('./src/components/Example/ExampleModalBody.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']
