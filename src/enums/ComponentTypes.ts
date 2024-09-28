@@ -1,0 +1,9 @@
+export enum ComponentTypes {
+    ANALOG_CLOCK = 'ANALOG_CLOCK',
+    TIMER = 'TIMER_STOPWATCH',
+    LESSONS = 'LESSONS',
+    NOTES = 'NOTES',
+    PLAYLIST = 'PLAYLIST',
+    BOOKMARKS = 'BOOKMARKS',
+    TITLE_BAR = 'TITLE_BAR',
+}
