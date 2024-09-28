@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import SwitchableTimer from "@/components/Timer/SwitchableTimer.vue";
 import Clock from "@/components/Clock/Clock.vue";
+import Draggable from "@/components/Draggable/Draggable.vue";
 const userType = ref('')
 const userTypeChosen = ref(false)
 const showOptions = ref(false);
@@ -163,6 +164,7 @@ const toggleWidget = (index) => {
       </div>
       <div class="row mb-4" v-if="widgetVisibility[5]">
         <!-- Bookmark Links -->
+        <Draggable>
         <div class="col-12 d-flex flex-column align-items-start bg-light p-4 rounded shadow">
           <h4>Bookmarks</h4>
           <div class="d-flex flex-wrap">
@@ -174,6 +176,7 @@ const toggleWidget = (index) => {
             <button class="btn btn-link">SkolasSoma.lv</button>
           </div>
         </div>
+        </Draggable>
       </div>
 
 

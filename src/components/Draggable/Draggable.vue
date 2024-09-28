@@ -92,15 +92,15 @@ export default {
             // this might be unnecessary
             const newXPos = clientX - (this.position.dragStartX || 0);
 
-            if (newXPos < 0 || newXPos + this.position.width > window.innerWidth) {
-                return;
-            }
+            // if (newXPos < 0 || newXPos + this.position.width > window.innerWidth) {
+            //     return;
+            // }
 
             const newYPos = clientY - (this.position.dragStartY || 0);
 
-            if (newYPos < 0 || newYPos + this.position.height > window.innerHeight) {
-                return;
-            }
+            // if (newYPos < 0 || newYPos + this.position.height > window.innerHeight) {
+            //     return;
+            // }
 
             this.position.x = newXPos;
             this.position.y = newYPos;
