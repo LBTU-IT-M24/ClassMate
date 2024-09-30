@@ -158,7 +158,8 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
     flex-direction: column;
     margin: 0px auto;
     padding: 1rem;
-    min-height: 500px;
+    height: 500px;
+    overflow: auto;
 }
 
 .custom-width {
