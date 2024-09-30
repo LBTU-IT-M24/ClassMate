@@ -71,7 +71,11 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
         </div>
         <div class="w-100" v-else>
             <BRow>
-                <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.ANALOG_CLOCK)">
+                <BCol
+                    class="mb-4 col-xl-4 col-lg-6 col-12"
+                    style="min-width: 330px"
+                    v-if="widgetVisibility.get(ComponentTypes.ANALOG_CLOCK)"
+                >
                     <div class="widget">
                         <h4>Analog Clock</h4>
                         <Clock
