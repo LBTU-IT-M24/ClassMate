@@ -9,6 +9,8 @@
 import { formatDate } from '@/helpers/Date/DateFunctions';
 type ConvasRenderingType = CanvasRenderingContext2D | null;
 
+const SIZE = 280;
+
 interface IClockData {
     time: Date | null;
     timeFormatted: string;
@@ -18,15 +20,12 @@ interface IClockData {
     draw24hour: boolean;
     drawRoman: boolean;
     timerId: NodeJS.Timeout | undefined;
+    size: number;
 }
 
 export default {
     name: 'Clock',
     props: {
-        size: {
-            type: Number,
-            default: 400,
-        },
         timeFormat: {
             type: String,
             default: '24hour',
@@ -56,7 +55,8 @@ export default {
         return {
             time: null,
             timeFormatted: '',
-            radius: this.size / 2,
+            size: SIZE,
+            radius: SIZE / 2,
             drawingContext: null,
             clockCanvas: null,
             draw24hour: this.timeFormat.toLowerCase().trim() === '24hour',
