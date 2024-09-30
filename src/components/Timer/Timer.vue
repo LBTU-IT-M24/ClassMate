@@ -181,8 +181,8 @@ export default {
 }
 .base-timer {
     position: relative;
-    width: 300px;
-    height: 300px;
+    min-width: 280px;
+    height: 280px;
 
     &__svg {
         transform: scaleX(-1);

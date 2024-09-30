@@ -4,11 +4,12 @@ import SwitchableTimer from '@/components/Timer/SwitchableTimer.vue';
 import Clock from '@/components/Clock/Clock.vue';
 import NavConfigurationModal from './App/Navbar/NavConfigurationModal.vue';
 import { ComponentTypes } from './enums/ComponentTypes';
+import { BCol, BRow } from 'bootstrap-vue-next';
 
 const userType = ref('');
 const userTypeChosen = ref(false);
 const showOptions = ref(false);
-const widgetVisibility = ref(new Map<ComponentTypes, boolean>([[ComponentTypes.ANALOG_CLOCK, true]]));
+const widgetVisibility = ref(new Map<ComponentTypes, boolean>([[ComponentTypes.TIMER, true]]));
 
 const chooseUserType = (type: string) => {
     userType.value = type;
@@ -37,12 +38,10 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
             @closeOptions="showOptions = false"
         />
     </header>
-    <<<<<<< HEAD
-
     <main class="container-fluid d-flex justify-content-center bg-page">
-        <div class="row custom-width align-items-center" v-if="!userTypeChosen">
+        <div class="row custom-width align-items-center vh-100" v-if="!userTypeChosen">
             <div
-                class="col-12 col-md-5 d-flex flex-column align-items-center justify-content-center mb-4 mb-md-0 text-center bg-light-grey p-4 rounded"
+                class="col-12 col-md-5 d-flex flex-column align-items-center justify-content-center mb-4 mb-md-0 text-center bg-light-grey p-4"
             >
                 <h1>Choose your role</h1>
                 <button
@@ -71,86 +70,74 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
             </div>
         </div>
         <div class="w-100" v-else>
-            <div class="d-flex mb-4 w-100">
-                <!-- Analog Clock -->
-                <div
-                    class="me-3 d-flex flex-column align-items-center bg-light p-3 rounded shadow"
-                    style="width: 29%"
-                    v-if="widgetVisibility.get(ComponentTypes.ANALOG_CLOCK)"
-                >
-                    <h4>Analog Clock</h4>
-                    <Clock :size="300" timeFormat="24hour" hourFormat="standard" :outerFont="0.2" :innerFont="0.1" />
-                </div>
-
-                <!-- Timer/Stopwatch -->
-                <div
-                    class="me-3 d-flex flex-column align-items-center bg-light p-3 rounded shadow"
-                    style="width: 29%"
+            <BRow>
+                <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.ANALOG_CLOCK)">
+                    <div class="widget">
+                        <h4>Analog Clock</h4>
+                        <Clock
+                            :size="300"
+                            timeFormat="24hour"
+                            hourFormat="standard"
+                            :outerFont="0.2"
+                            :innerFont="0.1"
+                        />
+                    </div>
+                </BCol>
+                <BCol
+                    class="mb-4 col-xl-4 col-lg-6 col-12"
+                    style="min-width: 330px"
                     v-if="widgetVisibility.get(ComponentTypes.TIMER)"
                 >
-                    <h4>Timer/Stopwatch</h4>
-                    <SwitchableTimer />
-                </div>
-
-                <!-- Bookmark Links -->
-                <div
-                    class="d-flex flex-column align-items-start bg-light p-3 rounded shadow"
-                    style="width: 39%"
-                    v-if="widgetVisibility.get(ComponentTypes.BOOKMARKS)"
-                >
-                    <h4>Bookmarks</h4>
-                    <div class="d-flex flex-wrap">
-                        <button class="btn btn-link">E-klase.lv</button>
-                        <button class="btn btn-link">TavaKlase.lv</button>
-                        <button class="btn btn-link">Skolo.lv</button>
-                        <button class="btn btn-link">Miro.com</button>
-                        <button class="btn btn-link">Tavaklase.lv</button>
-                        <button class="btn btn-link">SkolasSoma.lv</button>
+                    <div class="widget">
+                        <h4>Timer/Stopwatch</h4>
+                        <SwitchableTimer />
                     </div>
-                </div>
-            </div>
-
-            <div class="d-flex mb-4 w-100">
-                <!-- Lessons Section -->
-                <div
-                    class="me-3 d-flex flex-column bg-light p-4 rounded shadow"
-                    style="width: 32%"
-                    v-if="widgetVisibility.get(ComponentTypes.LESSONS)"
-                >
-                    <h4>Lessons</h4>
-                    <ul class="list-unstyled">
-                        <li>Lesson 1</li>
-                        <li>Lesson 2</li>
-                        <li>Lesson 3</li>
-                        <li>Lesson 4</li>
-                    </ul>
-                </div>
-
-                <div
-                    class="me-3 d-flex flex-column bg-light p-4 rounded shadow"
-                    style="width: 32%"
-                    v-if="widgetVisibility.get(ComponentTypes.NOTES)"
-                >
-                    <h4>Notes</h4>
-                    <textarea class="form-control mb-2" rows="4" placeholder="Write your notes here..."></textarea>
-                    <button class="btn btn-success">Save</button>
-                </div>
-                <div
-                    class="me-3 d-flex flex-column bg-light p-3 rounded shadow"
-                    style="width: 33%"
-                    v-if="widgetVisibility.get(ComponentTypes.PLAYLIST)"
-                >
-                    <h4>Playlist</h4>
-                    <iframe
-                        width="100%"
-                        height="315"
-                        src="https://www.youtube.com/embed/674KGKRQBPE?si=07PH1zLMEEmkSlhQ"
-                        title="YouTube video player"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                    ></iframe>
-                </div>
-            </div>
+                </BCol>
+                <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.BOOKMARKS)">
+                    <div class="widget">
+                        <h4>Bookmarks</h4>
+                        <div class="d-flex flex-wrap">
+                            <button class="btn btn-link">E-klase.lv</button>
+                            <button class="btn btn-link">TavaKlase.lv</button>
+                            <button class="btn btn-link">Skolo.lv</button>
+                            <button class="btn btn-link">Miro.com</button>
+                            <button class="btn btn-link">Tavaklase.lv</button>
+                            <button class="btn btn-link">SkolasSoma.lv</button>
+                        </div>
+                    </div>
+                </BCol>
+                <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.LESSONS)">
+                    <div class="widget">
+                        <h4>Lessons</h4>
+                        <ul class="list-unstyled">
+                            <li>Lesson 1</li>
+                            <li>Lesson 2</li>
+                            <li>Lesson 3</li>
+                            <li>Lesson 4</li>
+                        </ul>
+                    </div>
+                </BCol>
+                <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.NOTES)">
+                    <div class="widget">
+                        <h4>Notes</h4>
+                        <textarea class="form-control mb-2" rows="4" placeholder="Write your notes here..."></textarea>
+                        <button class="btn btn-success">Save</button>
+                    </div>
+                </BCol>
+                <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.PLAYLIST)">
+                    <div class="widget">
+                        <h4>Playlist</h4>
+                        <iframe
+                            width="100%"
+                            height="315"
+                            src="https://www.youtube.com/embed/674KGKRQBPE?si=07PH1zLMEEmkSlhQ"
+                            title="YouTube video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                        ></iframe>
+                    </div>
+                </BCol>
+            </BRow>
         </div>
 
         <div class="overlay"></div>
@@ -158,6 +145,18 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
 </template>
 
 <style scoped>
+.widget {
+    border-radius: var(--bs-border-radius) !important;
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
+    box-shadow: var(--bs-box-shadow) !important;
+    display: flex !important;
+    flex-direction: column;
+    margin: 0px auto;
+    padding: 1rem;
+    min-height: 500px;
+}
+
 .custom-width {
     width: 100%;
     z-index: 2;
@@ -182,7 +181,7 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
     background-image: url('@/assets/main_bg.jpg');
     background-size: cover;
     background-position: center;
-    min-height: 100vh;
+    background-repeat: repeat;
 }
 .bg-light-grey {
     background-color: #f8f9fa;
