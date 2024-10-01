@@ -5,6 +5,7 @@ import Clock from '@/components/Clock/Clock.vue';
 import NavConfigurationModal from './App/Navbar/NavConfigurationModal.vue';
 import { ComponentTypes } from './enums/ComponentTypes';
 import { BCol, BRow } from 'bootstrap-vue-next';
+import WidgetWrapper from './components/Widget/WidgetWrapper.vue';
 
 const userType = ref('');
 const userTypeChosen = ref(false);
@@ -41,9 +42,9 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
     <main class="container-fluid d-flex justify-content-center bg-page">
         <div class="row custom-width align-items-center vh-100" v-if="!userTypeChosen">
             <div
-                class="col-12 col-md-5 d-flex flex-column align-items-center justify-content-center mb-4 mb-md-0 text-center bg-light-grey p-4"
+                class="col-12 col-md-5 d-flex flex-column align-items-center justify-content-center mb-4 mb-md-0 text-center bg-light p-4"
             >
-                <h1>Choose your role</h1>
+                <h2>Choose your role</h2>
                 <button
                     @click="chooseUserType('Teacher')"
                     class="btn btn-outline-primary mb-3 w-75"
@@ -69,37 +70,28 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
                 </p>
             </div>
         </div>
-        <div class="w-100" v-else>
+        <div class="w-100 p-4" v-else>
             <BRow>
                 <BCol
                     class="mb-4 col-xl-4 col-lg-6 col-12"
                     style="min-width: 330px"
                     v-if="widgetVisibility.get(ComponentTypes.ANALOG_CLOCK)"
                 >
-                    <div class="widget">
-                        <h4>Analog Clock</h4>
-                        <Clock
-                            :size="300"
-                            timeFormat="24hour"
-                            hourFormat="standard"
-                            :outerFont="0.2"
-                            :innerFont="0.1"
-                        />
-                    </div>
+                    <WidgetWrapper :title="`Analog Clock`">
+                        <Clock timeFormat="24hour" hourFormat="standard" :outerFont="0.2" :innerFont="0.1" />
+                    </WidgetWrapper>
                 </BCol>
                 <BCol
                     class="mb-4 col-xl-4 col-lg-6 col-12"
                     style="min-width: 330px"
                     v-if="widgetVisibility.get(ComponentTypes.TIMER)"
                 >
-                    <div class="widget">
-                        <h4>Timer/Stopwatch</h4>
+                    <WidgetWrapper :title="`Timer/Stopwatch`">
                         <SwitchableTimer />
-                    </div>
+                    </WidgetWrapper>
                 </BCol>
                 <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.BOOKMARKS)">
-                    <div class="widget">
-                        <h4>Bookmarks</h4>
+                    <WidgetWrapper :title="`Bookmarks`">
                         <div class="d-flex flex-wrap">
                             <button class="btn btn-link">E-klase.lv</button>
                             <button class="btn btn-link">TavaKlase.lv</button>
@@ -108,29 +100,26 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
                             <button class="btn btn-link">Tavaklase.lv</button>
                             <button class="btn btn-link">SkolasSoma.lv</button>
                         </div>
-                    </div>
+                    </WidgetWrapper>
                 </BCol>
                 <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.LESSONS)">
-                    <div class="widget">
-                        <h4>Lessons</h4>
+                    <WidgetWrapper :title="`Lessons`">
                         <ul class="list-unstyled">
                             <li>Lesson 1</li>
                             <li>Lesson 2</li>
                             <li>Lesson 3</li>
                             <li>Lesson 4</li>
                         </ul>
-                    </div>
+                    </WidgetWrapper>
                 </BCol>
                 <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.NOTES)">
-                    <div class="widget">
-                        <h4>Notes</h4>
+                    <WidgetWrapper :title="`Notes`">
                         <textarea class="form-control mb-2" rows="4" placeholder="Write your notes here..."></textarea>
                         <button class="btn btn-success">Save</button>
-                    </div>
+                    </WidgetWrapper>
                 </BCol>
                 <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.PLAYLIST)">
-                    <div class="widget">
-                        <h4>Playlist</h4>
+                    <WidgetWrapper :title="`Playlist`">
                         <iframe
                             width="100%"
                             height="315"
@@ -139,7 +128,7 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             referrerpolicy="strict-origin-when-cross-origin"
                         ></iframe>
-                    </div>
+                    </WidgetWrapper>
                 </BCol>
             </BRow>
         </div>
@@ -149,19 +138,6 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
 </template>
 
 <style scoped>
-.widget {
-    border-radius: var(--bs-border-radius) !important;
-    --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important;
-    box-shadow: var(--bs-box-shadow) !important;
-    display: flex !important;
-    flex-direction: column;
-    margin: 0px auto;
-    padding: 1rem;
-    height: 500px;
-    overflow: auto;
-}
-
 .custom-width {
     width: 100%;
     z-index: 2;
@@ -187,27 +163,5 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
     background-size: cover;
     background-position: center;
     background-repeat: repeat;
-}
-.bg-light-grey {
-    background-color: #f8f9fa;
-}
-.container-fluid {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 2rem;
-    border-radius: 10px;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-h1 {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-}
-
-p {
-    font-size: 1rem;
 }
 </style>
