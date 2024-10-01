@@ -13,7 +13,9 @@
     </BTabs>
 </template>
 
-<script lang="ts"></script>
+<script lang="ts">
+export default {};
+</script>
 
 <style scoped lang="scss">
 .switchable-timer {

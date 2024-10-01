@@ -31,6 +31,7 @@ declare module 'vue' {
     Lessons: typeof import('./src/components/Lesson/Lessons.vue')['default']
     PersonalEditor: typeof import('./src/components/Editor/PersonalEditor.vue')['default']
     Playlist: typeof import('./src/components/Playlist/Playlist.vue')['default']
+    RoleSelect: typeof import('./src/components/Role/RoleSelect.vue')['default']
     Stopwatch: typeof import('./src/components/Timer/Stopwatch.vue')['default']
     SwitchableTimer: typeof import('./src/components/Timer/SwitchableTimer.vue')['default']
     Timer: typeof import('./src/components/Timer/Timer.vue')['default']

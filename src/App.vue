@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref, shallowRef } from 'vue';
 import SwitchableTimer from '@/components/Timer/SwitchableTimer.vue';
 import Clock from '@/components/Clock/Clock.vue';
 import NavConfigurationModal from './App/Navbar/NavConfigurationModal.vue';
@@ -10,11 +10,69 @@ import Bookmarks from './components/Bookmark/Bookmarks.vue';
 import Lessons from './components/Lesson/Lessons.vue';
 import Playlist from './components/Playlist/Playlist.vue';
 import PersonalEditor from './components/Editor/PersonalEditor.vue';
+import RoleSelect from './components/Role/RoleSelect.vue';
 
 const userType = ref('');
 const userTypeChosen = ref(false);
 const showOptions = ref(false);
 const widgetVisibility = ref(new Map<ComponentTypes, boolean>([[ComponentTypes.TIMER, true]]));
+
+const componentDefinitions = shallowRef([
+    {
+        renderer: Clock,
+        propsData: {
+            timeFormat: '24hour',
+            hourFormat: 'standard',
+            outerFont: 0.2,
+            innerFont: 0.1,
+        },
+        customData: {
+            style: 'min-width: 330px',
+            title: 'Analog Clock',
+        },
+        type: ComponentTypes.ANALOG_CLOCK,
+    },
+    {
+        renderer: SwitchableTimer,
+        customData: {
+            style: 'min-width: 330px',
+            title: 'Timer/Stopwatch',
+        },
+        type: ComponentTypes.TIMER,
+    },
+    {
+        renderer: Bookmarks,
+        customData: {
+            title: 'Bookmarks',
+        },
+        type: ComponentTypes.BOOKMARKS,
+    },
+    {
+        renderer: Lessons,
+        customData: {
+            title: 'Lessons',
+        },
+        type: ComponentTypes.LESSONS,
+    },
+    {
+        renderer: PersonalEditor,
+        customData: {
+            title: 'Notes',
+        },
+        type: ComponentTypes.NOTES,
+    },
+    {
+        renderer: Playlist,
+        customData: {
+            title: 'Playlist',
+        },
+        type: ComponentTypes.PLAYLIST,
+    },
+]);
+
+const chosenWidgets = computed(() =>
+    componentDefinitions.value.filter((item) => widgetVisibility.value.get(item.type)),
+);
 
 const chooseUserType = (type: string) => {
     userType.value = type;
@@ -44,74 +102,17 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
         />
     </header>
     <main class="container-fluid d-flex justify-content-center bg-page">
-        <div class="row custom-width align-items-center vh-100" v-if="!userTypeChosen">
-            <div
-                class="col-12 col-md-5 d-flex flex-column align-items-center justify-content-center mb-4 mb-md-0 text-center bg-light p-4"
-            >
-                <h2>Choose your role</h2>
-                <button
-                    @click="chooseUserType('Teacher')"
-                    class="btn btn-outline-primary mb-3 w-75"
-                    style="border-radius: 30px"
-                >
-                    Teacher
-                </button>
-                <button
-                    @click="chooseUserType('Student')"
-                    class="btn btn-outline-primary w-75"
-                    style="border-radius: 30px"
-                >
-                    Student
-                </button>
-            </div>
-
-            <div class="col-12 col-md-7 d-flex flex-column align-items-start">
-                <img src="https://via.placeholder.com/300x200" alt="placeholder" class="mb-3 img-fluid" />
-                <p>
-                    Lorem ipsum dolor sit amet et delectus accommodare his consul copiosae legendos at vix ad putent
-                    delectus delicata usu. Vidit dissentiet eos cu eum an brute copiosae hendrerit. Eos erant dolorum
-                    an. Per facer affert ut. Mei iisque mentitum moderatius cu.
-                </p>
-            </div>
-        </div>
+        <RoleSelect @userTypeChosen="chooseUserType" v-if="!userTypeChosen" />
         <div class="w-100 p-4" v-else>
             <BRow>
                 <BCol
+                    v-for="(item, index) in chosenWidgets"
                     class="mb-4 col-xl-4 col-lg-6 col-12"
-                    style="min-width: 330px"
-                    v-if="widgetVisibility.get(ComponentTypes.ANALOG_CLOCK)"
+                    :key="index"
+                    :style="item.customData.style"
                 >
-                    <WidgetWrapper :title="`Analog Clock`">
-                        <Clock timeFormat="24hour" hourFormat="standard" :outerFont="0.2" :innerFont="0.1" />
-                    </WidgetWrapper>
-                </BCol>
-                <BCol
-                    class="mb-4 col-xl-4 col-lg-6 col-12"
-                    style="min-width: 330px"
-                    v-if="widgetVisibility.get(ComponentTypes.TIMER)"
-                >
-                    <WidgetWrapper :title="`Timer/Stopwatch`">
-                        <SwitchableTimer />
-                    </WidgetWrapper>
-                </BCol>
-                <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.BOOKMARKS)">
-                    <WidgetWrapper :title="`Bookmarks`">
-                        <Bookmarks />
-                    </WidgetWrapper>
-                </BCol>
-                <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.LESSONS)">
-                    <WidgetWrapper :title="`Lessons`">
-                        <Lessons />
-                    </WidgetWrapper>
-                </BCol>
-                <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.NOTES)">
-                    <WidgetWrapper :title="`Notes`">
-                        <PersonalEditor />
-                    </WidgetWrapper>
-                </BCol>
-                <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.PLAYLIST)">
-                    <WidgetWrapper :title="`Playlist`">
-                        <Playlist />
+                    <WidgetWrapper :title="item.customData.title">
+                        <component :is="item.renderer" v-bind="item.propsData" />
                     </WidgetWrapper>
                 </BCol>
             </BRow>
@@ -122,15 +123,6 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
 </template>
 
 <style scoped>
-.custom-width {
-    width: 100%;
-}
-
-@media (min-width: 1408px) {
-    .custom-width {
-        width: 50%;
-    }
-}
 .overlay {
     position: absolute;
     top: 0;
