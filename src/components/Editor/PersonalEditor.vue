@@ -13,7 +13,8 @@ export default {
 </script>
 
 <template>
-    <Editor v-model="value" editorStyle="height: 320px" />
+    <Editor class="mb-3" v-model="value" :placeholder="`Write your notes here...`" editorStyle="height: 300px" />
+    <button class="btn btn-success">Save</button>
 </template>
 
 <style scoped lang="scss"></style>

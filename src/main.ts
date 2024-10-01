@@ -28,6 +28,9 @@ import Editor from 'primevue/editor';
 app.use(PrimeVue, {
     theme: {
         preset: Aura,
+        options: {
+            darkModeSelector: '',
+        },
     },
 });
 

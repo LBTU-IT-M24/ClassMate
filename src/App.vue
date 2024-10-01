@@ -6,6 +6,10 @@ import NavConfigurationModal from './App/Navbar/NavConfigurationModal.vue';
 import { ComponentTypes } from './enums/ComponentTypes';
 import { BCol, BRow } from 'bootstrap-vue-next';
 import WidgetWrapper from './components/Widget/WidgetWrapper.vue';
+import Bookmarks from './components/Bookmark/Bookmarks.vue';
+import Lessons from './components/Lesson/Lessons.vue';
+import Playlist from './components/Playlist/Playlist.vue';
+import PersonalEditor from './components/Editor/PersonalEditor.vue';
 
 const userType = ref('');
 const userTypeChosen = ref(false);
@@ -92,42 +96,22 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
                 </BCol>
                 <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.BOOKMARKS)">
                     <WidgetWrapper :title="`Bookmarks`">
-                        <div class="d-flex flex-wrap">
-                            <button class="btn btn-link">E-klase.lv</button>
-                            <button class="btn btn-link">TavaKlase.lv</button>
-                            <button class="btn btn-link">Skolo.lv</button>
-                            <button class="btn btn-link">Miro.com</button>
-                            <button class="btn btn-link">Tavaklase.lv</button>
-                            <button class="btn btn-link">SkolasSoma.lv</button>
-                        </div>
+                        <Bookmarks />
                     </WidgetWrapper>
                 </BCol>
                 <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.LESSONS)">
                     <WidgetWrapper :title="`Lessons`">
-                        <ul class="list-unstyled">
-                            <li>Lesson 1</li>
-                            <li>Lesson 2</li>
-                            <li>Lesson 3</li>
-                            <li>Lesson 4</li>
-                        </ul>
+                        <Lessons />
                     </WidgetWrapper>
                 </BCol>
                 <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.NOTES)">
                     <WidgetWrapper :title="`Notes`">
-                        <textarea class="form-control mb-2" rows="4" placeholder="Write your notes here..."></textarea>
-                        <button class="btn btn-success">Save</button>
+                        <PersonalEditor />
                     </WidgetWrapper>
                 </BCol>
                 <BCol class="mb-4 col-xl-4 col-lg-6 col-12" v-if="widgetVisibility.get(ComponentTypes.PLAYLIST)">
                     <WidgetWrapper :title="`Playlist`">
-                        <iframe
-                            width="100%"
-                            height="315"
-                            src="https://www.youtube.com/embed/674KGKRQBPE?si=07PH1zLMEEmkSlhQ"
-                            title="YouTube video player"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin"
-                        ></iframe>
+                        <Playlist />
                     </WidgetWrapper>
                 </BCol>
             </BRow>
@@ -140,13 +124,11 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
 <style scoped>
 .custom-width {
     width: 100%;
-    z-index: 2;
 }
 
 @media (min-width: 1408px) {
     .custom-width {
         width: 50%;
-        z-index: 2;
     }
 }
 .overlay {
