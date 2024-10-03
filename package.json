@@ -12,6 +12,9 @@
     "format": "prettier --write \"src/**/*.vue\""
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "@popperjs/core": "^2.11.8",
     "@primevue/themes": "^4.0.7",
     "@vuepic/vue-datepicker": "^9.0.3",

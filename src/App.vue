@@ -70,6 +70,12 @@ const componentDefinitions = shallowRef([
     },
 ]);
 
+const isExcludedFromWidgetWrapper = (type: ComponentTypes): boolean => {
+    const excludedFromWidgetWrapper = [ComponentTypes.BOOKMARKS];
+
+    return !excludedFromWidgetWrapper.includes(type);
+};
+
 const chosenWidgets = computed(() =>
     componentDefinitions.value.filter((item) => widgetVisibility.value.get(item.type)),
 );
@@ -111,9 +117,10 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
                     :key="index"
                     :style="item.customData.style"
                 >
-                    <WidgetWrapper :title="item.customData.title">
+                    <WidgetWrapper :title="item.customData.title" v-if="isExcludedFromWidgetWrapper(item.type)">
                         <component :is="item.renderer" v-bind="item.propsData" />
                     </WidgetWrapper>
+                    <component v-else :is="item.renderer" v-bind="item.propsData" />
                 </BCol>
             </BRow>
         </div>

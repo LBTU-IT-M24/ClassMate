@@ -25,6 +25,9 @@ app.component('VueDatePicker', VueDatePicker);
 import PrimeVue from 'primevue/config';
 import Aura from '@primevue/themes/aura';
 import Editor from 'primevue/editor';
+import Slider from 'primevue/slider';
+import ColorPicker from 'primevue/colorpicker';
+
 app.use(PrimeVue, {
     theme: {
         preset: Aura,
@@ -35,5 +38,14 @@ app.use(PrimeVue, {
 });
 
 app.component('Editor', Editor);
+app.component('Slider', Slider);
+app.component('ColorPicker', ColorPicker);
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+library.add(fas);
+app.component('font-awesome-icon', FontAwesomeIcon);
 
 app.mount('#app');
