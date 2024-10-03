@@ -1,5 +1,5 @@
 <script lang="ts">
-interface IPersonalEditorData {
+export interface IPersonalEditorData {
     value: string; // Note - this is an HTML value. For example text - woo, will be translated to <p>woo</p>
 }
 

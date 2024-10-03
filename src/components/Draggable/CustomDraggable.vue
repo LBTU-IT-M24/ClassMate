@@ -1,5 +1,5 @@
-<template id="draggable">
-    <div ref="el" class="draggable__body" :style="style">
+<template id="customDraggable">
+    <div ref="el" class="customDraggable__body" :style="style">
         <!-- For testing purposes -->
         <!-- <pre>{{ position }}</pre> -->
         <slot></slot>
@@ -104,12 +104,12 @@ export default {
             document.removeEventListener('mousemove', this.onMouseMove);
         },
     },
-    template: document?.getElementById('draggable')?.innerHTML,
+    template: document?.getElementById('customDraggable')?.innerHTML,
 };
 </script>
 
 <style scoped lang="scss">
-.draggable {
+.customDraggable {
     &__body {
         display: inline-block;
         margin: 0;

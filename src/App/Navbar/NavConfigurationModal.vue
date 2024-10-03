@@ -21,8 +21,11 @@
 import { ComponentTypes } from '@/enums/ComponentTypes';
 import { BModal } from 'bootstrap-vue-next';
 
+export interface INavConfigurationModalData {
+    localWidgetVisibility: Map<string, boolean>;
+}
+
 export default {
-    name: 'NavConfigurationModal',
     components: {
         BModal,
     },
@@ -32,13 +35,13 @@ export default {
             required: true,
         },
         widgetVisibility: {
-            type: Map,
+            type: Map<string, boolean>,
             required: true,
         },
     },
-    data() {
+    data(): INavConfigurationModalData {
         return {
-            localWidgetVisibility: new Map(this.widgetVisibility),
+            localWidgetVisibility: new Map<string, boolean>(this.widgetVisibility),
         };
     },
     watch: {

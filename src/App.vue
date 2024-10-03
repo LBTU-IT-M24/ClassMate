@@ -15,7 +15,7 @@ import RoleSelect from './components/Role/RoleSelect.vue';
 const userType = ref('');
 const userTypeChosen = ref(false);
 const showOptions = ref(false);
-const widgetVisibility = ref(new Map<ComponentTypes, boolean>([[ComponentTypes.TIMER, true]]));
+const widgetVisibility = ref(new Map<ComponentTypes, boolean>([[ComponentTypes.BOOKMARKS, true]]));
 
 const componentDefinitions = shallowRef([
     {

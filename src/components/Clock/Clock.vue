@@ -11,7 +11,7 @@ type ConvasRenderingType = CanvasRenderingContext2D | null;
 
 const SIZE = 280;
 
-interface IClockData {
+export interface IClockData {
     time: Date | null;
     timeFormatted: string;
     radius: number;

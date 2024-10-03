@@ -14,6 +14,9 @@ export default {
             type: String,
         },
     },
+    data(): IWidgetWrapperData {
+        return {};
+    },
 };
 </script>
 
