@@ -11,8 +11,8 @@ jobs:
 
     - name: Setup gh CLI
       run: |
-        curl -sSL https://github.com/cli/cli/releases/download/v2.3.0/gh_2.3.0_linux_amd64.tar.gz | tar -xz
-        sudo cp gh_2.3.0_linux_amd64/bin/gh /usr/local/bin/gh
+        curl -sSL https://github.com/cli/cli/releases/download/v2.3.0/gh_x86_64_linux.tar.gz | tar -xz
+        sudo cp gh_x86_64_linux/bin/gh /usr/local/bin/gh
 
     - name: Print Runner Architecture
       run: echo $RUNNER_ARCH
