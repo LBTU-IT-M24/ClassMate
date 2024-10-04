@@ -83,13 +83,13 @@ export default {
     computed: {
         style() {
             const basePosition = {
-                position: 'absolute',
+                // position: 'absolute',
                 left: this.position.x + 'px',
                 top: this.position.y + 'px',
-                'box-shadow': this.position.isDraging ? '3px 6px 16px rgba(0, 0, 0, 0.15)' : '',
+                boxShadow: this.position.isDraging ? '3px 6px 16px rgba(0, 0, 0, 0.15)' : '',
                 transform: this.position.isDraging ? 'translate(-3px, -6px)' : '',
                 cursor: this.position.isDraging ? 'grab' : 'pointer',
-            } as IDraggableStyle;
+            };
 
             if (this.position.init) {
                 return {

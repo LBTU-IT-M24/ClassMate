@@ -4,7 +4,7 @@ export interface IDraggableStyle {
     top: string;
     width: string;
     height: string;
-    'box-shadow': string;
+    boxShadow: string;
     transform: string;
     cursor: string;
 }
