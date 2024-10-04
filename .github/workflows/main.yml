@@ -1,23 +1,22 @@
-name: Export Issues
-
+name: Export issues
 on:
-  workflow_dispatch:
-
+  schedule:
+    # run every 8 hours
+    - cron:  '0 0,8,16 * * *'
 jobs:
-  export_issues:
+  deploy:
+    name: Export issues to S3
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Setup gh CLI
-        run: |
-          curl -sSL https://github.com/cli/cli/releases/download/v2.3.0/gh_2.3.0_linux_amd64.tar.gz | tar -xz
-          sudo cp gh_2.3.0_linux_amd64/bin/gh /usr/local/bin/gh
-
-      - name: Export Issues
-        uses: teamniteo/export-issues-action@e065c7486951d38b0161091f191281001c9c6d23
-        with:
-          repo: ClassMate
-          org: LBTU-IT-M24
+    - name: Export issues
+      uses: niteoweb/export-issues-action@v2
+      with:
+        repo: ${{ github.repository }}
+        org: ${{ github.repository_owner }}
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        out: issues
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: issues
+        path: "issues/*.md"
