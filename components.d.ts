@@ -29,7 +29,6 @@ declare module 'vue' {
     BThead: typeof import('bootstrap-vue-next/components/BTable')['BThead']
     BTr: typeof import('bootstrap-vue-next/components/BTable')['BTr']
     Clock: typeof import('./src/components/Clock/Clock.vue')['default']
-    CustomDraggable: typeof import('./src/components/Draggable/CustomDraggable.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']

@@ -3,7 +3,6 @@ import { computed, ref, shallowRef } from 'vue';
 import NavConfigurationModal from './App/Navbar/NavConfigurationModal.vue';
 import { ComponentTypes } from './enums/ComponentTypes';
 import Bookmarks from './components/Bookmark/Bookmarks.vue';
-import RoleSelect from './components/Role/RoleSelect.vue';
 import Clock from './components/Clock/Clock.vue';
 import Lessons from './components/Lesson/Lessons.vue';
 import PersonalEditor from './components/Editor/PersonalEditor.vue';

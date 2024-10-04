@@ -26,10 +26,10 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
     methods: {
-        chooseUserType(type) {
+        chooseUserType(type: string) {
             this.$emit('userTypeChosen', type);
         },
     },
