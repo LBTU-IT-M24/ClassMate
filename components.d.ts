@@ -9,27 +9,22 @@ declare module 'vue' {
   export interface GlobalComponents {
     BaseWidgetDraggable: typeof import('./src/components/Draggable/BaseWidgetDraggable.vue')['default']
     BButton: typeof import('bootstrap-vue-next/components/BButton')['BButton']
-    BCard: typeof import('bootstrap-vue-next/components/BCard')['BCard']
     BCol: typeof import('bootstrap-vue-next/components/BContainer')['BCol']
     BCollapse: typeof import('bootstrap-vue-next/components/BCollapse')['BCollapse']
     BForm: typeof import('bootstrap-vue-next/components/BForm')['BForm']
     BFormCheckbox: typeof import('bootstrap-vue-next/components/BFormCheckbox')['BFormCheckbox']
     BFormFloatingLabel: typeof import('bootstrap-vue-next/components/BForm')['BFormFloatingLabel']
-    BFormGroup: typeof import('bootstrap-vue-next/components/BFormGroup')['BFormGroup']
     BFormInput: typeof import('bootstrap-vue-next/components/BFormInput')['BFormInput']
-    BFormSelect: typeof import('bootstrap-vue-next/components/BFormSelect')['BFormSelect']
     BModal: typeof import('bootstrap-vue-next/components/BModal')['BModal']
     BookmarkConfiguration: typeof import('./src/components/Bookmark/BookmarkConfiguration.vue')['default']
     BookmarkConfigurationToolsAdd: typeof import('./src/components/Bookmark/BookmarkConfigurationToolsAdd.vue')['default']
     Bookmarks: typeof import('./src/components/Bookmark/Bookmarks.vue')['default']
-    BookmarkWidget: typeof import('./src/components/Widget/BookmarkWidget.vue')['default']
     BRow: typeof import('bootstrap-vue-next/components/BContainer')['BRow']
     BTab: typeof import('bootstrap-vue-next/components/BTabs')['BTab']
     BTableSimple: typeof import('bootstrap-vue-next/components/BTable')['BTableSimple']
     BTabs: typeof import('bootstrap-vue-next/components/BTabs')['BTabs']
     BTbody: typeof import('bootstrap-vue-next/components/BTable')['BTbody']
     BTd: typeof import('bootstrap-vue-next/components/BTable')['BTd']
-    BTfoot: typeof import('bootstrap-vue-next/components/BTable')['BTfoot']
     BTh: typeof import('bootstrap-vue-next/components/BTable')['BTh']
     BThead: typeof import('bootstrap-vue-next/components/BTable')['BThead']
     BTr: typeof import('bootstrap-vue-next/components/BTable')['BTr']
@@ -52,7 +47,6 @@ declare module 'vue' {
     WidgetWrapper: typeof import('./src/components/Widget/WidgetWrapper.vue')['default']
   }
   export interface ComponentCustomProperties {
-    vBToggle: typeof import('bootstrap-vue-next/directives/BToggle')['vBToggle']
     vBTooltip: typeof import('bootstrap-vue-next/directives/BTooltip')['vBTooltip']
   }
 }

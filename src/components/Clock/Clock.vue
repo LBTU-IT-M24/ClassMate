@@ -11,6 +11,7 @@
 
 <script lang="ts">
 import { formatDate } from '@/helpers/Date/DateFunctions';
+import BaseWidgetDraggable from '../Draggable/BaseWidgetDraggable.vue';
 type ConvasRenderingType = CanvasRenderingContext2D | null;
 
 const SIZE = 280;
@@ -216,7 +217,6 @@ export default {
 
 <style scoped>
 .clock {
-    padding: 5px;
     margin-top: 15px;
     margin-left: auto;
     margin-right: auto;
