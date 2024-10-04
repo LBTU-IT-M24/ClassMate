@@ -23,7 +23,7 @@
                 v-model="isModalOpen"
                 hide-footer
                 class="dialog-content"
-                :title="`Bookmark Settings`"
+                :title="`${title} Settings`"
                 @close="updateConfiguration"
             >
                 <StyleConfiguration :styleConfiguration="styleConfiguration">
