@@ -45,6 +45,15 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
+const cors = require('cors');
+
+const corsOptions = {
+    origin: ['https://lbtu-it-m24.github.io', 'http://localhost:5000'],
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'DELETE'],
+};
+
+app.use(cors(corsOptions));
+
 library.add(fas);
 app.component('font-awesome-icon', FontAwesomeIcon);
 
