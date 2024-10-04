@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BaseWidgetDraggable: typeof import('./src/components/Draggable/BaseWidgetDraggable.vue')['default']
     BButton: typeof import('bootstrap-vue-next/components/BButton')['BButton']
     BCard: typeof import('bootstrap-vue-next/components/BCard')['BCard']
     BCol: typeof import('bootstrap-vue-next/components/BContainer')['BCol']
