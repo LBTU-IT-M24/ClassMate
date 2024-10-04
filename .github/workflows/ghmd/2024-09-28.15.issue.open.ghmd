@@ -1,0 +1,51 @@
+# [\#15 Issue](https://github.com/LBTU-IT-M24/ClassMate/issues/15) `open`: UI Wireframe development
+**Labels**: `Task`, `Frontend`
+
+
+#### <img src="https://avatars.githubusercontent.com/u/47944724?v=4" width="50">[RJSkudra](https://github.com/RJSkudra) opened issue at [2024-09-28 12:50](https://github.com/LBTU-IT-M24/ClassMate/issues/15):
+
+### Description
+Since we have a description of the project, we can start developing wireframe for ClassMate project
+
+### TODO
+- Create a wireframe for future ClassMate project according to SRS
+    - [x] Include all 7 main tools mentioned in Project Brief
+    - Make wireframe for following ClassMate pages:
+        - [x] Authorization screen
+        - [x] Home screen with closed component sidebar
+        - [x] Home screen with opened component sidebar
+---
+## RESULTS & logged time
+- Design research (1h)
+-  ### Information Architecture - Site Map (0,5h)
+
+> ![Image](https://github.com/user-attachments/assets/28694b8f-42e4-488c-bb08-d8e2131ae571)
+
+- ### Wireframes - Low fidelity WF (0,5h)
+
+> ![Image](https://github.com/user-attachments/assets/1caa220e-efbe-4d41-9815-fbbf58949fd9)
+
+- ### [Wireframes -High fidelity WF](https://miro.com/app/board/uXjVLZ1aGNc=/?share_link_id=448998913599) (1 + ... h)
+![Image](https://github.com/user-attachments/assets/763da99f-ad94-4cb7-b20e-64054f885ddc)
+
+- - ### BrainStorm Board 
+- - - [Link to commented WF](https://wireframe.cc/wXUljr) 
+ 
+@LBTU-IT-M24/design-team 
+
+#### <img src="https://avatars.githubusercontent.com/u/47944724?v=4" width="50">[RJSkudra](https://github.com/RJSkudra) commented at [2024-10-04 12:27](https://github.com/LBTU-IT-M24/ClassMate/issues/15#issuecomment-2393595305):
+
+@mesahil321
+
+#### <img src="https://avatars.githubusercontent.com/u/182328774?v=4" width="50">[kitten-cake-png](https://github.com/kitten-cake-png) commented at [2024-10-04 13:10](https://github.com/LBTU-IT-M24/ClassMate/issues/15#issuecomment-2393674997):
+
+Please review WF: [Click here](https://miro.com/app/board/uXjVLZ1aGNc=/?share_link_id=448998913599) 
+@andrejste7 
+Link to identity and High Fiddelity UI component review: [Click here](https://xd.adobe.com/view/425ed16a-3db9-42d2-b2d2-cb90ec35571c-170d/)
+
+
+-------------------------------------------------------------------------------
+
+
+
+[Export of Github issue for [LBTU-IT-M24/ClassMate](https://github.com/LBTU-IT-M24/ClassMate).]
