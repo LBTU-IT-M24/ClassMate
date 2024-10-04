@@ -26,4 +26,5 @@ jobs:
 
     - name: Run gh2md
       run: |
+        gh2md --help
         gh2md LBTU-IT-M24/ClassMate issues.md
