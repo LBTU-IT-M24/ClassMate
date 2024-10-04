@@ -26,5 +26,5 @@ jobs:
 
     - name: Run gh2md
       run: |
-        gh2md --help
-        gh2md LBTU-IT-M24/ClassMate issues.md
+        echo ${{ secrets.MY_GITHUB_TOKEN }} > ~/.config/gh2md/token
+        gh2md LBTU-IT-M24/ClassMate issues.md 
