@@ -1,7 +1,8 @@
 export default defineConfig({
-    base: '/REPONAME/',
+    base: '/REPONA config jsME/',
     plugins: [],
     resolve: {
         alias: [],
     },
+    assetsDir: '../assets/',
 });
