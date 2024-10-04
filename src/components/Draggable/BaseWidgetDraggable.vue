@@ -41,6 +41,7 @@ import type { IStyleConfiguration } from '@/models/StyleConfiguration/IStyleConf
 import type { IDraggablePosition } from './interfaces/IDraggablePosition';
 import type { IDraggableStyle } from './interfaces/IDraggableStyle';
 import { getDefaultConfiguration } from '../StyleConfiguration/helpers/DefaultConfiguration';
+import StyleConfiguration from '../StyleConfiguration/StyleConfiguration.vue';
 
 interface IDraggableData {
     position: IDraggablePosition;
