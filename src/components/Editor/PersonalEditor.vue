@@ -13,8 +13,17 @@ export default {
 </script>
 
 <template>
-    <Editor class="mb-3" v-model="value" :placeholder="`Write your notes here...`" editorStyle="height: 300px" />
-    <button class="btn btn-success">Save</button>
+    <BaseWidgetDraggable :title="`Clock`">
+        <template v-slot:widget>
+            <Editor
+                class="mb-3"
+                v-model="value"
+                :placeholder="`Write your notes here...`"
+                editorStyle="height: 300px"
+            />
+            <button class="btn btn-success">Save</button>
+        </template>
+    </BaseWidgetDraggable>
 </template>
 
 <style scoped lang="scss"></style>

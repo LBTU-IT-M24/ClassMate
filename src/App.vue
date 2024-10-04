@@ -5,6 +5,11 @@ import { ComponentTypes } from './enums/ComponentTypes';
 import { BCol, BRow } from 'bootstrap-vue-next';
 import Bookmarks from './components/Bookmark/Bookmarks.vue';
 import RoleSelect from './components/Role/RoleSelect.vue';
+import Clock from './components/Clock/Clock.vue';
+import Lessons from './components/Lesson/Lessons.vue';
+import PersonalEditor from './components/Editor/PersonalEditor.vue';
+import Playlist from './components/Playlist/Playlist.vue';
+import Timer from './components/Timer/Timer.vue';
 
 const userType = ref('');
 const userTypeChosen = ref(false);
@@ -18,6 +23,41 @@ const componentDefinitions = shallowRef([
             style: '',
         },
         type: ComponentTypes.BOOKMARKS,
+    },
+    {
+        renderer: Clock,
+        customData: {
+            style: '',
+        },
+        type: ComponentTypes.ANALOG_CLOCK,
+    },
+    {
+        renderer: Lessons,
+        customData: {
+            style: '',
+        },
+        type: ComponentTypes.LESSONS,
+    },
+    {
+        renderer: PersonalEditor,
+        customData: {
+            style: '',
+        },
+        type: ComponentTypes.NOTES,
+    },
+    {
+        renderer: Playlist,
+        customData: {
+            style: '',
+        },
+        type: ComponentTypes.PLAYLIST,
+    },
+    {
+        renderer: Timer,
+        customData: {
+            style: '',
+        },
+        type: ComponentTypes.TIMER,
     },
 ]);
 
