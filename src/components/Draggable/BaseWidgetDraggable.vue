@@ -1,17 +1,51 @@
-<template id="customDraggable">
-    <div ref="el" class="customDraggable__body" :style="style">
-        <!-- For testing purposes -->
-        <!-- <pre>{{ position }}</pre> -->
-        <slot></slot>
+<template id="base-widget-draggable">
+    <div ref="el" class="base-widget-draggable__body" :style="style">
+        <div class="widget" :style="widgetStyle">
+            <div class="d-flex pb-2 widget__header">
+                <div>
+                    <h4>{{ title }}</h4>
+                </div>
+                <div>
+                    <BButton
+                        @click="isModalOpen = true"
+                        v-b-tooltip="`Open configuration`"
+                        class="d-flex widget__configuration__button"
+                    >
+                        <font-awesome-icon :icon="['fas', 'cog']" />
+                    </BButton>
+                </div>
+            </div>
+
+            <slot name="widget"></slot>
+        </div>
+        <div>
+            <BModal
+                v-model="isModalOpen"
+                hide-footer
+                class="dialog-content"
+                :title="`Bookmark Settings`"
+                @close="updateConfiguration"
+            >
+                <StyleConfiguration :styleConfiguration="styleConfiguration">
+                    <template v-slot:customTabs v-if="$slots.styleConfiguration">
+                        <slot name="styleConfiguration"></slot>
+                    </template>
+                </StyleConfiguration>
+            </BModal>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
+import type { IStyleConfiguration } from '@/models/StyleConfiguration/IStyleConfiguration';
 import type { IDraggablePosition } from './interfaces/IDraggablePosition';
 import type { IDraggableStyle } from './interfaces/IDraggableStyle';
+import { getDefaultConfiguration } from '../StyleConfiguration/helpers/DefaultConfiguration';
 
 interface IDraggableData {
     position: IDraggablePosition;
+    styleConfiguration: IStyleConfiguration;
+    isModalOpen: boolean;
 }
 
 export default {
@@ -23,6 +57,10 @@ export default {
         initialY: {
             type: Number,
             default: 0,
+        },
+        title: {
+            type: String,
+            required: true,
         },
     },
     data(): IDraggableData {
@@ -37,6 +75,8 @@ export default {
                 dragStartX: null,
                 dragStartY: null,
             },
+            styleConfiguration: {} as IStyleConfiguration,
+            isModalOpen: false,
         };
     },
     computed: {
@@ -59,6 +99,15 @@ export default {
 
             return basePosition;
         },
+        widgetStyle() {
+            const { transparency, color, fontSize } = this.styleConfiguration;
+
+            return {
+                opacity: transparency / 100,
+                backgroundColor: `#${color}`,
+                fontSize: `${fontSize}px`,
+            };
+        },
     },
     mounted() {
         const el = this.$refs.el;
@@ -72,6 +121,8 @@ export default {
 
             el.addEventListener('mousedown', this.onMouseDown);
         }
+
+        this.styleConfiguration = getDefaultConfiguration();
     },
     methods: {
         onMouseDown(e: MouseEvent) {
@@ -103,20 +154,46 @@ export default {
             document.removeEventListener('mouseup', this.onMouseUp);
             document.removeEventListener('mousemove', this.onMouseMove);
         },
+        updateConfiguration() {
+            // TODO: update style
+        },
     },
-    template: document?.getElementById('customDraggable')?.innerHTML,
+    template: document?.getElementById('base-widget-draggable')?.innerHTML,
 };
 </script>
 
 <style scoped lang="scss">
-.customDraggable {
+.widget {
+    border-radius: var(--bs-border-radius) !important;
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity));
+    box-shadow: var(--bs-box-shadow) !important;
+    display: flex !important;
+    flex-direction: column;
+    margin: 0px auto;
+    padding: 1rem;
+    overflow: auto;
+
+    &__configuration {
+        &__button {
+            float: right;
+        }
+
+        &__title {
+            float: left;
+        }
+    }
+
+    &__header {
+        justify-content: space-between;
+    }
+}
+
+.base-widget-draggable {
     &__body {
         display: inline-block;
         margin: 0;
-        color: rgb(6, 19, 29);
-        background-color: rgb(187, 195, 209);
         border-radius: 16px;
-        padding: 16px;
         touch-action: none;
         user-select: none;
         -webkit-transform: translate(0px, 0px);
@@ -124,7 +201,7 @@ export default {
         transition:
             transform 0.1s ease-in,
             box-shadow 0.1s ease-out;
-        border: 1px solid rgb(6, 19, 29);
+        min-width: 250px;
     }
 }
 

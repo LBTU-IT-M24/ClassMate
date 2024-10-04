@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import { computed, ref, shallowRef } from 'vue';
-import SwitchableTimer from '@/components/Timer/SwitchableTimer.vue';
-import Clock from '@/components/Clock/Clock.vue';
 import NavConfigurationModal from './App/Navbar/NavConfigurationModal.vue';
 import { ComponentTypes } from './enums/ComponentTypes';
 import { BCol, BRow } from 'bootstrap-vue-next';
-import WidgetWrapper from './components/Widget/WidgetWrapper.vue';
 import Bookmarks from './components/Bookmark/Bookmarks.vue';
-import Lessons from './components/Lesson/Lessons.vue';
-import Playlist from './components/Playlist/Playlist.vue';
-import PersonalEditor from './components/Editor/PersonalEditor.vue';
 import RoleSelect from './components/Role/RoleSelect.vue';
 
 const userType = ref('');
@@ -19,62 +13,13 @@ const widgetVisibility = ref(new Map<ComponentTypes, boolean>([[ComponentTypes.B
 
 const componentDefinitions = shallowRef([
     {
-        renderer: Clock,
-        propsData: {
-            timeFormat: '24hour',
-            hourFormat: 'standard',
-            outerFont: 0.2,
-            innerFont: 0.1,
-        },
-        customData: {
-            style: 'min-width: 330px',
-            title: 'Analog Clock',
-        },
-        type: ComponentTypes.ANALOG_CLOCK,
-    },
-    {
-        renderer: SwitchableTimer,
-        customData: {
-            style: 'min-width: 330px',
-            title: 'Timer/Stopwatch',
-        },
-        type: ComponentTypes.TIMER,
-    },
-    {
         renderer: Bookmarks,
         customData: {
-            title: 'Bookmarks',
+            style: '',
         },
         type: ComponentTypes.BOOKMARKS,
     },
-    {
-        renderer: Lessons,
-        customData: {
-            title: 'Lessons',
-        },
-        type: ComponentTypes.LESSONS,
-    },
-    {
-        renderer: PersonalEditor,
-        customData: {
-            title: 'Notes',
-        },
-        type: ComponentTypes.NOTES,
-    },
-    {
-        renderer: Playlist,
-        customData: {
-            title: 'Playlist',
-        },
-        type: ComponentTypes.PLAYLIST,
-    },
 ]);
-
-const isExcludedFromWidgetWrapper = (type: ComponentTypes): boolean => {
-    const excludedFromWidgetWrapper = [ComponentTypes.BOOKMARKS];
-
-    return !excludedFromWidgetWrapper.includes(type);
-};
 
 const chosenWidgets = computed(() =>
     componentDefinitions.value.filter((item) => widgetVisibility.value.get(item.type)),
@@ -117,10 +62,7 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
                     :key="index"
                     :style="item.customData.style"
                 >
-                    <WidgetWrapper :title="item.customData.title" v-if="isExcludedFromWidgetWrapper(item.type)">
-                        <component :is="item.renderer" v-bind="item.propsData" />
-                    </WidgetWrapper>
-                    <component v-else :is="item.renderer" v-bind="item.propsData" />
+                    <component :is="item.renderer" />
                 </BCol>
             </BRow>
         </div>
