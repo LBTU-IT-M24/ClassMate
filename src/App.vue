@@ -2,7 +2,6 @@
 import { computed, ref, shallowRef } from 'vue';
 import NavConfigurationModal from './App/Navbar/NavConfigurationModal.vue';
 import { ComponentTypes } from './enums/ComponentTypes';
-import { BCol, BRow } from 'bootstrap-vue-next';
 import Bookmarks from './components/Bookmark/Bookmarks.vue';
 import RoleSelect from './components/Role/RoleSelect.vue';
 import Clock from './components/Clock/Clock.vue';

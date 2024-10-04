@@ -6,7 +6,7 @@
                     <BButton
                         variant="link"
                         v-for="bookmark in bookmarks"
-                        @click="() => onBookmarkClick(bookmark.url)"
+                        @click="onBookmarkClick(bookmark.url)"
                         style="font-size: inherit"
                     >
                         {{ bookmark.name }}
