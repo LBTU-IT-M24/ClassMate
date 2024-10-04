@@ -95,11 +95,9 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
     <main class="container-fluid d-flex justify-content-center bg-page">
         <RoleSelect @userTypeChosen="chooseUserType" v-if="!userTypeChosen" />
         <div class="w-100 p-4" v-else>
-            <BRow>
-                <BCol v-for="item in chosenWidgets" class="mb-4 col-xl-4 col-lg-6 col-12" :key="item.type">
-                    <component :is="item.renderer" />
-                </BCol>
-            </BRow>
+            <div v-for="item in chosenWidgets" :key="item.type">
+                <component :is="item.renderer" />
+            </div>
         </div>
 
         <div class="overlay"></div>
