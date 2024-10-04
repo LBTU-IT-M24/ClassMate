@@ -96,12 +96,7 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
         <RoleSelect @userTypeChosen="chooseUserType" v-if="!userTypeChosen" />
         <div class="w-100 p-4" v-else>
             <BRow>
-                <BCol
-                    v-for="(item, index) in chosenWidgets"
-                    class="mb-4 col-xl-4 col-lg-6 col-12"
-                    :key="index"
-                    :style="item.customData.style"
-                >
+                <BCol v-for="item in chosenWidgets" class="mb-4 col-xl-4 col-lg-6 col-12" :key="item.type">
                     <component :is="item.renderer" />
                 </BCol>
             </BRow>
