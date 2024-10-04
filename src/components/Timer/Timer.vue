@@ -1,44 +1,51 @@
 <template>
-    <div class="base-timer">
-        <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <g class="base-timer__circle">
-                <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
-                <path
-                    :stroke-dasharray="circleDasharray"
-                    class="base-timer__path-remaining"
-                    :class="remainingPathColor"
-                    d="
+    <BaseWidgetDraggable :title="`Clock`">
+        <template v-slot:widget>
+            <div class="base-timer">
+                <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <g class="base-timer__circle">
+                        <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+                        <path
+                            :stroke-dasharray="circleDasharray"
+                            class="base-timer__path-remaining"
+                            :class="remainingPathColor"
+                            d="
                         M 50, 50
                         m -45, 0
                         a 45,45 0 1,0 90,0
                         a 45,45 0 1,0 -90,0
                     "
-                ></path>
-            </g>
-        </svg>
-        <div class="base-timer__body">
-            <BRow class="w-100">
-                <BCol class="col-12 col-sm-12 col-md-12">
-                    <span class="base-timer__label" @click="onModalOpen">
-                        {{ formattedTimeLeft }}
-                    </span>
+                        ></path>
+                    </g>
+                </svg>
+                <div class="base-timer__body">
+                    <BRow class="w-100">
+                        <BCol class="col-12 col-sm-12 col-md-12">
+                            <span class="base-timer__label" @click="onModalOpen">
+                                {{ formattedTimeLeft }}
+                            </span>
+                        </BCol>
+                    </BRow>
+                </div>
+            </div>
+            <BRow class="base-timer__controls">
+                <BCol v-if="!isEnabled" sm-="12" md="6" @click="startTimer">
+                    <BButton class="w-100 m-1">Start</BButton>
                 </BCol>
+                <BCol v-else sm-="12" md="6"><BButton class="w-100 m-1" @click="pauseTimer">Pause</BButton></BCol>
+                <BCol sm-="12" md="6"><BButton class="w-100 m-1" @click="resetTimer">Reset</BButton></BCol>
             </BRow>
-        </div>
-    </div>
-    <BRow class="base-timer__controls">
-        <BCol v-if="!isEnabled" sm-="12" md="6" @click="startTimer"><BButton class="w-100 m-1">Start</BButton></BCol>
-        <BCol v-else sm-="12" md="6"><BButton class="w-100 m-1" @click="pauseTimer">Pause</BButton></BCol>
-        <BCol sm-="12" md="6"><BButton class="w-100 m-1" @click="resetTimer">Reset</BButton></BCol>
-    </BRow>
-    <BModal v-model="isModalOpen" hide-header hide-footer>
-        <VueDatePicker v-model="time" @closed="closedModal" time-picker enable-seconds :clearable="false" />
-    </BModal>
+            <BModal v-model="isModalOpen" hide-header hide-footer>
+                <VueDatePicker v-model="time" @closed="closedModal" time-picker enable-seconds :clearable="false" />
+            </BModal>
+        </template>
+    </BaseWidgetDraggable>
 </template>
 
 <script lang="ts">
 import { secondsToTime, timeToSeconds } from '@/helpers/Time/TimeFunctions';
 import type { ITimeModel } from '@/models/Date/ITimeModel';
+import BaseWidgetDraggable from '../Draggable/BaseWidgetDraggable.vue';
 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;

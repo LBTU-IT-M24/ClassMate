@@ -1,8 +1,12 @@
 <template>
-    <div class="clock" :style="{ width: String(size) + 'px', textAlign: 'center' }">
-        <canvas :width="size" :height="size" ref="clockCanvas" />
-        <p v-show="showLabel">Current time: {{ timeFormatted }}</p>
-    </div>
+    <BaseWidgetDraggable :title="`Clock`">
+        <template v-slot:widget>
+            <div class="clock" :style="{ width: String(size) + 'px', textAlign: 'center' }">
+                <canvas :width="size" :height="size" ref="clockCanvas" />
+                <p v-show="showLabel">Current time: {{ timeFormatted }}</p>
+            </div>
+        </template>
+    </BaseWidgetDraggable>
 </template>
 
 <script lang="ts">

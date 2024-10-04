@@ -30,7 +30,6 @@ export default {
     flex-direction: column;
     margin: 0px auto;
     padding: 1rem;
-    height: 500px;
     overflow: auto;
 }
 </style>

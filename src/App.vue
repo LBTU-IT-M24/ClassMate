@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { computed, ref, shallowRef } from 'vue';
-import SwitchableTimer from '@/components/Timer/SwitchableTimer.vue';
-import Clock from '@/components/Clock/Clock.vue';
 import NavConfigurationModal from './App/Navbar/NavConfigurationModal.vue';
 import { ComponentTypes } from './enums/ComponentTypes';
-import { BCol, BRow } from 'bootstrap-vue-next';
-import WidgetWrapper from './components/Widget/WidgetWrapper.vue';
 import Bookmarks from './components/Bookmark/Bookmarks.vue';
-import Lessons from './components/Lesson/Lessons.vue';
-import Playlist from './components/Playlist/Playlist.vue';
-import PersonalEditor from './components/Editor/PersonalEditor.vue';
 import RoleSelect from './components/Role/RoleSelect.vue';
+import Clock from './components/Clock/Clock.vue';
+import Lessons from './components/Lesson/Lessons.vue';
+import PersonalEditor from './components/Editor/PersonalEditor.vue';
+import Playlist from './components/Playlist/Playlist.vue';
+import Timer from './components/Timer/Timer.vue';
 
 const userType = ref('');
 const userTypeChosen = ref(false);
@@ -19,62 +17,48 @@ const widgetVisibility = ref(new Map<ComponentTypes, boolean>([[ComponentTypes.B
 
 const componentDefinitions = shallowRef([
     {
-        renderer: Clock,
-        propsData: {
-            timeFormat: '24hour',
-            hourFormat: 'standard',
-            outerFont: 0.2,
-            innerFont: 0.1,
-        },
-        customData: {
-            style: 'min-width: 330px',
-            title: 'Analog Clock',
-        },
-        type: ComponentTypes.ANALOG_CLOCK,
-    },
-    {
-        renderer: SwitchableTimer,
-        customData: {
-            style: 'min-width: 330px',
-            title: 'Timer/Stopwatch',
-        },
-        type: ComponentTypes.TIMER,
-    },
-    {
         renderer: Bookmarks,
         customData: {
-            title: 'Bookmarks',
+            style: '',
         },
         type: ComponentTypes.BOOKMARKS,
     },
     {
+        renderer: Clock,
+        customData: {
+            style: '',
+        },
+        type: ComponentTypes.ANALOG_CLOCK,
+    },
+    {
         renderer: Lessons,
         customData: {
-            title: 'Lessons',
+            style: '',
         },
         type: ComponentTypes.LESSONS,
     },
     {
         renderer: PersonalEditor,
         customData: {
-            title: 'Notes',
+            style: '',
         },
         type: ComponentTypes.NOTES,
     },
     {
         renderer: Playlist,
         customData: {
-            title: 'Playlist',
+            style: '',
         },
         type: ComponentTypes.PLAYLIST,
     },
+    {
+        renderer: Timer,
+        customData: {
+            style: '',
+        },
+        type: ComponentTypes.TIMER,
+    },
 ]);
-
-const isExcludedFromWidgetWrapper = (type: ComponentTypes): boolean => {
-    const excludedFromWidgetWrapper = [ComponentTypes.BOOKMARKS];
-
-    return !excludedFromWidgetWrapper.includes(type);
-};
 
 const chosenWidgets = computed(() =>
     componentDefinitions.value.filter((item) => widgetVisibility.value.get(item.type)),
@@ -110,19 +94,9 @@ const updateWidgetVisibility = (newVisibility: Map<ComponentTypes, boolean>) => 
     <main class="container-fluid d-flex justify-content-center bg-page">
         <RoleSelect @userTypeChosen="chooseUserType" v-if="!userTypeChosen" />
         <div class="w-100 p-4" v-else>
-            <BRow>
-                <BCol
-                    v-for="(item, index) in chosenWidgets"
-                    class="mb-4 col-xl-4 col-lg-6 col-12"
-                    :key="index"
-                    :style="item.customData.style"
-                >
-                    <WidgetWrapper :title="item.customData.title" v-if="isExcludedFromWidgetWrapper(item.type)">
-                        <component :is="item.renderer" v-bind="item.propsData" />
-                    </WidgetWrapper>
-                    <component v-else :is="item.renderer" v-bind="item.propsData" />
-                </BCol>
-            </BRow>
+            <div v-for="item in chosenWidgets" :key="item.type">
+                <component :is="item.renderer" />
+            </div>
         </div>
 
         <div class="overlay"></div>

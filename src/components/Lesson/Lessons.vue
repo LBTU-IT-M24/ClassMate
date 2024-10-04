@@ -1,10 +1,14 @@
 <template>
-    <ul class="list-unstyled">
-        <li>Lesson 1</li>
-        <li>Lesson 2</li>
-        <li>Lesson 3</li>
-        <li>Lesson 4</li>
-    </ul>
+    <BaseWidgetDraggable :title="`Clock`">
+        <template v-slot:widget>
+            <ul class="list-unstyled">
+                <li>Lesson 1</li>
+                <li>Lesson 2</li>
+                <li>Lesson 3</li>
+                <li>Lesson 4</li>
+            </ul>
+        </template>
+    </BaseWidgetDraggable>
 </template>
 
 <script lang="ts">
