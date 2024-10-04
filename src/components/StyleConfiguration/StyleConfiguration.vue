@@ -28,7 +28,7 @@
 
             <div class="m-3">
                 <Label :text="`Background color`" class="mb-3" />
-                <ColorPicker v-model="styleConfiguration.color" panelClass="bookmarks__colorpicker" />
+                <ColorPicker v-model="styleConfiguration.color" panelClass="configuration__colorpicker" />
             </div>
         </BTab>
         <slot name="customTabs"></slot>
@@ -75,5 +75,11 @@ export default {
 <style lang="scss">
 .nav-tab-style-configuration {
     display: none !important;
+}
+
+.configuration {
+    &__colorpicker {
+        z-index: 9999 !important;
+    }
 }
 </style>

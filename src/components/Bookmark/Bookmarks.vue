@@ -62,8 +62,4 @@ export default {
         height: 100%;
     }
 }
-
-.bookmarks__colorpicker {
-    z-index: 9999 !important;
-}
 </style>
