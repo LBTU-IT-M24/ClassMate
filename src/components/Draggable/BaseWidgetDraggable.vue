@@ -1,5 +1,5 @@
 <template id="base-widget-draggable">
-    <div ref="el" class="base-widget-draggable__body" :style="style">
+    <div ref="el" class="base-widget-draggable__body" :style="{ ...style, position: 'absolute' }">
         <div class="widget" :style="widgetStyle">
             <div class="d-flex pb-2 widget__header">
                 <div>
@@ -83,7 +83,6 @@ export default {
     computed: {
         style() {
             const basePosition = {
-                // position: 'absolute',
                 left: this.position.x + 'px',
                 top: this.position.y + 'px',
                 boxShadow: this.position.isDraging ? '3px 6px 16px rgba(0, 0, 0, 0.15)' : '',
