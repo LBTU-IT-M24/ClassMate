@@ -48,4 +48,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 app.component('font-awesome-icon', FontAwesomeIcon);
 
+// @ts-ignore
+import naive from './naive-ui';
+app.use(naive);
+
 app.mount('#app');
