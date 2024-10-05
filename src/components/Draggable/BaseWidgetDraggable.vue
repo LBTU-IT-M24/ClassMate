@@ -110,19 +110,29 @@ export default {
         },
     },
     mounted() {
+        const position = this.position;
+        const props = this.$props;
+
         const el = this.$refs.el;
         if (el instanceof HTMLElement) {
             let rect = el.getBoundingClientRect();
-            this.position.init = true;
-            this.position.x = Math.round(rect.x);
-            this.position.y = Math.round(rect.y);
-            this.position.width = Math.round(rect.width);
-            this.position.height = Math.round(rect.height);
+            position.init = true;
+            position.x = Math.round(rect.x);
+            position.y = Math.round(rect.y);
+            position.width = Math.round(rect.width);
+            position.height = Math.round(rect.height);
 
             el.addEventListener('mousedown', this.onMouseDown);
         }
 
         this.styleConfiguration = getDefaultConfiguration();
+
+        if (!props.initialX) {
+            position.x = (window.innerWidth - position.width) / 2;
+        }
+        if (!props.initialY) {
+            position.y = (window.innerHeight - position.height) / 2;
+        }
     },
     methods: {
         onMouseDown(e: MouseEvent) {
