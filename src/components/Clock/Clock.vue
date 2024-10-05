@@ -1,5 +1,10 @@
 <template>
-    <BaseWidgetDraggable :title="`Clock`">
+    <BaseWidgetDraggable
+        :title="`Clock`"
+        :initial-position="initialPosition"
+        :type="ComponentTypes.ANALOG_CLOCK"
+        @update-position="$emit('update-position')"
+    >
         <template v-slot:widget>
             <div class="clock" :style="{ width: String(size) + 'px', textAlign: 'center' }">
                 <canvas :width="size" :height="size" ref="clockCanvas" />
@@ -11,7 +16,7 @@
 
 <script lang="ts">
 import { formatDate } from '@/helpers/Date/DateFunctions';
-import BaseWidgetDraggable from '../Draggable/BaseWidgetDraggable.vue';
+import { ComponentTypes } from '@/enums/ComponentTypes';
 type ConvasRenderingType = CanvasRenderingContext2D | null;
 
 const SIZE = 280;
@@ -30,6 +35,11 @@ export interface IClockData {
 
 export default {
     name: 'Clock',
+    computed: {
+        ComponentTypes() {
+            return ComponentTypes;
+        },
+    },
     props: {
         timeFormat: {
             type: String,
@@ -54,6 +64,10 @@ export default {
         showLabel: {
             type: Boolean,
             default: true,
+        },
+        initialPosition: {
+            type: Object,
+            required: true,
         },
     },
     data(): IClockData {

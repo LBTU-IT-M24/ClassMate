@@ -1,5 +1,9 @@
 <template>
-    <BaseWidgetDraggable :title="`Bookmarks`">
+    <BaseWidgetDraggable
+        :title="`Bookmarks`"
+        :type="ComponentTypes.BOOKMARKS"
+        @update-position="$emit('update-position')"
+    >
         <template v-slot:widget>
             <div class="d-flex flex-column bookmarks h-100">
                 <BRow>
@@ -23,12 +27,20 @@
 <script lang="ts">
 import type { IBookmarkModel } from './interfaces/IBookmarkModel';
 import { guid } from '@/helpers/Random/guid';
+import { ComponentTypes } from '@/enums/ComponentTypes';
+import BookmarkConfiguration from '@/components/Bookmark/BookmarkConfiguration.vue';
 
 export interface IBookmarksData {
     bookmarks: IBookmarkModel[];
 }
 
 export default {
+    components: { BookmarkConfiguration },
+    computed: {
+        ComponentTypes() {
+            return ComponentTypes;
+        },
+    },
     data(): IBookmarksData {
         return {
             bookmarks: [

@@ -1,5 +1,9 @@
 <template>
-    <BaseWidgetDraggable :title="`Playlist`">
+    <BaseWidgetDraggable
+        :title="`Playlist`"
+        :type="ComponentTypes.PLAYLIST"
+        @update-position="$emit('update-position')"
+    >
         <template v-slot:widget>
             <iframe
                 width="100%"
@@ -15,8 +19,15 @@
 
 <script lang="ts">
 import BaseWidgetDraggable from '../Draggable/BaseWidgetDraggable.vue';
+import { ComponentTypes } from '@/enums/ComponentTypes';
 
-export default {};
+export default {
+    computed: {
+        ComponentTypes() {
+            return ComponentTypes;
+        },
+    },
+};
 </script>
 
 <style scoped lang="scss"></style>

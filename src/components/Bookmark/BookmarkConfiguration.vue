@@ -1,35 +1,33 @@
 <template>
-    <BTab title="Tools">
-        <BTableSimple responsive>
-            <BThead>
-                <BTr>
-                    <BTh>Bookmark</BTh>
-                    <BTh class="text-center">Actions</BTh>
-                </BTr>
-            </BThead>
-            <BTbody>
-                <BTr v-for="bookmark in bookmarks" :key="bookmark.id">
-                    <BTd>
-                        <BButton variant="link" @click="onBookmarkClick(bookmark.url)">
-                            {{ bookmark.name }}
-                        </BButton>
-                    </BTd>
-                    <BTd class="text-center">
-                        <BButton
-                            v-b-tooltip="`Remove`"
-                            variant="danger"
-                            class="float-right"
-                            @click="removeBookmark(bookmark.id)"
-                        >
-                            X
-                        </BButton>
-                    </BTd>
-                </BTr>
-            </BTbody>
-        </BTableSimple>
+    <BTableSimple responsive>
+        <BThead>
+            <BTr>
+                <BTh>Bookmark</BTh>
+                <BTh class="text-center">Actions</BTh>
+            </BTr>
+        </BThead>
+        <BTbody>
+            <BTr v-for="bookmark in bookmarks" :key="bookmark.id">
+                <BTd>
+                    <BButton variant="link" @click="onBookmarkClick(bookmark.url)">
+                        {{ bookmark.name }}
+                    </BButton>
+                </BTd>
+                <BTd class="text-center">
+                    <BButton
+                        v-b-tooltip="`Remove`"
+                        variant="danger"
+                        class="float-right"
+                        @click="removeBookmark(bookmark.id)"
+                    >
+                        X
+                    </BButton>
+                </BTd>
+            </BTr>
+        </BTbody>
+    </BTableSimple>
 
-        <BookmarkConfigurationToolsAdd @add-bookmark="addBookmark" />
-    </BTab>
+    <BookmarkConfigurationToolsAdd @add-bookmark="addBookmark" />
 </template>
 
 <script lang="ts">

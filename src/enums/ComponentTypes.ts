@@ -5,5 +5,15 @@ export enum ComponentTypes {
     NOTES = 'NOTES',
     PLAYLIST = 'PLAYLIST',
     BOOKMARKS = 'BOOKMARKS',
-    TITLE_BAR = 'TITLE_BAR',
+}
+
+export function getComponentName(type: ComponentTypes): string {
+    return {
+        [ComponentTypes.ANALOG_CLOCK]: 'Clock',
+        [ComponentTypes.TIMER]: 'Timer',
+        [ComponentTypes.LESSONS]: 'Lessons',
+        [ComponentTypes.NOTES]: 'Notes',
+        [ComponentTypes.PLAYLIST]: 'Playlist',
+        [ComponentTypes.BOOKMARKS]: 'Bookmarks',
+    }[type];
 }

@@ -4,7 +4,7 @@ export interface IDraggablePosition {
     y: number;
     width: number;
     height: number;
-    isDraging: boolean;
+    isDragging: boolean;
     dragStartX: number | null;
     dragStartY: number | null;
 }
