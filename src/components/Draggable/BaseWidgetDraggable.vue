@@ -139,14 +139,14 @@ export default {
     },
     methods: {
         onMouseDown(e: MouseEvent) {
-            const element = e.target;
+            const element = e.target as HTMLInputElement;
             console.log(element?.classList)
             console.log(element?.nodeName)
             if (
                 (
                     !element?.classList?.contains("widget__header")
                     && !element?.classList?.contains("widget")
-                    && !element?.nodeName === "H4"
+                    && element?.nodeName !== "H4"
                 )
                     || element?.nodeName === "BUTTON"
                     || element?.nodeName === "path"
