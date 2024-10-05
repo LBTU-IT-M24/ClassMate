@@ -1,5 +1,5 @@
 <template>
-    <BaseWidgetDraggable :title="`Lessons`">
+    <BaseWidgetDraggable :title="`Lessons`" :type="ComponentTypes.LESSONS" @update-position="$emit('update-position')">
         <template v-slot:widget>
             <ul class="list-unstyled">
                 <li>Lesson 1</li>
@@ -12,7 +12,15 @@
 </template>
 
 <script lang="ts">
-export default {};
+import { ComponentTypes } from '@/enums/ComponentTypes';
+
+export default {
+    computed: {
+        ComponentTypes() {
+            return ComponentTypes;
+        },
+    },
+};
 </script>
 
 <style scoped lang="scss"></style>

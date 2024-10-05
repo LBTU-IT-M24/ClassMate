@@ -37,6 +37,8 @@ import type { IStyleConfiguration } from '@/models/StyleConfiguration/IStyleConf
 import type { IDraggablePosition } from './interfaces/IDraggablePosition';
 import { getDefaultConfiguration } from '../StyleConfiguration/helpers/DefaultConfiguration';
 import { NModal, NCard } from 'naive-ui';
+import { mapStores } from 'pinia';
+import { useWidget } from '@/stores/useWidget';
 
 interface IDraggableData {
     position: IDraggablePosition;
@@ -62,19 +64,18 @@ export default {
             type: String,
             required: true,
         },
+        type: {
+            type: String,
+            required: true,
+        },
+        initialPosition: {
+            type: Object,
+            required: true,
+        },
     },
     data(): IDraggableData {
-        return {
-            position: {
-                init: false,
-                x: this.initialX,
-                y: this.initialY,
-                width: 0,
-                height: 0,
-                isDraging: false,
-                dragStartX: null,
-                dragStartY: null,
-            },
+        return <IDraggableData>{
+            position: this.initialPosition,
             styleConfiguration: {} as IStyleConfiguration,
             isModalOpen: false,
         };
@@ -84,9 +85,9 @@ export default {
             const basePosition = {
                 left: this.position.x + 'px',
                 top: this.position.y + 'px',
-                boxShadow: this.position.isDraging ? '3px 6px 16px rgba(0, 0, 0, 0.15)' : '',
-                transform: this.position.isDraging ? 'translate(-3px, -6px)' : '',
-                cursor: this.position.isDraging ? 'grab' : 'pointer',
+                boxShadow: this.position.isDragging ? '3px 6px 16px rgba(0, 0, 0, 0.15)' : '',
+                transform: this.position.isDragging ? 'translate(-3px, -6px)' : '',
+                cursor: this.position.isDragging ? 'grab' : 'pointer',
             };
 
             if (this.position.init) {
@@ -103,7 +104,7 @@ export default {
 
             return {
                 opacity: transparency / 100,
-                backgroundColor: `#${color}`,
+                backgroundColor: `${color}`,
                 fontSize: `${fontSize}px`,
             };
         },
@@ -126,21 +127,41 @@ export default {
 
         this.styleConfiguration = getDefaultConfiguration();
 
-        if (!props.initialX) {
+        if (position.x === 0) {
             position.x = (window.innerWidth - position.width) / 2;
         }
-        if (!props.initialY) {
+        if (position.y === 0) {
             position.y = (window.innerHeight - position.height) / 2;
         }
     },
+    beforeUnmount() {
+        this.$emit('update-position', { type: this.type, position: this.position });
+    },
     methods: {
         onMouseDown(e: MouseEvent) {
+            const element = e.target;
+            console.log(element?.classList)
+            console.log(element?.nodeName)
+            if (
+                (
+                    !element?.classList?.contains("widget__header")
+                    && !element?.classList?.contains("widget")
+                    && !element?.nodeName === "H4"
+                )
+                    || element?.nodeName === "BUTTON"
+                    || element?.nodeName === "path"
+                    || element?.nodeName === "svg"
+            ) {
+                return;
+            }
+
             e.stopPropagation();
+
             const { clientX, clientY } = e;
             this.position.dragStartX = clientX - this.position.x;
             this.position.dragStartY = clientY - this.position.y;
 
-            this.position.isDraging = true;
+            this.position.isDragging = true;
 
             document.addEventListener('mouseup', this.onMouseUp);
             document.addEventListener('mousemove', this.onMouseMove);
@@ -157,7 +178,7 @@ export default {
         },
         onMouseUp(e: MouseEvent) {
             e.stopPropagation();
-            this.position.isDraging = false;
+            this.position.isDragging = false;
             this.position.dragStartX = null;
             this.position.dragStartY = null;
             document.removeEventListener('mouseup', this.onMouseUp);

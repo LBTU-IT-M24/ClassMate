@@ -1,5 +1,5 @@
 <template>
-    <BaseWidgetDraggable :title="`Timer`">
+    <BaseWidgetDraggable :title="`Timer`" :type="ComponentTypes.TIMER" @update-position="$emit('update-position')">
         <template v-slot:widget>
             <BTabs class="switchable-timer">
                 <BTab title="Timer">
@@ -18,9 +18,15 @@
 </template>
 
 <script lang="ts">
-import BaseWidgetDraggable from '../Draggable/BaseWidgetDraggable.vue';
+import { ComponentTypes } from '@/enums/ComponentTypes';
 
-export default {};
+export default {
+    computed: {
+        ComponentTypes() {
+            return ComponentTypes;
+        },
+    },
+};
 </script>
 
 <style scoped lang="scss">

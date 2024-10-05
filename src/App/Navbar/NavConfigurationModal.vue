@@ -1,123 +1,63 @@
 <template>
-    <BModal
-        :modelValue="showOptions"
-        :okOnly="true"
-        :okTitle="`Save`"
-        @ok="saveSettings"
-        class="dialog-content"
-        :title="`Workspace Settings`"
-    >
-        <BFormCheckbox v-model="analogClock" switch> Analog Clock </BFormCheckbox>
-        <BFormCheckbox v-model="timer" switch> Timer & Stopwatch </BFormCheckbox>
-        <BFormCheckbox v-model="lessons" switch> Lessons </BFormCheckbox>
-        <BFormCheckbox v-model="notes" switch> Notes </BFormCheckbox>
-        <BFormCheckbox v-model="playlist" switch> Playlist </BFormCheckbox>
-        <BFormCheckbox v-model="bookmarks" switch> Bookmarks </BFormCheckbox>
-        <BFormCheckbox v-model="titleBar" switch> Title Bar </BFormCheckbox>
-    </BModal>
+    <n-drawer :show="showOptions" :width="350" placement="right" @update-show="$emit('close-options')">
+        <n-drawer-content title="Workspace settings">
+            <n-tabs type="line" animated>
+                <n-tab-pane name="tools" tab="Tools">
+                    <div v-for="[type, isVisible] of widgetVisibility" :key="type">
+                        <n-flex justify="space-between">
+                            <div role="button" class="d-flex align-items-center" @click="updateVisibility(type, !isVisible)">
+                                <component :is="getIcon(type)" class="me-3" />
+                                <div>{{ getComponentName(type) }}</div>
+                            </div>
+                            <div>
+                                <n-switch
+                                    :value="isVisible"
+                                    size="small"
+                                    class="mb-3"
+                                    @update-value="(event: boolean) => updateVisibility(type, event)"
+                                />
+                            </div>
+                        </n-flex>
+                    </div>
+                </n-tab-pane>
+                <n-tab-pane name="view" tab="View"> View settings </n-tab-pane>
+            </n-tabs>
+        </n-drawer-content>
+    </n-drawer>
 </template>
 
 <script lang="ts">
-import { ComponentTypes } from '@/enums/ComponentTypes';
-import { BModal } from 'bootstrap-vue-next';
-
-export interface INavConfigurationModalData {
-    localWidgetVisibility: Map<string, boolean>;
-}
+import { getComponentName } from '@/enums/ComponentTypes';
+import { mapActions, mapState, mapStores } from 'pinia';
+import { useWidget } from '@/stores/useWidget';
+import { NDrawer, NDrawerContent, NFlex, NSwitch, NTabPane, NTabs } from 'naive-ui';
+import Label from "@/components/Label/Label.vue";
 
 export default {
     components: {
-        BModal,
+        Label,
+        NFlex,
+        NTabPane,
+        NTabs,
+        NDrawerContent,
+        NDrawer,
+        NSwitch,
     },
     props: {
         showOptions: {
             type: Boolean,
             required: true,
         },
-        widgetVisibility: {
-            type: Map<string, boolean>,
-            required: true,
-        },
-    },
-    data(): INavConfigurationModalData {
-        return {
-            localWidgetVisibility: new Map<string, boolean>(this.widgetVisibility),
-        };
-    },
-    watch: {
-        widgetVisibility(newVal: Map<string, boolean>) {
-            this.localWidgetVisibility = new Map(newVal);
-        },
     },
     computed: {
-        analogClock: {
-            get() {
-                return this.localWidgetVisibility.get(ComponentTypes.ANALOG_CLOCK);
-            },
-            set(value: boolean) {
-                this.localWidgetVisibility.set(ComponentTypes.ANALOG_CLOCK, value);
-            },
-        },
-        timer: {
-            get() {
-                return this.localWidgetVisibility.get(ComponentTypes.TIMER);
-            },
-            set(value: boolean) {
-                this.localWidgetVisibility.set(ComponentTypes.TIMER, value);
-            },
-        },
-        lessons: {
-            get() {
-                return this.localWidgetVisibility.get(ComponentTypes.LESSONS);
-            },
-            set(value: boolean) {
-                this.localWidgetVisibility.set(ComponentTypes.LESSONS, value);
-            },
-        },
-        notes: {
-            get() {
-                return this.localWidgetVisibility.get(ComponentTypes.NOTES);
-            },
-            set(value: boolean) {
-                this.localWidgetVisibility.set(ComponentTypes.NOTES, value);
-            },
-        },
-        playlist: {
-            get() {
-                return this.localWidgetVisibility.get(ComponentTypes.PLAYLIST);
-            },
-            set(value: boolean) {
-                this.localWidgetVisibility.set(ComponentTypes.PLAYLIST, value);
-            },
-        },
-        bookmarks: {
-            get() {
-                return this.localWidgetVisibility.get(ComponentTypes.BOOKMARKS);
-            },
-            set(value: boolean) {
-                this.localWidgetVisibility.set(ComponentTypes.BOOKMARKS, value);
-            },
-        },
-        titleBar: {
-            get() {
-                return this.localWidgetVisibility.get(ComponentTypes.TITLE_BAR);
-            },
-            set(value: boolean) {
-                this.localWidgetVisibility.set(ComponentTypes.TITLE_BAR, value);
-            },
-        },
+        ...mapStores(useWidget),
+        ...mapState(useWidget, ['widgetVisibility', 'widgetByType']),
     },
     methods: {
-        saveSettings() {
-            this.$emit('update:widgetVisibility', new Map(this.localWidgetVisibility));
-            this.$emit('closeOptions');
-        },
+        getComponentName,
+        ...mapActions(useWidget, ['updateVisibility', 'getIcon']),
     },
 };
 </script>
 
-<style scoped lang="scss">
-ul {
-    list-style-type: none;
-}
-</style>
+<style scoped lang="scss"></style>

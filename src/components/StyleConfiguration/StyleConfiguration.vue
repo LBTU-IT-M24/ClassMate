@@ -1,6 +1,6 @@
 <template>
-    <BTabs class="configuration" :nav-class="{ 'nav-tab-style-configuration': !$slots.customTabs }">
-        <BTab title="Style">
+    <n-tabs type="line" animated>
+        <n-tab-pane name="style" tab="Style">
             <div class="m-3">
                 <Label :text="`Transparency`" class="mb-3" />
                 <n-slider
@@ -24,19 +24,19 @@
                     <BCol class="text-end">{{ maxFont }}</BCol>
                 </BRow>
             </div>
-
             <div class="m-3">
                 <Label :text="`Background color`" class="mb-3" />
-                <ColorPicker v-model="styleConfiguration.color" panelClass="configuration__colorpicker" />
+                <n-color-picker v-model:value="styleConfiguration.color" :modes="['hex']" />
             </div>
-        </BTab>
-        <slot name="customTabs"></slot>
-    </BTabs>
+        </n-tab-pane>
+        <n-tab-pane name="tools" tab="Tools">
+            <slot name="customTabs"></slot>
+        </n-tab-pane>
+    </n-tabs>
 </template>
 
 <script lang="ts">
-import ColorPicker from 'primevue/colorpicker';
-import { NSlider } from 'naive-ui';
+import { NColorPicker, NSlider, NTabPane, NTabs } from 'naive-ui';
 import type { IStyleConfiguration } from '../../models/StyleConfiguration/IStyleConfiguration';
 
 export interface IStyleConfigurationData {
@@ -48,6 +48,9 @@ export interface IStyleConfigurationData {
 
 export default {
     components: {
+        NColorPicker,
+        NTabPane,
+        NTabs,
         NSlider,
     },
     props: {
