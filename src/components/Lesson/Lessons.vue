@@ -1,5 +1,5 @@
 <template>
-    <BaseWidgetDraggable :title="`Clock`">
+    <BaseWidgetDraggable :title="`Lessons`">
         <template v-slot:widget>
             <ul class="list-unstyled">
                 <li>Lesson 1</li>

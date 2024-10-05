@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-    <BaseWidgetDraggable :title="`Clock`">
+    <BaseWidgetDraggable :title="`Notes`">
         <template v-slot:widget>
             <Editor
                 class="mb-3"

@@ -1,5 +1,5 @@
 <template>
-    <BaseWidgetDraggable :title="`Clock`">
+    <BaseWidgetDraggable :title="`Playlist`">
         <template v-slot:widget>
             <iframe
                 width="100%"
