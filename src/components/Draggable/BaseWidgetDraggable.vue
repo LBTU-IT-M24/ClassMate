@@ -20,14 +20,7 @@
         </div>
         <div>
             <n-modal v-model:show="isModalOpen">
-                <n-card
-                    style="width: 600px"
-                    :title="`${title} Settings`"
-                    :bordered="false"
-                    size="huge"
-                    role="dialog"
-                    aria-modal="true"
-                >
+                <n-card style="width: 600px" :title="`${title} Settings`" :bordered="false" size="huge" role="dialog">
                     <StyleConfiguration :styleConfiguration="styleConfiguration">
                         <template v-slot:customTabs v-if="$slots.styleConfiguration">
                             <slot name="styleConfiguration"></slot>
