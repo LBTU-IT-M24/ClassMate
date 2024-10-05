@@ -19,19 +19,22 @@
             <slot name="widget"></slot>
         </div>
         <div>
-            <BModal
-                v-model="isModalOpen"
-                hide-footer
-                class="dialog-content"
-                :title="`${title} Settings`"
-                @close="updateConfiguration"
-            >
-                <StyleConfiguration :styleConfiguration="styleConfiguration">
-                    <template v-slot:customTabs v-if="$slots.styleConfiguration">
-                        <slot name="styleConfiguration"></slot>
-                    </template>
-                </StyleConfiguration>
-            </BModal>
+            <n-modal v-model:show="isModalOpen">
+                <n-card
+                    style="width: 600px"
+                    :title="`${title} Settings`"
+                    :bordered="false"
+                    size="huge"
+                    role="dialog"
+                    aria-modal="true"
+                >
+                    <StyleConfiguration :styleConfiguration="styleConfiguration">
+                        <template v-slot:customTabs v-if="$slots.styleConfiguration">
+                            <slot name="styleConfiguration"></slot>
+                        </template>
+                    </StyleConfiguration>
+                </n-card>
+            </n-modal>
         </div>
     </div>
 </template>
@@ -39,9 +42,8 @@
 <script lang="ts">
 import type { IStyleConfiguration } from '@/models/StyleConfiguration/IStyleConfiguration';
 import type { IDraggablePosition } from './interfaces/IDraggablePosition';
-import type { IDraggableStyle } from './interfaces/IDraggableStyle';
 import { getDefaultConfiguration } from '../StyleConfiguration/helpers/DefaultConfiguration';
-import StyleConfiguration from '../StyleConfiguration/StyleConfiguration.vue';
+import { NModal, NCard } from 'naive-ui';
 
 interface IDraggableData {
     position: IDraggablePosition;
@@ -50,6 +52,10 @@ interface IDraggableData {
 }
 
 export default {
+    components: {
+        NModal,
+        NCard,
+    },
     props: {
         initialX: {
             type: Number,

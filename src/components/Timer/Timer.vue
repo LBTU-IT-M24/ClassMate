@@ -28,10 +28,15 @@
     </div>
     <BRow class="base-timer__controls">
         <BCol v-if="!isEnabled" sm-="12" md="6" @click="startTimer">
-            <BButton class="w-100 m-1">Start</BButton>
+            <n-button class="w-100 m-1" strong secondary type="primary">Start</n-button>
         </BCol>
-        <BCol v-else sm-="12" md="6"><BButton class="w-100 m-1" @click="pauseTimer">Pause</BButton></BCol>
-        <BCol sm-="12" md="6"><BButton class="w-100 m-1" @click="resetTimer">Reset</BButton></BCol>
+
+        <BCol v-else sm-="12" md="6"
+            ><n-button class="w-100 m-1" @click="pauseTimer" strong secondary type="primary">Pause</n-button></BCol
+        >
+        <BCol sm-="12" md="6"
+            ><n-button strong secondary type="primary" class="w-100 m-1" @click="resetTimer">Reset</n-button></BCol
+        >
     </BRow>
     <BModal v-model="isModalOpen" hide-header hide-footer>
         <VueDatePicker v-model="time" @closed="closedModal" time-picker enable-seconds :clearable="false" />
@@ -41,7 +46,7 @@
 <script lang="ts">
 import { secondsToTime, timeToSeconds } from '@/helpers/Time/TimeFunctions';
 import type { ITimeModel } from '@/models/Date/ITimeModel';
-import BaseWidgetDraggable from '../Draggable/BaseWidgetDraggable.vue';
+import { NButton } from 'naive-ui';
 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
@@ -71,6 +76,9 @@ interface ITimerData {
 }
 
 export default {
+    components: {
+        NButton,
+    },
     data(): ITimerData {
         return {
             timePassed: 0,

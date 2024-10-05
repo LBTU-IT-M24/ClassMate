@@ -21,7 +21,6 @@ export default {
                 :placeholder="`Write your notes here...`"
                 editorStyle="height: 300px"
             />
-            <button class="btn btn-success">Save</button>
         </template>
     </BaseWidgetDraggable>
 </template>

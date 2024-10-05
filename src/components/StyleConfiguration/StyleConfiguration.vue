@@ -3,12 +3,11 @@
         <BTab title="Style">
             <div class="m-3">
                 <Label :text="`Transparency`" class="mb-3" />
-                <Slider
-                    v-model="styleConfiguration.transparency"
+                <n-slider
+                    v-model:value="styleConfiguration.transparency"
                     :min="minOpacity"
                     :step="1"
                     :max="maxOpacity"
-                    class="w-full"
                 />
                 <BRow>
                     <BCol>{{ minOpacity }}</BCol>
@@ -18,7 +17,7 @@
             </div>
             <div class="m-3">
                 <Label :text="`Font size`" class="mb-3" />
-                <Slider v-model="styleConfiguration.fontSize" :min="minFont" :step="1" :max="maxFont" class="w-full" />
+                <n-slider v-model:value="styleConfiguration.fontSize" :min="minFont" :step="1" :max="maxFont" />
                 <BRow>
                     <BCol>{{ minFont }}</BCol>
                     <BCol class="text-center">{{ styleConfiguration.fontSize }}</BCol>
@@ -37,7 +36,7 @@
 
 <script lang="ts">
 import ColorPicker from 'primevue/colorpicker';
-import Slider from 'primevue/slider';
+import { NSlider } from 'naive-ui';
 import type { IStyleConfiguration } from '../../models/StyleConfiguration/IStyleConfiguration';
 
 export interface IStyleConfigurationData {
@@ -48,6 +47,9 @@ export interface IStyleConfigurationData {
 }
 
 export default {
+    components: {
+        NSlider,
+    },
     props: {
         styleConfiguration: {
             type: Object as () => Partial<IStyleConfiguration>,
