@@ -55,6 +55,9 @@ interface IDraggableData {
     isModalOpen: boolean;
 }
 
+const HEIGHT_BOUNDRY_LIMIT = -50;
+const WIDTH_BOUNDRY_LIMIT = -100;
+
 export default {
     components: {
         NModal,
@@ -179,8 +182,21 @@ export default {
             e.stopPropagation();
             const { clientX, clientY } = e;
 
-            const newXPos = clientX - (this.position.dragStartX || 0);
-            const newYPos = clientY - (this.position.dragStartY || 0);
+            const dragStartX = this.position.dragStartX || 0;
+
+            const widthLimit = window.innerWidth + -WIDTH_BOUNDRY_LIMIT;
+
+            const newXPos = clientX - dragStartX;
+            if (newXPos < WIDTH_BOUNDRY_LIMIT || newXPos + this.position.width > widthLimit) {
+                return;
+            }
+
+            const dragStartY = this.position.dragStartY || 0;
+            const newYPos = clientY - dragStartY;
+            const heightLimit = window.innerHeight + -HEIGHT_BOUNDRY_LIMIT;
+            if (newYPos < HEIGHT_BOUNDRY_LIMIT || newYPos + this.position.height > heightLimit) {
+                return;
+            }
 
             this.position.x = newXPos;
             this.position.y = newYPos;
@@ -192,9 +208,6 @@ export default {
             this.position.dragStartY = null;
             document.removeEventListener('mouseup', this.onMouseUp);
             document.removeEventListener('mousemove', this.onMouseMove);
-        },
-        updateConfiguration() {
-            // TODO: update style
         },
     },
     template: document?.getElementById('base-widget-draggable')?.innerHTML,
