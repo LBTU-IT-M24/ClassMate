@@ -1,5 +1,5 @@
 <template>
-    <n-tabs type="line" animated>
+    <n-tabs type="line" animated :tab-style="{ display: !$slots.customTabs ? 'none' : 'block' }">
         <n-tab-pane name="style" tab="Style">
             <div class="m-3">
                 <Label :text="`Transparency`" class="mb-3" />

@@ -3,37 +3,33 @@
         <span class="stopwatch__time">{{ time }}</span>
         <BRow>
             <BCol>
-                <BButton v-if="!isRunning" @click="start">Start</BButton>
-                <BButton v-else @click="lapTime">Lap</BButton>
+                <n-button v-if="!isRunning" strong secondary type="primary" @click="start"
+                    ><font-awesome-icon :icon="['fas', 'play']"
+                /></n-button>
+                <n-button v-else @click="lapTime" strong secondary type="primary">
+                    <font-awesome-icon :icon="['fas', 'list-ol']" /> &nbsp; Lap</n-button
+                >
             </BCol>
             <BCol>
-                <BButton @click="stop">Stop</BButton>
+                <n-button strong secondary type="primary" @click="stop"
+                    ><font-awesome-icon :icon="['fas', 'pause']"
+                /></n-button>
             </BCol>
             <BCol>
-                <BButton @click="reset">Reset</BButton>
+                <n-button strong secondary type="primary" @click="reset"
+                    ><font-awesome-icon :icon="['fas', 'arrow-rotate-left']"
+                /></n-button>
             </BCol>
         </BRow>
-        <BTableSimple v-if="lapTimes.length" hover small caption-top responsive>
-            <BThead head-variant="dark">
-                <BTr>
-                    <BTh>Lap</BTh>
-                    <BTh>Lap Time</BTh>
-                    <BTh>Overall Time</BTh>
-                </BTr>
-            </BThead>
-            <BTbody>
-                <BTr v-for="lapTime in lapTimes">
-                    <BTd>{{ lapTime.lap }}</BTd>
-                    <BTd>{{ lapTime.lapTime }}</BTd>
-                    <BTd>{{ lapTime.overallTime }}</BTd>
-                </BTr>
-            </BTbody>
-        </BTableSimple>
+        <n-config-provider>
+            <n-data-table v-if="lapTimes.length" class="mt-3" :columns="columns" :data="lapTimes" :bordered="false" />
+        </n-config-provider>
     </div>
 </template>
 
 <script lang="ts">
 import type { ILapTime } from './interfaces/ILapTime';
+import { NButton, type DataTableColumns, NDataTable, NConfigProvider } from 'naive-ui';
 
 interface IStopwatchData {
     time: string;
@@ -43,9 +39,15 @@ interface IStopwatchData {
     started: NodeJS.Timeout | undefined;
     isRunning: boolean;
     lapTimes: ILapTime[];
+    columns: DataTableColumns<ILapTime>;
 }
 
 export default {
+    components: {
+        NButton,
+        NDataTable,
+        NConfigProvider,
+    },
     data(): IStopwatchData {
         return {
             time: '00:00:00.000',
@@ -55,7 +57,11 @@ export default {
             stopDuration: 0,
             started: undefined,
             lapTimes: [],
+            columns: [],
         };
+    },
+    created() {
+        this.columns = this.createColumns();
     },
     methods: {
         start() {
@@ -155,6 +161,23 @@ export default {
 
             return date;
         },
+
+        createColumns(): DataTableColumns<ILapTime> {
+            return [
+                {
+                    title: 'No.',
+                    key: 'lap',
+                },
+                {
+                    title: 'Lap time',
+                    key: 'lapTime',
+                },
+                {
+                    title: 'Overall time',
+                    key: 'overallTime',
+                },
+            ];
+        },
     },
 };
 </script>
@@ -168,7 +191,7 @@ export default {
     text-align: center;
 
     &__time {
-        font-size: 3.5em;
+        font-size: 2em;
     }
 }
 </style>

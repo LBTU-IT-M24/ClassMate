@@ -6,13 +6,13 @@
                     <h4>{{ title }}</h4>
                 </div>
                 <div>
-                    <BButton
-                        @click="isModalOpen = true"
+                    <n-button
                         v-b-tooltip="`Open configuration`"
+                        @click="isModalOpen = true"
+                        text
                         class="d-flex widget__configuration__button"
-                    >
-                        <font-awesome-icon :icon="['fas', 'cog']" />
-                    </BButton>
+                        ><font-awesome-icon :icon="['fas', 'cog']" />
+                    </n-button>
                 </div>
             </div>
 
@@ -36,9 +36,7 @@
 import type { IStyleConfiguration } from '@/models/StyleConfiguration/IStyleConfiguration';
 import type { IDraggablePosition } from './interfaces/IDraggablePosition';
 import { getDefaultConfiguration } from '../StyleConfiguration/helpers/DefaultConfiguration';
-import { NModal, NCard } from 'naive-ui';
-import { mapStores } from 'pinia';
-import { useWidget } from '@/stores/useWidget';
+import { NModal, NCard, NButton } from 'naive-ui';
 
 interface IDraggableData {
     position: IDraggablePosition;
@@ -50,6 +48,7 @@ export default {
     components: {
         NModal,
         NCard,
+        NButton,
     },
     props: {
         initialX: {
@@ -140,17 +139,15 @@ export default {
     methods: {
         onMouseDown(e: MouseEvent) {
             const element = e.target as HTMLInputElement;
-            console.log(element?.classList)
-            console.log(element?.nodeName)
+            console.log(element?.classList);
+            console.log(element?.nodeName);
             if (
-                (
-                    !element?.classList?.contains("widget__header")
-                    && !element?.classList?.contains("widget")
-                    && element?.nodeName !== "H4"
-                )
-                    || element?.nodeName === "BUTTON"
-                    || element?.nodeName === "path"
-                    || element?.nodeName === "svg"
+                (!element?.classList?.contains('widget__header') &&
+                    !element?.classList?.contains('widget') &&
+                    element?.nodeName !== 'H4') ||
+                element?.nodeName === 'BUTTON' ||
+                element?.nodeName === 'path' ||
+                element?.nodeName === 'svg'
             ) {
                 return;
             }
@@ -207,6 +204,7 @@ export default {
     &__configuration {
         &__button {
             float: right;
+            align-content: center;
         }
 
         &__title {

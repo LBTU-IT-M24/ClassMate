@@ -6,16 +6,13 @@
     >
         <template v-slot:widget>
             <div class="d-flex flex-column bookmarks h-100">
-                <BRow>
-                    <BButton
-                        variant="link"
-                        v-for="bookmark in bookmarks"
-                        @click="onBookmarkClick(bookmark.url)"
-                        style="font-size: inherit"
-                    >
-                        {{ bookmark.name }}
-                    </BButton>
-                </BRow>
+                <n-row :gutter="[0, 24]" v-for="{ url, name } in bookmarks">
+                    <n-col :span="24" style="text-align: center">
+                        <n-button class="bookmarks__link-button" text type="info" @click="onBookmarkClick(url)">
+                            {{ name }}
+                        </n-button>
+                    </n-col>
+                </n-row>
             </div>
         </template>
         <template v-slot:styleConfiguration>
@@ -29,13 +26,14 @@ import type { IBookmarkModel } from './interfaces/IBookmarkModel';
 import { guid } from '@/helpers/Random/guid';
 import { ComponentTypes } from '@/enums/ComponentTypes';
 import BookmarkConfiguration from '@/components/Bookmark/BookmarkConfiguration.vue';
+import { NButton, NRow, NCol } from 'naive-ui';
 
 export interface IBookmarksData {
     bookmarks: IBookmarkModel[];
 }
 
 export default {
-    components: { BookmarkConfiguration },
+    components: { BookmarkConfiguration, NButton, NRow, NCol },
     computed: {
         ComponentTypes() {
             return ComponentTypes;
@@ -56,12 +54,6 @@ export default {
         onBookmarkClick(url: string) {
             window.open(url, '_blank');
         },
-        updateConfiguration() {
-            // TODO: update style
-        },
-    },
-    mounted() {
-        // TODO fetch and set initial data
     },
 };
 </script>
@@ -72,6 +64,12 @@ export default {
         text-align: right;
         align-items: end;
         height: 100%;
+    }
+
+    &__link-button {
+        text-decoration: underline;
+        font-size: inherit;
+        text-align: center;
     }
 }
 </style>
