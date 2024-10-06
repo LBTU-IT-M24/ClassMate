@@ -10,9 +10,7 @@
                 <Clock />
             </div>
             <n-modal v-model:show="isEnchancedModalOpen">
-                <n-card :style="cardWidth" size="huge" content-style="align-self: center">
-                    <Clock :clockSize="clockFullSize" :showLabel="false" />
-                </n-card>
+                <Clock :clockSize="clockFullSize" :showLabel="false" />
             </n-modal>
         </template>
     </BaseWidgetDraggable>
@@ -38,7 +36,7 @@ export default defineComponent({
     data() {
         return {
             isEnchancedModalOpen: false,
-            clockFullSize: window.innerHeight * 0.9,
+            clockFullSize: window.innerHeight,
         };
     },
     props: {
@@ -50,11 +48,6 @@ export default defineComponent({
     computed: {
         ComponentTypes() {
             return ComponentTypes;
-        },
-        cardWidth() {
-            return {
-                width: this.clockFullSize * 1.25 + 'px',
-            };
         },
     },
 });
