@@ -14,7 +14,7 @@
                 <IconClassMate />
                 <p>
                     Welcome to Classmate, your shared digital board for students and teachers alike. Choose your role
-                    now collaborate and elevate your classroom experience
+                    now to collaborate and elevate your classroom experience
                     <n-gradient-text type="info"> together! </n-gradient-text>
                 </p>
             </div>
