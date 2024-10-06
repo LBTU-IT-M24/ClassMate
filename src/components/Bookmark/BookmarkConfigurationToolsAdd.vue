@@ -1,55 +1,115 @@
 <template>
-    <BRow>
-        <BCollapse id="my-collapse">
-            <template #header="{ visible, toggle, id }">
-                <BCol>
-                    <BButton variant="primary" :aria-expanded="visible" :aria-controls="id" @click="toggle">
-                        <span>{{ visible ? 'Close' : 'Open' }}</span> add form
-                    </BButton>
-                </BCol>
-            </template>
+    <n-form ref="formRef" :label-width="80" :model="bookmarkForm" :rules="rules">
+        <n-form-item label="Name" path="name">
+            <n-input v-model:value="bookmarkForm.name" placeholder="Input Name" />
+        </n-form-item>
+        <n-form-item label="Url" path="url">
+            <n-input v-model:value="bookmarkForm.url" placeholder="Input Url" />
+        </n-form-item>
+        <n-row :gutter="[0, 24]">
+            <n-col :span="24">
+                <n-button @click="closeForm" strong secondary> Cancel </n-button>
 
-            <BForm @submit="submitForm" class="mt-2">
-                <BFormFloatingLabel id="input-group-1" label="Name" label-for="input-1">
-                    <BFormInput id="input-1" v-model="bookmarkForm.name" placeholder="Enter name" required />
-                </BFormFloatingLabel>
-                <BFormFloatingLabel id="input-group-2" label="Url" label-for="input-2" class="mt-3">
-                    <BFormInput id="input-2" v-model="bookmarkForm.url" placeholder="Enter URL" required />
-                </BFormFloatingLabel>
-                <BButton type="submit" class="mt-3" variant="primary">Submit</BButton>
-            </BForm>
-        </BCollapse>
-    </BRow>
+                <n-button @click="submitForm" strong secondary type="primary" style="float: right"> Add </n-button>
+            </n-col>
+        </n-row>
+    </n-form>
 </template>
 
 <script lang="ts">
 import { guid } from '@/helpers/Random/guid';
 import type { IBookmarkModel } from './interfaces/IBookmarkModel';
+import {
+    NDrawer,
+    NDrawerContent,
+    NForm,
+    NFormItem,
+    NButton,
+    NInput,
+    type FormInst,
+    NRow,
+    NCol,
+    type FormItemRule,
+} from 'naive-ui';
 
 export interface IBookmarkConfigurationToolsAdd {
     bookmarkForm: IBookmarkModel;
+    showDrawer: boolean;
 }
 
 export default {
+    components: {
+        NDrawer,
+        NDrawerContent,
+        NForm,
+        NFormItem,
+        NButton,
+        NInput,
+        NRow,
+        NCol,
+    },
     data() {
         return {
+            formRef: null as FormInst | null,
             bookmarkForm: {
                 name: '',
                 url: '',
                 id: '',
             },
+            showDrawer: false,
+            rules: {
+                name: {
+                    required: true,
+                    message: 'Please input bookmark name',
+                    trigger: 'blur',
+                },
+                url: {
+                    required: true,
+                    validator(_rule: FormItemRule, value: string) {
+                        if (!value) {
+                            return new Error('Please input bookmark url');
+                        } else if (
+                            // Reference: https://regexr.com/39nr7
+                            !/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(
+                                value,
+                            )
+                        ) {
+                            return new Error('Url is not valid');
+                        }
+                        return true;
+                    },
+                    trigger: ['input', 'blur'],
+                },
+            },
         };
     },
     methods: {
-        submitForm(event: any) {
+        async submitForm(event: any) {
             event.preventDefault();
+            if (!(await this.isValid())) {
+                return;
+            }
             const newBookmark = { ...this.bookmarkForm, id: guid() };
             this.$emit('add-bookmark', newBookmark);
+            this.closeForm();
             this.resetForm();
         },
         resetForm() {
             this.bookmarkForm = { name: '', url: '', id: '' };
         },
+        closeForm() {
+            this.$emit('handle-add-form', false);
+        },
+        async isValid(): Promise<boolean> {
+            return new Promise((resolve) => {
+                this.formRef?.validate((errors) => {
+                    resolve(!errors);
+                });
+            });
+        },
+    },
+    mounted() {
+        this.formRef = this.$refs.formRef as FormInst;
     },
 };
 </script>

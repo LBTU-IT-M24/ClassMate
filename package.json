@@ -19,7 +19,6 @@
     "@primevue/themes": "^4.0.7",
     "@vuepic/vue-datepicker": "^9.0.3",
     "bootstrap": "^5.3.3",
-    "bootstrap-vue-next": "^0.24.23",
     "date-fns": "^4.1.0",
     "naive-ui": "^2.40.1",
     "pinia": "^2.2.2",

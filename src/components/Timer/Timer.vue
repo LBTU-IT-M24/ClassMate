@@ -17,36 +17,40 @@
             </g>
         </svg>
         <div class="base-timer__body">
-            <BRow class="w-100">
-                <BCol class="col-12 col-sm-12 col-md-12">
-                    <span class="base-timer__label" @click="onModalOpen">
-                        {{ formattedTimeLeft }}
-                    </span>
-                </BCol>
-            </BRow>
+            <span class="base-timer__label" @click="onModalOpen">
+                {{ formattedTimeLeft }}
+            </span>
         </div>
     </div>
-    <BRow class="base-timer__controls">
-        <BCol v-if="!isEnabled" sm-="12" md="6" @click="startTimer">
-            <n-button class="w-100 m-1" strong secondary type="primary">Start</n-button>
-        </BCol>
 
-        <BCol v-else sm-="12" md="6"
-            ><n-button class="w-100 m-1" @click="pauseTimer" strong secondary type="primary">Pause</n-button></BCol
-        >
-        <BCol sm-="12" md="6"
-            ><n-button strong secondary type="primary" class="w-100 m-1" @click="resetTimer">Reset</n-button></BCol
-        >
-    </BRow>
-    <BModal v-model="isModalOpen" hide-header hide-footer>
-        <VueDatePicker v-model="time" @closed="closedModal" time-picker enable-seconds :clearable="false" />
-    </BModal>
+    <n-flex justify="content-between">
+        <div v-if="!isEnabled" @click="startTimer">
+            <n-button class="w-100 m-1" strong secondary type="primary"
+                ><font-awesome-icon :icon="['fas', 'play']" />
+            </n-button>
+        </div>
+        <div v-else>
+            <n-button class="w-100 m-1" @click="pauseTimer" strong secondary type="primary"
+                ><font-awesome-icon :icon="['fas', 'pause']" />
+            </n-button>
+        </div>
+        <div>
+            <n-button strong secondary type="primary" class="w-100 m-1" @click="resetTimer"
+                ><font-awesome-icon :icon="['fas', 'arrow-rotate-left']" />
+            </n-button>
+        </div>
+    </n-flex>
+    <n-modal v-model:show="isModalOpen">
+        <n-card style="width: 600px" :bordered="false" size="small">
+            <VueDatePicker v-model="time" @closed="closedModal" time-picker enable-seconds :clearable="false" />
+        </n-card>
+    </n-modal>
 </template>
 
 <script lang="ts">
 import { secondsToTime, timeToSeconds } from '@/helpers/Time/TimeFunctions';
 import type { ITimeModel } from '@/models/Date/ITimeModel';
-import { NButton } from 'naive-ui';
+import { NButton, NModal, NCard, NFlex } from 'naive-ui';
 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
@@ -68,7 +72,7 @@ const COLOR_CODES = {
 
 interface ITimerData {
     timePassed: number;
-    timerInterval: NodeJS.Timeout | null;
+    timerInterval: number | null;
     currentTimeLimit: number;
     isEnabled: boolean;
     time: ITimeModel;
@@ -78,6 +82,9 @@ interface ITimerData {
 export default {
     components: {
         NButton,
+        NModal,
+        NCard,
+        NFlex,
     },
     data(): ITimerData {
         return {

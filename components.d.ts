@@ -8,26 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BaseWidgetDraggable: typeof import('./src/components/Draggable/BaseWidgetDraggable.vue')['default']
-    BButton: typeof import('bootstrap-vue-next/components/BButton')['BButton']
-    BCol: typeof import('bootstrap-vue-next/components/BContainer')['BCol']
-    BCollapse: typeof import('bootstrap-vue-next/components/BCollapse')['BCollapse']
-    BForm: typeof import('bootstrap-vue-next/components/BForm')['BForm']
-    BFormCheckbox: typeof import('bootstrap-vue-next/components/BFormCheckbox')['BFormCheckbox']
-    BFormFloatingLabel: typeof import('bootstrap-vue-next/components/BForm')['BFormFloatingLabel']
-    BFormInput: typeof import('bootstrap-vue-next/components/BFormInput')['BFormInput']
-    BModal: typeof import('bootstrap-vue-next/components/BModal')['BModal']
     BookmarkConfiguration: typeof import('./src/components/Bookmark/BookmarkConfiguration.vue')['default']
     BookmarkConfigurationToolsAdd: typeof import('./src/components/Bookmark/BookmarkConfigurationToolsAdd.vue')['default']
     Bookmarks: typeof import('./src/components/Bookmark/Bookmarks.vue')['default']
-    BRow: typeof import('bootstrap-vue-next/components/BContainer')['BRow']
-    BTab: typeof import('bootstrap-vue-next/components/BTabs')['BTab']
-    BTableSimple: typeof import('bootstrap-vue-next/components/BTable')['BTableSimple']
-    BTabs: typeof import('bootstrap-vue-next/components/BTabs')['BTabs']
-    BTbody: typeof import('bootstrap-vue-next/components/BTable')['BTbody']
-    BTd: typeof import('bootstrap-vue-next/components/BTable')['BTd']
-    BTh: typeof import('bootstrap-vue-next/components/BTable')['BTh']
-    BThead: typeof import('bootstrap-vue-next/components/BTable')['BThead']
-    BTr: typeof import('bootstrap-vue-next/components/BTable')['BTr']
     Clock: typeof import('./src/components/Clock/Clock.vue')['default']
     IconBookmarks: typeof import('./src/components/icons/IconBookmarks.vue')['default']
     IconClock: typeof import('./src/components/icons/IconClock.vue')['default']
@@ -53,8 +36,5 @@ declare module 'vue' {
     SwitchableTimer: typeof import('./src/components/Timer/SwitchableTimer.vue')['default']
     Timer: typeof import('./src/components/Timer/Timer.vue')['default']
     WidgetWrapper: typeof import('./src/components/Widget/WidgetWrapper.vue')['default']
-  }
-  export interface ComponentCustomProperties {
-    vBTooltip: typeof import('bootstrap-vue-next/directives/BTooltip')['vBTooltip']
   }
 }

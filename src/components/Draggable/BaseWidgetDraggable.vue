@@ -6,13 +6,14 @@
                     <h4>{{ title }}</h4>
                 </div>
                 <div>
-                    <BButton
-                        @click="isModalOpen = true"
-                        v-b-tooltip="`Open configuration`"
-                        class="d-flex widget__configuration__button"
-                    >
-                        <font-awesome-icon :icon="['fas', 'cog']" />
-                    </BButton>
+                        <n-tooltip>
+                            <template #trigger>
+                                <n-button @click="isModalOpen = true" text class="d-flex widget__configuration__button"
+                        ><font-awesome-icon :icon="['fas', 'cog']" />
+                    </n-button>
+                            </template>
+                            Open configuration
+                        </n-tooltip>
                 </div>
             </div>
 
@@ -20,7 +21,13 @@
         </div>
         <div>
             <n-modal v-model:show="isModalOpen">
-                <n-card style="width: 600px" :title="`${title} Settings`" :bordered="false" size="huge" role="dialog">
+                    <n-card
+                        style="width: 600px"
+                        :title="`${title} Settings`"
+                        :bordered="false"
+                        size="huge"
+                        role="dialog"
+                    >
                     <StyleConfiguration :styleConfiguration="styleConfiguration">
                         <template v-slot:customTabs v-if="$slots.styleConfiguration">
                             <slot name="styleConfiguration"></slot>
@@ -36,9 +43,7 @@
 import type { IStyleConfiguration } from '@/models/StyleConfiguration/IStyleConfiguration';
 import type { IDraggablePosition } from './interfaces/IDraggablePosition';
 import { getDefaultConfiguration } from '../StyleConfiguration/helpers/DefaultConfiguration';
-import { NModal, NCard } from 'naive-ui';
-import { mapStores } from 'pinia';
-import { useWidget } from '@/stores/useWidget';
+import { NModal, NCard, NButton, NTooltip } from 'naive-ui';
 
 interface IDraggableData {
     position: IDraggablePosition;
@@ -50,6 +55,8 @@ export default {
     components: {
         NModal,
         NCard,
+        NButton,
+        NTooltip,
     },
     props: {
         initialX: {
@@ -140,17 +147,13 @@ export default {
     methods: {
         onMouseDown(e: MouseEvent) {
             const element = e.target as HTMLInputElement;
-            console.log(element?.classList)
-            console.log(element?.nodeName)
             if (
-                (
-                    !element?.classList?.contains("widget__header")
-                    && !element?.classList?.contains("widget")
-                    && element?.nodeName !== "H4"
-                )
-                    || element?.nodeName === "BUTTON"
-                    || element?.nodeName === "path"
-                    || element?.nodeName === "svg"
+                (!element?.classList?.contains('widget__header') &&
+                    !element?.classList?.contains('widget') &&
+                    element?.nodeName !== 'H4') ||
+                element?.nodeName === 'BUTTON' ||
+                element?.nodeName === 'path' ||
+                element?.nodeName === 'svg'
             ) {
                 return;
             }
@@ -207,6 +210,7 @@ export default {
     &__configuration {
         &__button {
             float: right;
+            align-content: center;
         }
 
         &__title {
