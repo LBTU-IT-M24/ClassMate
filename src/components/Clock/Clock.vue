@@ -1,17 +1,9 @@
 <template>
-    <BaseWidgetDraggable
-        :title="`Clock`"
-        :initial-position="initialPosition"
-        :type="ComponentTypes.ANALOG_CLOCK"
-        @update-position="$emit('update-position')"
-    >
-        <template v-slot:widget>
-            <div class="clock" :style="{ width: String(size) + 'px', textAlign: 'center' }">
-                <canvas :width="size" :height="size" ref="clockCanvas" />
-                <p v-show="showLabel">Current time: {{ timeFormatted }}</p>
-            </div>
-        </template>
-    </BaseWidgetDraggable>
+    <div class="clock" :style="{ width: String(size) + 'px', textAlign: 'center' }">
+        <canvas :width="size" :height="size" ref="clockCanvas" />
+
+        <p v-if="showLabel">Current time: {{ timeFormatted }}</p>
+    </div>
 </template>
 
 <script lang="ts">
@@ -19,7 +11,7 @@ import { formatDate } from '@/helpers/Date/DateFunctions';
 import { ComponentTypes } from '@/enums/ComponentTypes';
 type ConvasRenderingType = CanvasRenderingContext2D | null;
 
-const SIZE = 280;
+const DEFAULT_SIZE = 280;
 
 export interface IClockData {
     time: Date | null;
@@ -65,17 +57,17 @@ export default {
             type: Boolean,
             default: true,
         },
-        initialPosition: {
-            type: Object,
-            required: true,
+        clockSize: {
+            type: Number,
+            default: DEFAULT_SIZE,
         },
     },
     data(): IClockData {
         return {
             time: null,
             timeFormatted: '',
-            size: SIZE,
-            radius: SIZE / 2,
+            size: this.clockSize,
+            radius: this.clockSize / 2,
             drawingContext: null,
             clockCanvas: null,
             draw24hour: this.timeFormat.toLowerCase().trim() === '24hour',
@@ -229,10 +221,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.clock {
-    margin-top: 15px;
-    margin-left: auto;
-    margin-right: auto;
-}
-</style>
+<style scoped></style>

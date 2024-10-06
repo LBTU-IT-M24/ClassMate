@@ -2,17 +2,17 @@ import { defineStore } from 'pinia';
 import { markRaw } from 'vue';
 import { ComponentTypes } from '@/enums/ComponentTypes';
 import Bookmarks from '@/components/Bookmark/Bookmarks.vue';
-import Clock from '@/components/Clock/Clock.vue';
 import Lessons from '@/components/Lesson/Lessons.vue';
 import PersonalEditor from '@/components/Editor/PersonalEditor.vue';
 import Playlist from '@/components/Playlist/Playlist.vue';
 import SwitchableTimer from '@/components/Timer/SwitchableTimer.vue';
-import IconClock from "@/components/icons/IconClock.vue";
-import IconNotes from "@/components/icons/IconNotes.vue";
-import IconBookmarks from "@/components/icons/IconBookmarks.vue";
-import IconLessons from "@/components/icons/IconLessons.vue";
-import IconPlaylist from "@/components/icons/IconPlaylist.vue";
-import IconTimer from "@/components/icons/IconTimer.vue";
+import IconClock from '@/components/icons/IconClock.vue';
+import IconNotes from '@/components/icons/IconNotes.vue';
+import IconBookmarks from '@/components/icons/IconBookmarks.vue';
+import IconLessons from '@/components/icons/IconLessons.vue';
+import IconPlaylist from '@/components/icons/IconPlaylist.vue';
+import IconTimer from '@/components/icons/IconTimer.vue';
+import ClockDraggable from '@/components/Clock/ClockDraggable.vue';
 
 export const useWidget: any = defineStore('widget', {
     state: () => ({
@@ -37,7 +37,7 @@ export const useWidget: any = defineStore('widget', {
                 },
             },
             {
-                renderer: markRaw(Clock),
+                renderer: markRaw(ClockDraggable),
                 customData: {
                     style: '',
                 },
