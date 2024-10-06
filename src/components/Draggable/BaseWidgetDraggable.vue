@@ -1,26 +1,27 @@
 <template id="base-widget-draggable">
     <div ref="el" class="base-widget-draggable__body" :style="{ ...style, position: 'absolute' }">
-        <div class="widget" :style="widgetStyle">
-            <div class="d-flex pb-2 widget__header">
-                <div>
-                    <h4>{{ title }}</h4>
-                </div>
+        <n-element>
+            <div class="widget" :style="widgetStyle">
+                <div class="d-flex pb-2 widget__header">
+                    <div>
+                        <h4>{{ title }}</h4>
+                    </div>
                 <div>
                         <n-tooltip>
                             <template #trigger>
                                 <n-button @click="isModalOpen = true" text class="d-flex widget__configuration__button"
-                        ><font-awesome-icon :icon="['fas', 'cog']" />
-                    </n-button>
+                                    ><font-awesome-icon :icon="['fas', 'cog']" />
+                                </n-button>
                             </template>
                             Open configuration
                         </n-tooltip>
+                    </div>
                 </div>
-            </div>
 
-            <slot name="widget"></slot>
-        </div>
-        <div>
-            <n-modal v-model:show="isModalOpen">
+                <slot name="widget"></slot>
+            </div>
+            <div>
+                <n-modal v-model:show="isModalOpen">
                     <n-card
                         style="width: 600px"
                         :title="`${title} Settings`"
@@ -28,14 +29,15 @@
                         size="huge"
                         role="dialog"
                     >
-                    <StyleConfiguration :styleConfiguration="styleConfiguration">
-                        <template v-slot:customTabs v-if="$slots.styleConfiguration">
-                            <slot name="styleConfiguration"></slot>
-                        </template>
-                    </StyleConfiguration>
-                </n-card>
-            </n-modal>
-        </div>
+                        <StyleConfiguration :styleConfiguration="styleConfiguration">
+                            <template v-slot:customTabs v-if="$slots.styleConfiguration">
+                                <slot name="styleConfiguration"></slot>
+                            </template>
+                        </StyleConfiguration>
+                    </n-card>
+                </n-modal>
+            </div>
+        </n-element>
     </div>
 </template>
 
@@ -43,7 +45,9 @@
 import type { IStyleConfiguration } from '@/models/StyleConfiguration/IStyleConfiguration';
 import type { IDraggablePosition } from './interfaces/IDraggablePosition';
 import { getDefaultConfiguration } from '../StyleConfiguration/helpers/DefaultConfiguration';
-import { NModal, NCard, NButton, NTooltip } from 'naive-ui';
+import { NModal, NCard, NButton, NElement, NTooltip } from 'naive-ui';
+import { mapState } from 'pinia';
+import { useAuth } from '@/stores/useAuth';
 
 interface IDraggableData {
     position: IDraggablePosition;
@@ -56,6 +60,7 @@ export default {
         NModal,
         NCard,
         NButton,
+        NElement,
         NTooltip,
     },
     props: {
@@ -115,6 +120,7 @@ export default {
                 fontSize: `${fontSize}px`,
             };
         },
+        ...mapState(useAuth, ['isTeacher']),
     },
     mounted() {
         const position = this.position;
@@ -199,7 +205,7 @@ export default {
 .widget {
     border-radius: var(--bs-border-radius) !important;
     --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity));
+    background-color: var(--modal-color);
     box-shadow: var(--bs-box-shadow) !important;
     display: flex !important;
     flex-direction: column;

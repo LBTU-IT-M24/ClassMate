@@ -35,6 +35,5 @@ declare module 'vue' {
     StyleConfiguration: typeof import('./src/components/StyleConfiguration/StyleConfiguration.vue')['default']
     SwitchableTimer: typeof import('./src/components/Timer/SwitchableTimer.vue')['default']
     Timer: typeof import('./src/components/Timer/Timer.vue')['default']
-    WidgetWrapper: typeof import('./src/components/Widget/WidgetWrapper.vue')['default']
   }
 }

@@ -22,12 +22,7 @@ export default {
 <template>
     <BaseWidgetDraggable :title="`Notes`" :type="ComponentTypes.NOTES" @update-position="$emit('update-position')">
         <template v-slot:widget>
-            <Editor
-                class="mb-3"
-                v-model="value"
-                :placeholder="`Write your notes here...`"
-                editorStyle="height: 300px"
-            />
+            <Editor class="mb-3" v-model="value" editorStyle="height: 300px" />
         </template>
     </BaseWidgetDraggable>
 </template>
