@@ -13,6 +13,7 @@ declare module 'vue' {
     Bookmarks: typeof import('./src/components/Bookmark/Bookmarks.vue')['default']
     Clock: typeof import('./src/components/Clock/Clock.vue')['default']
     IconBookmarks: typeof import('./src/components/icons/IconBookmarks.vue')['default']
+    IconClassMate: typeof import('./src/components/icons/IconClassMate.vue')['default']
     IconClock: typeof import('./src/components/icons/IconClock.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']

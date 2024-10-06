@@ -11,8 +11,10 @@ export const useGlobalSettings = defineStore('useGlobalSettings', {
             return JSON.parse(settingString);
         }
 
+        const darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)');
+
         return {
-            isDarkMode: false,
+            isDarkMode: darkThemeMq.matches, // uses system default
         };
     },
     actions: {

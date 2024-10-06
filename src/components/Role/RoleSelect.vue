@@ -11,10 +11,10 @@
                 </n-card>
             </div>
             <div class="col-12 col-md-7 d-flex flex-column align-items-start">
-                <n-h1> Welcome to <n-gradient-text type="success"> Class Mate </n-gradient-text> ! </n-h1>
+                <IconClassMate />
                 <p>
-                    Welcome to Classmate, your shared digital board for students and teachers alike. Login now to
-                    collaborate seamlessly and elevate your classroom experience
+                    Welcome to Classmate, your shared digital board for students and teachers alike. Choose your role
+                    now collaborate and elevate your classroom experience
                     <n-gradient-text type="info"> together! </n-gradient-text>
                 </p>
             </div>
@@ -27,9 +27,10 @@ import { mapActions, mapStores } from 'pinia';
 import { useAuth } from '@/stores/useAuth';
 import router from '@/router';
 import { NButton, NCard, NFlex, NGradientText, NH1 } from 'naive-ui';
+import IconClassMate from '../icons/IconClassMate.vue';
 
 export default {
-    components: { NGradientText, NH1, NCard, NButton, NFlex },
+    components: { NGradientText, NH1, NCard, NButton, NFlex, IconClassMate },
     computed: {
         ...mapStores(useAuth),
     },
