@@ -6,13 +6,14 @@
                     <h4>{{ title }}</h4>
                 </div>
                 <div>
-                    <n-button
-                        v-b-tooltip="`Open configuration`"
-                        @click="isModalOpen = true"
-                        text
-                        class="d-flex widget__configuration__button"
+                        <n-tooltip>
+                            <template #trigger>
+                                <n-button @click="isModalOpen = true" text class="d-flex widget__configuration__button"
                         ><font-awesome-icon :icon="['fas', 'cog']" />
                     </n-button>
+                            </template>
+                            Open configuration
+                        </n-tooltip>
                 </div>
             </div>
 
@@ -20,7 +21,13 @@
         </div>
         <div>
             <n-modal v-model:show="isModalOpen">
-                <n-card style="width: 600px" :title="`${title} Settings`" :bordered="false" size="huge" role="dialog">
+                    <n-card
+                        style="width: 600px"
+                        :title="`${title} Settings`"
+                        :bordered="false"
+                        size="huge"
+                        role="dialog"
+                    >
                     <StyleConfiguration :styleConfiguration="styleConfiguration">
                         <template v-slot:customTabs v-if="$slots.styleConfiguration">
                             <slot name="styleConfiguration"></slot>
@@ -36,7 +43,7 @@
 import type { IStyleConfiguration } from '@/models/StyleConfiguration/IStyleConfiguration';
 import type { IDraggablePosition } from './interfaces/IDraggablePosition';
 import { getDefaultConfiguration } from '../StyleConfiguration/helpers/DefaultConfiguration';
-import { NModal, NCard, NButton } from 'naive-ui';
+import { NModal, NCard, NButton, NTooltip } from 'naive-ui';
 
 interface IDraggableData {
     position: IDraggablePosition;
@@ -49,6 +56,7 @@ export default {
         NModal,
         NCard,
         NButton,
+        NTooltip,
     },
     props: {
         initialX: {
