@@ -1,26 +1,26 @@
 <template>
     <div class="stopwatch">
         <span class="stopwatch__time">{{ time }}</span>
-        <BRow>
-            <BCol>
+        <n-flex justify="space-between">
+            <div>
                 <n-button v-if="!isRunning" strong secondary type="primary" @click="start"
                     ><font-awesome-icon :icon="['fas', 'play']"
                 /></n-button>
                 <n-button v-else @click="lapTime" strong secondary type="primary">
                     <font-awesome-icon :icon="['fas', 'list-ol']" /> &nbsp; Lap</n-button
                 >
-            </BCol>
-            <BCol>
+            </div>
+            <div>
                 <n-button strong secondary type="primary" @click="stop"
                     ><font-awesome-icon :icon="['fas', 'pause']"
                 /></n-button>
-            </BCol>
-            <BCol>
+            </div>
+            <div>
                 <n-button strong secondary type="primary" @click="reset"
                     ><font-awesome-icon :icon="['fas', 'arrow-rotate-left']"
                 /></n-button>
-            </BCol>
-        </BRow>
+            </div>
+        </n-flex>
         <n-config-provider>
             <n-data-table v-if="lapTimes.length" class="mt-3" :columns="columns" :data="lapTimes" :bordered="false" />
         </n-config-provider>
@@ -29,14 +29,14 @@
 
 <script lang="ts">
 import type { ILapTime } from './interfaces/ILapTime';
-import { NButton, type DataTableColumns, NDataTable, NConfigProvider } from 'naive-ui';
+import { NButton, type DataTableColumns, NDataTable, NConfigProvider, NFlex } from 'naive-ui';
 
 interface IStopwatchData {
     time: string;
     timeBegan: Date | null;
     timeStopped: Date | null;
     stopDuration: number;
-    started: NodeJS.Timeout | undefined;
+    started: number | undefined;
     isRunning: boolean;
     lapTimes: ILapTime[];
     columns: DataTableColumns<ILapTime>;
@@ -47,6 +47,7 @@ export default {
         NButton,
         NDataTable,
         NConfigProvider,
+        NFlex,
     },
     data(): IStopwatchData {
         return {

@@ -9,20 +9,20 @@
                     :step="1"
                     :max="maxOpacity"
                 />
-                <BRow>
-                    <BCol>{{ minOpacity }}</BCol>
-                    <BCol class="text-center">{{ styleConfiguration.transparency }}</BCol>
-                    <BCol class="text-end">{{ maxOpacity }}</BCol>
-                </BRow>
+                <n-flex justify="space-between">
+                    <span>{{ minOpacity }}</span>
+                    <span> {{ styleConfiguration.transparency }}</span>
+                    <span>{{ maxOpacity }}</span>
+                </n-flex>
             </div>
             <div class="m-3">
                 <Label :text="`Font size`" class="mb-3" />
                 <n-slider v-model:value="styleConfiguration.fontSize" :min="minFont" :step="1" :max="maxFont" />
-                <BRow>
-                    <BCol>{{ minFont }}</BCol>
-                    <BCol class="text-center">{{ styleConfiguration.fontSize }}</BCol>
-                    <BCol class="text-end">{{ maxFont }}</BCol>
-                </BRow>
+                <n-flex justify="space-between">
+                    <span>{{ minFont }}</span>
+                    <span>{{ styleConfiguration.fontSize }}</span>
+                    <span>{{ maxFont }}</span>
+                </n-flex>
             </div>
             <div class="m-3">
                 <Label :text="`Background color`" class="mb-3" />
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { NColorPicker, NSlider, NTabPane, NTabs } from 'naive-ui';
+import { NColorPicker, NSlider, NTabPane, NTabs, NFlex } from 'naive-ui';
 import type { IStyleConfiguration } from '../../models/StyleConfiguration/IStyleConfiguration';
 
 export interface IStyleConfigurationData {
@@ -52,6 +52,7 @@ export default {
         NTabPane,
         NTabs,
         NSlider,
+        NFlex,
     },
     props: {
         styleConfiguration: {
