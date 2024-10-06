@@ -36,8 +36,8 @@
         </div>
         <div v-else class="d-flex main-area justify-content-center align-items-center">
             <n-h1>
-                Looks like your board <n-gradient-text type="danger"> has no active components! </n-gradient-text>
-                Open settings section and <n-gradient-text type="success"> enable some! </n-gradient-text>
+                Looks like your board <n-gradient-text type="danger"> has no active tools! </n-gradient-text> Open
+                settings section and <n-gradient-text type="success"> enable some! </n-gradient-text>
             </n-h1>
         </div>
     </div>

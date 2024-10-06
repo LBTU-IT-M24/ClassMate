@@ -8,6 +8,7 @@
                     :min="minOpacity"
                     :step="1"
                     :max="maxOpacity"
+                    :tooltip="false"
                 />
                 <n-flex justify="space-between">
                     <span>{{ minOpacity }}</span>
@@ -17,7 +18,13 @@
             </div>
             <div class="m-3">
                 <Label :text="`Font size`" class="mb-3" />
-                <n-slider v-model:value="styleConfiguration.fontSize" :min="minFont" :step="1" :max="maxFont" />
+                <n-slider
+                    v-model:value="styleConfiguration.fontSize"
+                    :min="minFont"
+                    :step="1"
+                    :max="maxFont"
+                    :tooltip="false"
+                />
                 <n-flex justify="space-between">
                     <span>{{ minFont }}</span>
                     <span>{{ styleConfiguration.fontSize }}</span>

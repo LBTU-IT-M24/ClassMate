@@ -1,7 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import {useAuth} from "@/stores/useAuth";
-import AuthorizationView from "@/views/AuthorizationView.vue";
-import {storeToRefs} from "pinia";
+import { createRouter, createWebHistory } from 'vue-router';
+import { useAuth } from '@/stores/useAuth';
+import AuthorizationView from '@/views/AuthorizationView.vue';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -22,18 +21,14 @@ const router = createRouter({
             component: () => import('@/views/BrainstormBoardView.vue'),
         },
     ],
-})
+});
 
 router.beforeEach(async (to, from) => {
-    const authStore= useAuth()
-    const { isAuthorized } = storeToRefs(authStore);
+    const authStore = useAuth();
 
-    if (
-        !authStore.isAuthorized &&
-        to.name !== 'signIn'
-    ) {
-        return { name: 'signIn' }
+    if (!authStore.isAuthorized && to.name !== 'signIn') {
+        return { name: 'signIn' };
     }
-})
+});
 
-export default router
+export default router;
