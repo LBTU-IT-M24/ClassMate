@@ -6,7 +6,7 @@
                     <div>
                         <h4>{{ title }}</h4>
                     </div>
-                <div>
+                    <div v-if="isTeacher" style="display: flex; align-items: center">
                         <n-tooltip>
                             <template #trigger>
                                 <n-button @click="isModalOpen = true" text class="d-flex widget__configuration__button"
