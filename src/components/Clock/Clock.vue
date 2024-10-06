@@ -29,7 +29,7 @@ export interface IClockData {
     clockCanvas: HTMLCanvasElement | null;
     draw24hour: boolean;
     drawRoman: boolean;
-    timerId: NodeJS.Timeout | undefined;
+    timerId: number | undefined;
     size: number;
 }
 
