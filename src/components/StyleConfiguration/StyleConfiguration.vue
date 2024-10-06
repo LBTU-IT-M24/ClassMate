@@ -68,13 +68,6 @@ export default {
             minOpacity: 30,
         };
     },
-    computed: {
-        style(): string {
-            console.log(this.$slots.header);
-
-            return '';
-        },
-    },
 };
 </script>
 
