@@ -79,7 +79,6 @@ jobs:
 
       - name: Create public folder
         run: |
-          cd
           ls
           ls public
           # mkdir public
