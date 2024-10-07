@@ -82,7 +82,12 @@ jobs:
           if [ ! -d "public" ]; then
             mkdir public
           fi
-          mv .github/workflows/index.html ./public/index.html
+          if [ -f ".github/workflows/index.html" ]; then
+            mv .github/workflows/index.html ./public/index.html
+          else
+            echo "File .github/workflows/index.html does not exist"
+            exit 1
+          fi
           cd public
           branches=$(echo '${{ needs.build_matrix.outputs.json_branches }}' | jq -r '.[]')
           i=0
