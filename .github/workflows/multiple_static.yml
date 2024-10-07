@@ -79,9 +79,10 @@ jobs:
 
       - name: Create public folder
         run: |
+          cd
           ls
           ls public
-          mkdir public
+          # mkdir public
           mv .github/workflows/index.html ./public/index.html
           cd public
           branches=$(echo '${{ needs.build_matrix.outputs.json_branches }}' | jq -r '.[]')
