@@ -95,7 +95,7 @@ jobs:
       
             i=$((i+1))
           done
-          cat ../.github/workflows/index_suffix.html >> index.html
+         # cat ../.github/workflows/index_suffix.html >> index.html
           ls -lR
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
