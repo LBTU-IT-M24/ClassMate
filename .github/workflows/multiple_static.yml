@@ -82,7 +82,7 @@ jobs:
           ls
           ls public
           # mkdir public
-          mv .github/workflows/index.html ./public/index.html
+          mv index.html ./public/index.html
           cd public
           branches=$(echo '${{ needs.build_matrix.outputs.json_branches }}' | jq -r '.[]')
           i=0
