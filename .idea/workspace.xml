@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f9470233-f977-4e8d-b356-4d77781cb581" name="Changes" comment="adds name for app component as well">
+      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/.env.example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/.styleci.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Console/Commands/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Console/Kernel.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Events/Event.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Events/ExampleEvent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Exceptions/Handler.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Http/Controllers/Controller.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Http/Controllers/ExampleController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Http/Middleware/Authenticate.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Http/Middleware/ExampleMiddleware.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Jobs/ExampleJob.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Jobs/Job.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Listeners/ExampleListener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Models/User.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Providers/AuthServiceProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/app/Providers/EventServiceProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/artisan" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/bootstrap/app.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/composer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/composer.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/database/factories/UserFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/database/migrations/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/phpunit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/.htaccess" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/public/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/resources/views/.gitkeep" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/routes/web.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/storage/app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/storage/framework/cache/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/storage/framework/cache/data/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/storage/framework/views/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/storage/logs/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/tests/ExampleTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/tests/TestCase.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker/backend/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker/backend/nginx/default.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker/frontend/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker/frontend/nginx/default.conf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker/frontend/start.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/static.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.nojekyll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_headers" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/components.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App/Navbar/NavConfigurationModal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App/Navbar/NavConfigurationTools.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/image.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/main.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/main_bg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Bookmark/BookmarkConfiguration.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Bookmark/BookmarkConfigurationToolsAdd.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Bookmark/Bookmarks.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Bookmark/interfaces/IBookmarkModel.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Clock/Clock.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Draggable/BaseWidgetDraggable.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Draggable/interfaces/IDraggablePosition.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Draggable/interfaces/IDraggableStyle.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Editor/PersonalEditor.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Label/Label.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Lesson/Lessons.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Playlist/Playlist.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Role/RoleSelect.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/StyleConfiguration/StyleConfiguration.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/StyleConfiguration/helpers/DefaultConfiguration.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Timer/Stopwatch.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Timer/SwitchableTimer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Timer/Timer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Timer/interfaces/ILapTime.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconBookmarks.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconClassMate.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconClock.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconCommunity.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconDocumentation.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconEcosystem.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconLessons.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconNotes.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconPlaylist.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconSettings.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconSupport.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconTimer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/icons/IconTooling.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/enums/ComponentTypes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/Date/DateFunctions.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/Random/guid.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helpers/Time/TimeFunctions.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/Date/ITimeModel.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/GlobalSettings/IGlobalSettings.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/StyleConfiguration/IStyleConfiguration.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/naive-ui.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/useAuth.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/useGlobalSettings.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stores/useWidget.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/AuthorizationView.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/BrainstormBoardView.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/PersonalBoardView.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.node.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/vite.config.ts" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/backend/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="D:\ProgramInstallations\xampp\php\php.exe">
+    <include_path>
+      <path value="$PROJECT_DIR$/backend/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/backend/vendor/fruitcake/php-cors" />
+      <path value="$PROJECT_DIR$/backend/vendor/laravel/prompts" />
+      <path value="$PROJECT_DIR$/backend/vendor/laravel/lumen-framework" />
+      <path value="$PROJECT_DIR$/backend/vendor/laravel/serializable-closure" />
+      <path value="$PROJECT_DIR$/backend/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/backend/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/backend/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/backend/vendor/hamcrest/hamcrest-php" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/code-unit" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/backend/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/backend/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/backend/vendor/brick/math" />
+      <path value="$PROJECT_DIR$/backend/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/backend/vendor/graham-campbell/result-type" />
+      <path value="$PROJECT_DIR$/backend/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/backend/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/backend/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/backend/vendor/nikic/fast-route" />
+      <path value="$PROJECT_DIR$/backend/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/backend/vendor/guzzlehttp/uri-template" />
+      <path value="$PROJECT_DIR$/backend/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/backend/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/backend/vendor/psr/clock" />
+      <path value="$PROJECT_DIR$/backend/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/backend/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/support" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/cache" />
+      <path value="$PROJECT_DIR$/backend/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/backend/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/database" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/config" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/broadcasting" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/auth" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/testing" />
+      <path value="$PROJECT_DIR$/backend/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/http" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/contracts" />
+      <path value="$PROJECT_DIR$/backend/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/container" />
+      <path value="$PROJECT_DIR$/backend/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/view" />
+      <path value="$PROJECT_DIR$/backend/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/pipeline" />
+      <path value="$PROJECT_DIR$/backend/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/bus" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/filesystem" />
+      <path value="$PROJECT_DIR$/backend/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/events" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/hashing" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/macroable" />
+      <path value="$PROJECT_DIR$/backend/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/console" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/pagination" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/conditionable" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/encryption" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/log" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/validation" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/translation" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/queue" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/collections" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/backend/vendor/illuminate/session" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/backend/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/backend/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/backend/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/backend/vendor/composer" />
+      <path value="$PROJECT_DIR$/backend/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/backend/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/backend/vendor/carbonphp/carbon-doctrine-types" />
+      <path value="$PROJECT_DIR$/backend/vendor/nunomaduro/termwind" />
+      <path value="$PROJECT_DIR$/backend/vendor/theseer/tokenizer" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="2n1WPNJAyu039ntN0gxKvhgjm5s" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/andre/WebstormProjects/ClassMate/ClassMate/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\andre\\WebstormProjects\\ClassMate\\ClassMate\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
+    "ts.external.directory.path": "C:\\Users\\andre\\WebstormProjects\\ClassMate\\ClassMate\\frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\andre\WebstormProjects\ClassMate\ClassMate\docker\fpm" />
+      <recent name="C:\Users\andre\WebstormProjects\ClassMate\ClassMate\docker\backend" />
+      <recent name="C:\Users\andre\WebstormProjects\ClassMate\ClassMate\docker\frontend\nginx" />
+      <recent name="C:\Users\andre\WebstormProjects\ClassMate\ClassMate\src\components\icons" />
+      <recent name="C:\Users\andre\WebstormProjects\ClassMate\ClassMate\src\stores" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\andre\WebstormProjects\ClassMate\ClassMate\docker\backend" />
+      <recent name="C:\Users\andre\WebstormProjects\ClassMate\ClassMate\docker\nginx" />
+      <recent name="C:\Users\andre\WebstormProjects\ClassMate\ClassMate\frontend" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f9470233-f977-4e8d-b356-4d77781cb581" name="Changes" comment="" />
+      <created>1728141037790</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728141037790</updated>
+      <workItem from="1728141038915" duration="21416000" />
+      <workItem from="1728164171317" duration="1084000" />
+      <workItem from="1728367060707" duration="4309000" />
+      <workItem from="1728377497860" duration="3892000" />
+      <workItem from="1728382341289" duration="5531000" />
+      <workItem from="1728395727338" duration="2090000" />
+      <workItem from="1728398027113" duration="219000" />
+    </task>
+    <task id="LOCAL-00001" summary="adds router, refactors some code, updates visuals">
+      <option name="closed" value="true" />
+      <created>1728164135238</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728164135238</updated>
+    </task>
+    <task id="LOCAL-00002" summary="attempts to fix volar errors">
+      <option name="closed" value="true" />
+      <created>1728164764993</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728164764993</updated>
+    </task>
+    <task id="LOCAL-00003" summary="adds name for app component as well">
+      <option name="closed" value="true" />
+      <created>1728165187798</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728165187798</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="off-track-updates" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="adds router, refactors some code, updates visuals" />
+    <MESSAGE value="attempts to fix volar errors" />
+    <MESSAGE value="adds name for app component as well" />
+    <option name="LAST_COMMIT_MESSAGE" value="adds name for app component as well" />
+  </component>
+</project>

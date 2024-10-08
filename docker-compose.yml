@@ -1,0 +1,73 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    networks:
+      - app
+    ports:
+      - "9367:80"
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    tty: true
+    links:
+      - backend
+    ports:
+      - "9368:80"
+    volumes:
+      - ./docker/backend/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - app
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    restart: unless-stopped
+    tty: true
+    expose:
+      - "9369"
+    volumes:
+      - ./backend:/var/www/html
+    ports:
+      - "9369:9000"
+    environment:
+        APP_ENV: local
+        APP_DEBUG: 'true'
+        APP_KEY: fvy082bvTGdb41pd7
+        APP_LOCALE: en
+        APP_FALLBACK_LOCALE: en
+        DB_CONNECTION: postgresql
+        DB_HOST: db
+        DB_DATABASE: ${DB_DATABASE}
+        DB_USERNAME: ${DB_USERNAME}
+        DB_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - app
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: classMate
+      POSTGRES_USER: classMateUser
+      POSTGRES_PASSWORD: j4Dhf9a8sd)&1daf9
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "9370:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - app
+
+volumes:
+  pg_data:
+
+networks:
+  app:
+    driver: bridge

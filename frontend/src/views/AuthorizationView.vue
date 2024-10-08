@@ -9,6 +9,7 @@ import RoleSelect from "@/components/Role/RoleSelect.vue";
 export default defineComponent({
   name: "AuthorizationView",
   components: {RoleSelect},
+
 })
 </script>
 
