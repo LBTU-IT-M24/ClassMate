@@ -79,8 +79,8 @@ jobs:
 
       - name: Create public folder
         run: |
-          ls
-          ls public
+          #ls
+          #ls public
           # mkdir public
           mv index.html ./public/index.html
           cd public
