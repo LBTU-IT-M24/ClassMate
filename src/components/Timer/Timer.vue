@@ -51,6 +51,7 @@
 import { secondsToTime, timeToSeconds } from '@/helpers/Time/TimeFunctions';
 import type { ITimeModel } from '@/models/Date/ITimeModel';
 import { NButton, NModal, NCard, NFlex } from 'naive-ui';
+import ding from './assets/ding.mp3';
 
 const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
@@ -163,22 +164,37 @@ export default {
     methods: {
         closedModal() {
             this.isModalOpen = false;
+            this.timePassed = 0;
             this.currentTimeLimit = timeToSeconds(this.time);
         },
         onModalOpen() {
+            if (this.isEnabled) {
+                return;
+            }
+
             this.isModalOpen = true;
-            this.time = secondsToTime(this.currentTimeLimit);
+            this.time = secondsToTime(this.timeLeft);
         },
         onTimesUp() {
             this.clearTimerInterval();
+            this.isEnabled = false;
+
+            setTimeout(() => {
+                const audio = new Audio(ding);
+                audio.play();
+            }, 500);
         },
         startTimer() {
+            if (timeToSeconds(this.time) === 0) {
+                return;
+            }
+
             this.isEnabled = true;
             this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
         },
         pauseTimer() {
-            this.isEnabled = false;
             this.clearTimerInterval();
+            this.isEnabled = false;
         },
         resetTimer() {
             this.clearTimerInterval();
