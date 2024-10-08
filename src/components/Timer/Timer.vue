@@ -163,22 +163,28 @@ export default {
     methods: {
         closedModal() {
             this.isModalOpen = false;
+            this.timePassed = 0;
             this.currentTimeLimit = timeToSeconds(this.time);
         },
         onModalOpen() {
+            if (this.isEnabled) {
+                return;
+            }
+
             this.isModalOpen = true;
-            this.time = secondsToTime(this.currentTimeLimit);
+            this.time = secondsToTime(this.timeLeft);
         },
         onTimesUp() {
             this.clearTimerInterval();
+            this.isEnabled = false;
         },
         startTimer() {
             this.isEnabled = true;
             this.timerInterval = setInterval(() => (this.timePassed += 1), 1000);
         },
         pauseTimer() {
-            this.isEnabled = false;
             this.clearTimerInterval();
+            this.isEnabled = false;
         },
         resetTimer() {
             this.clearTimerInterval();
