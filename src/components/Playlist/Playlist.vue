@@ -1,33 +1,90 @@
 <template>
     <BaseWidgetDraggable
+        style="width: 500px;"
         :title="`Playlist`"
         :type="ComponentTypes.PLAYLIST"
         @update-position="$emit('update-position')"
     >
         <template v-slot:widget>
-            <iframe
-                width="100%"
-                height="315"
-                src="https://www.youtube.com/embed/674KGKRQBPE?si=07PH1zLMEEmkSlhQ"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-            ></iframe>
+            <div v-if="playlists?.length" class="playlist-container">
+                <iframe
+                    :src="iframeSrc"
+                    allow="encrypted-media"
+                    class="spotify-embed"
+                ></iframe>
+            </div>
+
+            <div v-else class="empty-message">
+                You need to add a playlist!
+            </div>
+
+            <n-row :gutter="[10, 10]" justify="center" class="mt-3">
+                <n-col :span="12">
+                    <n-button @click="prevPlaylist" strong info size="medium">Previous</n-button>
+                </n-col>
+                <n-col :span="12">
+                    <n-button @click="nextPlaylist" strong info size="medium">Next</n-button>
+                </n-col>
+            </n-row>
+        </template>
+
+        <template v-slot:styleConfiguration>
+            <PlaylistConfiguration :playlists="playlists" />
         </template>
     </BaseWidgetDraggable>
 </template>
 
-<script lang="ts">
-import BaseWidgetDraggable from '../Draggable/BaseWidgetDraggable.vue';
+<script setup lang="ts">
+import { ref, computed } from 'vue';
 import { ComponentTypes } from '@/enums/ComponentTypes';
+import PlaylistConfiguration from '@/components/Playlist/PlaylistConfiguration.vue';
+import { type Playlist } from './interfaces/Playlist';
+import { NButton } from 'naive-ui';
 
-export default {
-    computed: {
-        ComponentTypes() {
-            return ComponentTypes;
-        },
-    },
+const playlists = ref<Playlist[]>([
+    { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DWXRqgorJj26U' },
+    { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M' },
+    { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd' }
+]);
+
+const currentIndex = ref(0);
+
+const iframeSrc = computed(() => {
+    return playlists.value[currentIndex.value]?.url;
+});
+
+const prevPlaylist = () => {
+    if (currentIndex.value > 0) {
+        currentIndex.value--;
+    } else {
+        currentIndex.value = playlists.value.length - 1;
+    }
+};
+
+const nextPlaylist = () => {
+    if (currentIndex.value < playlists.value.length - 1) {
+        currentIndex.value++;
+    } else {
+        currentIndex.value = 0;
+    }
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.spotify-embed {
+    width: 100%;
+    height: 600px;
+    border: none;
+}
+.playlist-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.empty-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ff4d4f;
+    margin-top: 20px;
+}
+</style>
