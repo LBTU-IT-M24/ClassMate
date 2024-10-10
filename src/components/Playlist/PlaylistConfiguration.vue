@@ -45,8 +45,7 @@ const rules = {
 const columns = [
     {
         title: 'Playlist URL',
-        key: 'url',
-        render: (row: Playlist) => row.url,
+        key: 'url'
     },
     {
         title: 'Actions',
@@ -69,7 +68,7 @@ const columns = [
 ];
 
 const submitPlaylist = async () => {
-    if (!(await isValid())) {
+    if (!(isValid())) {
         return;
     }
 
@@ -93,7 +92,7 @@ const resetForm = () => {
     newPlaylist.value = { url: '' };
 };
 
-const isValid = async (): Promise<boolean> => {
+const isValid = async (): boolean => {
     return !!newPlaylist.value.url;
 };
 </script>

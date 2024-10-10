@@ -1,6 +1,6 @@
 <template>
     <n-config-provider v-if="!showAddForm">
-        <n-button size="small" class="mb-3" strong secondary @click="handleAddForm(true)">
+        <n-button size="small" class="mb-3" strong secondary @click="setIsAddFormOpen(true)">
             Add Lesson
         </n-button>
         <n-data-table :columns="columns" :data="lessons" :bordered="false" />
@@ -18,7 +18,7 @@
         </n-form-item>
         <n-row :gutter="[0, 24]">
             <n-col :span="24">
-                <n-button @click="handleAddForm(false)" strong secondary>Cancel</n-button>
+                <n-button @click="setIsAddFormOpen(false)" strong secondary>Cancel</n-button>
                 <n-button @click="submitLesson" strong secondary type="primary" style="float: right">Add Lesson</n-button>
             </n-col>
         </n-row>
@@ -28,14 +28,20 @@
 <script setup lang="ts">
 import { ref, defineProps, h } from 'vue';
 import type { Lesson } from './interfaces/Lesson';
-import {NDatePicker, NTimePicker,NDataTable, NButton, NConfigProvider, NForm, NFormItem, NInput, NRow, NCol } from 'naive-ui';
+import { NDatePicker, NTimePicker, NDataTable, NButton, NConfigProvider, NForm, NFormItem, NInput, NRow, NCol } from 'naive-ui';
 
 const props = defineProps<{
     lessons: Lesson[];
 }>();
 
+const getMaxId = (lessons: Lesson[]): number => {
+    return lessons.length ? Math.max(...lessons.map(lesson => lesson.id)) : 0;
+};
+
+let idCounter = getMaxId(props.lessons) + 1;
+
 const newLesson = ref<Lesson>({
-    id: Date.now(),
+    id: idCounter,
     name: '',
     dateTime: '',
 });
@@ -60,8 +66,7 @@ const rules = {
 const columns = [
     {
         title: 'Lesson Name',
-        key: 'name',
-        render: (row: Lesson) => row.name,
+        key: 'name'
     },
     {
         title: 'Date & Time',
@@ -89,7 +94,8 @@ const columns = [
 ];
 
 const submitLesson = async () => {
-    if (!(await isValid())) return;
+    if (!( isValid())) return;
+
     if (lessonDate.value && lessonTime.value) {
         const date = new Date(lessonDate.value);
         const time = new Date(lessonTime.value);
@@ -97,11 +103,12 @@ const submitLesson = async () => {
         date.setHours(time.getHours(), time.getMinutes());
 
         const combinedDateTime = date.toISOString();
-        const lesson = { id: Date.now(), name: newLesson.value.name, dateTime: combinedDateTime };
+
+        const lesson = { id: idCounter++, name: newLesson.value.name, dateTime: combinedDateTime };
 
         props.lessons.push(lesson);
         resetForm();
-        handleAddForm(false);
+        setIsAddFormOpen(false);
     }
 };
 
@@ -118,16 +125,16 @@ const formatDateTime = (dateTime: string) => {
 };
 
 const resetForm = () => {
-    newLesson.value = { id: Date.now(), name: '', dateTime: '' };
+    newLesson.value = { id: idCounter, name: '', dateTime: '' };
     lessonDate.value = null;
     lessonTime.value = null;
 };
 
-const handleAddForm = (value: boolean) => {
+const setIsAddFormOpen = (value: boolean) => {
     showAddForm.value = value;
 };
 
-const isValid = async (): Promise<boolean> => {
+const isValid = async (): boolean => {
     return !!(newLesson.value.name && lessonDate.value && lessonTime.value);
 };
 </script>

@@ -45,10 +45,10 @@ const { isTeacher } = auth;
 const lessons = ref<Lesson[]>([]);
 
 const teacherLessons = ref<Lesson[]>([
-    { id: 1, name: 'IITF 1, kurss', dateTime: '2024-10-10T16:07:00' },
-    { id: 2, name: 'IITF 2, kurss', dateTime: '2024-10-10T16:10:00' },
-    { id: 3, name: 'ESAF 1, kurss', dateTime: '2024-10-10T16:12:00' },
-    { id: 4, name: 'ESAF 2, kurss', dateTime: '2024-10-10T16:15:00' },
+    { id: 1, name: 'IITF 1. kurss', dateTime: '2024-10-10T16:07:00' },
+    { id: 2, name: 'IITF 2. kurss', dateTime: '2024-10-10T16:10:00' },
+    { id: 3, name: 'ESAF 1. kurss', dateTime: '2024-10-10T16:12:00' },
+    { id: 4, name: 'ESAF 2. kurss', dateTime: '2024-10-10T16:15:00' },
 ]);
 
 const studentLessons = ref<Lesson[]>([
@@ -81,8 +81,7 @@ const changeDay = (days: number) => {
 };
 
 const hasLessonPassed = (lessonDateTime: string) => {
-    const lessonDate = new Date(lessonDateTime);
-    return new Date() > lessonDate;
+    return new Date() > new Date(lessonDateTime)
 };
 
 const formatTime = (dateTime: string) => {

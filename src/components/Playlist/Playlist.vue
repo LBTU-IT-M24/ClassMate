@@ -6,7 +6,7 @@
         @update-position="$emit('update-position')"
     >
         <template v-slot:widget>
-            <div v-if="playlists && playlists.length" class="playlist-container">
+            <div v-if="playlists?.length" class="playlist-container">
                 <iframe
                     :src="iframeSrc"
                     allow="encrypted-media"
@@ -80,5 +80,11 @@ const nextPlaylist = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.empty-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ff4d4f;
+    margin-top: 20px;
 }
 </style>
