@@ -36,10 +36,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import BaseWidgetDraggable from '@/components/Draggable/BaseWidgetDraggable.vue';
 import { ComponentTypes } from '@/enums/ComponentTypes';
 import PlaylistConfiguration from '@/components/Playlist/PlaylistConfiguration.vue';
-import { Playlist } from './interfaces/Playlist';
+import { type Playlist } from './interfaces/Playlist';
 import { NButton } from 'naive-ui';
 
 const playlists = ref<Playlist[]>([

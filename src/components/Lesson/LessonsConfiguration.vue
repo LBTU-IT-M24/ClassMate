@@ -11,10 +11,10 @@
             <n-input v-model:value="newLesson.name" placeholder="Lesson Name" />
         </n-form-item>
         <n-form-item label="Lesson Date" path="date">
-            <n-input v-model:value="lessonDate" type="date" placeholder="" />
+            <n-date-picker v-model:value="lessonDate"  placeholder="Select Lesson Date" />
         </n-form-item>
         <n-form-item label="Lesson Time" path="time">
-            <n-input v-model:value="lessonTime" type="time" placeholder="" />
+            <n-time-picker v-model:value="lessonTime" use-12-hours format="hh:mm a"   placeholder="Select Lesson Time" />
         </n-form-item>
         <n-row :gutter="[0, 24]">
             <n-col :span="24">
@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import { ref, defineProps, h } from 'vue';
 import type { Lesson } from './interfaces/Lesson';
-import { NDataTable, NButton, NConfigProvider, NForm, NFormItem, NInput, NRow, NCol } from 'naive-ui';
+import {NDatePicker, NTimePicker,NDataTable, NButton, NConfigProvider, NForm, NFormItem, NInput, NRow, NCol } from 'naive-ui';
 
 const props = defineProps<{
     lessons: Lesson[];
@@ -40,8 +40,8 @@ const newLesson = ref<Lesson>({
     dateTime: '',
 });
 
-const lessonDate = ref('');
-const lessonTime = ref('');
+const lessonDate = ref(null);
+const lessonTime = ref(null);
 const showAddForm = ref(false);
 
 const rules = {
@@ -89,16 +89,20 @@ const columns = [
 ];
 
 const submitLesson = async () => {
-    if (!(await isValid())) {
-        return;
+    if (!(await isValid())) return;
+    if (lessonDate.value && lessonTime.value) {
+        const date = new Date(lessonDate.value);
+        const time = new Date(lessonTime.value);
+
+        date.setHours(time.getHours(), time.getMinutes());
+
+        const combinedDateTime = date.toISOString();
+        const lesson = { id: Date.now(), name: newLesson.value.name, dateTime: combinedDateTime };
+
+        props.lessons.push(lesson);
+        resetForm();
+        handleAddForm(false);
     }
-
-    const combinedDateTime = new Date(`${lessonDate.value}T${lessonTime.value}`).toISOString();
-    const lesson = { id: Date.now(), name: newLesson.value.name, dateTime: combinedDateTime };
-
-    props.lessons.push(lesson);
-    resetForm();
-    handleAddForm(false);
 };
 
 const removeLesson = (lessonId: number) => {
@@ -115,8 +119,8 @@ const formatDateTime = (dateTime: string) => {
 
 const resetForm = () => {
     newLesson.value = { id: Date.now(), name: '', dateTime: '' };
-    lessonDate.value = '';
-    lessonTime.value = '';
+    lessonDate.value = null;
+    lessonTime.value = null;
 };
 
 const handleAddForm = (value: boolean) => {

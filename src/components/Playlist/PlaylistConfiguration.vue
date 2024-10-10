@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { ref, defineProps, h } from 'vue';
 import { NDataTable, NButton, NForm, NFormItem, NInput, NRow, NCol } from 'naive-ui';
-import { Playlist } from './interfaces/Playlist';
+import { type Playlist } from './interfaces/Playlist';
 
 const props = defineProps<{
     playlists: Playlist[];

@@ -3,7 +3,6 @@
         :title="`Lessons`"
         :type="ComponentTypes.LESSONS"
         @update-position="$emit('update-position')"
-        initial-position=""
         style="width:400px"
     >
         <template v-slot:widget>
@@ -37,7 +36,6 @@ import { ref, computed, onMounted } from 'vue';
 import { ComponentTypes } from '@/enums/ComponentTypes';
 import LessonsConfiguration from '@/components/Lesson/LessonsConfiguration.vue';
 import { NButton,NList,NFlex,NListItem } from 'naive-ui';
-import BaseWidgetDraggable from '@/components/Draggable/BaseWidgetDraggable.vue';
 import { useAuth } from '@/stores/useAuth';
 import type { Lesson } from '@/components/Lesson/interfaces/Lesson';
 const auth = useAuth();
