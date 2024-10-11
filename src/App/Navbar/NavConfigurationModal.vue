@@ -33,6 +33,11 @@
                 </n-tab-pane>
                 <n-tab-pane name="view" tab="View"> <NavConfigurationTools /> </n-tab-pane>
             </n-tabs>
+            <template #footer>
+                <RouterLink to="/brainstorm-board">
+                    <n-button>Brainstorm Board</n-button>
+                </RouterLink>
+            </template>
         </n-drawer-content>
     </n-drawer>
 </template>
