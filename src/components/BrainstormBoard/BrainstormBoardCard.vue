@@ -1,42 +1,44 @@
 <template>
-    <n-card
-        :class="draggableClass"
-        :style="draggableStyle"
-        @mousedown="onMouseDown"
-        @mouseup="onMouseUp"
-        @contextmenu.stop="() => {}"
-    >
-        <n-flex justify="space-between" class="user-select-none" style="pointer-events: none">
-            <n-element>
-                <div class="w-100 d-flex justify-content-center me-4">
-                    <img
-                        :src="`./${pushpinImagePath}`"
-                        alt="pushpin"
-                        class="img-fluid pushpin"
-                        width="574"
-                        height="434"
-                    />
-                </div>
+    <n-element>
+        <n-card
+            :class="draggableClass"
+            :style="draggableStyle"
+            @mousedown="onMouseDown"
+            @mouseup="onMouseUp"
+            @contextmenu.stop="() => {}"
+        >
+            <n-flex justify="space-between" class="user-select-none" style="pointer-events: none">
+                <n-element>
+                    <div class="w-100 d-flex justify-content-center me-4">
+                        <img
+                            :src="`./${pushpinImagePath}`"
+                            alt="pushpin"
+                            class="img-fluid pushpin"
+                            width="574"
+                            height="434"
+                        />
+                    </div>
 
-                <div class="w-100">
-                    <div class="h4" :style="textStyle">{{ card?.title }}</div>
-                </div>
+                    <div class="w-100">
+                        <div class="h4" :style="textStyle">{{ card?.title }}</div>
+                    </div>
 
-                <div class="w-100">
-                    <div class="mt-4" :style="textStyle">{{ card?.content }}</div>
-                </div>
-            </n-element>
-        </n-flex>
+                    <div class="w-100">
+                        <div class="mt-4" :style="textStyle">{{ card?.content }}</div>
+                    </div>
+                </n-element>
+            </n-flex>
 
-        <span
-            v-for="connection in card?.connections"
-            :key="`${card?.id}-connection-to-${connection.id}`"
-            class="line"
-            :style="getLineStyle(card ?? null, null, connection)"
-            @mouseup.right="removeConnection($event, card ?? null, connection)"
-        />
-        <span v-if="selectedCard === card && scale === 1" class="line" :style="getLineStyle(selectedCard, true)" />
-    </n-card>
+            <span
+                v-for="connection in card?.connections"
+                :key="`${card?.id}-connection-to-${connection.id}`"
+                class="line"
+                :style="getLineStyle(card ?? null, null, connection)"
+                @mouseup.right="removeConnection($event, card ?? null, connection)"
+            />
+            <span v-if="selectedCard === card && scale === 1" class="line" :style="getLineStyle(selectedCard, true)" />
+        </n-card>
+    </n-element>
 </template>
 
 <script lang="ts">
@@ -87,12 +89,12 @@ export default defineComponent({
                 transform: `rotate(${this.card?.rotation}deg)`,
                 transformOrigin: 'center',
                 position: 'absolute',
-                'background-color': this.isDarkMode ? 'var(--p-form-field-filled-hover-background)' : '#cfe5ff',
+                'background-color': this.isDarkMode ? 'var(--n-color-modal)' : '#cfe5ff',
             };
         },
         textStyle() {
             return {
-                color: this.isDarkMode ? 'var(--p-primary-500)' : '#000',
+                color: this.isDarkMode ? 'var(--primary-color-pressed)' : '#000',
             };
         },
     },
@@ -264,6 +266,6 @@ export default defineComponent({
     border: 1px solid #000;
 }
 .hovering-dark {
-    border: 1px solid var(--p-primary-500);
+    border: 1px solid var(--primary-color-pressed);
 }
 </style>
