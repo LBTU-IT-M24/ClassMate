@@ -27,5 +27,5 @@ numberOfReviewers: 0
 filterLabels:
   # Run
   include:
-    - my_label
+    - ny_label
     - another_label
