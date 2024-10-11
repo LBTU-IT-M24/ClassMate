@@ -11,14 +11,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { NConfigProvider, darkTheme, NGlobalStyle, NNotificationProvider } from 'naive-ui';
+import { NConfigProvider, darkTheme, NGlobalStyle } from 'naive-ui';
 import { mapState } from 'pinia';
 import { useGlobalSettings } from './stores/useGlobalSettings';
 
 export default defineComponent({
     name: 'App',
     components: {
-        NNotificationProvider,
         NConfigProvider,
         NGlobalStyle,
     },
