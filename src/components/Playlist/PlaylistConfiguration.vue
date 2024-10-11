@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { ref, defineProps, h } from 'vue';
-import { NDataTable, NButton, NForm, NFormItem, NInput, NRow, NCol } from 'naive-ui';
+import {NConfigProvider, NDataTable, NButton, NForm, NFormItem, NInput, NRow, NCol } from 'naive-ui';
 import { type Playlist } from './interfaces/Playlist';
 
 const props = defineProps<{
@@ -67,7 +67,7 @@ const columns = [
     }
 ];
 
-const submitPlaylist = async () => {
+const submitPlaylist =  () => {
     if (!(isValid())) {
         return;
     }
@@ -92,7 +92,7 @@ const resetForm = () => {
     newPlaylist.value = { url: '' };
 };
 
-const isValid = async (): boolean => {
+const isValid =  (): boolean => {
     return !!newPlaylist.value.url;
 };
 </script>

@@ -93,7 +93,7 @@ const columns = [
     },
 ];
 
-const submitLesson = async () => {
+const submitLesson =  () => {
     if (!( isValid())) return;
 
     if (lessonDate.value && lessonTime.value) {
@@ -134,7 +134,7 @@ const setIsAddFormOpen = (value: boolean) => {
     showAddForm.value = value;
 };
 
-const isValid = async (): boolean => {
+const isValid = (): boolean => {
     return !!(newLesson.value.name && lessonDate.value && lessonTime.value);
 };
 </script>

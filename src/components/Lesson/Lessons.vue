@@ -11,18 +11,19 @@
                     <strong>{{ formattedDate }}</strong>
                 <n-button class="ml-4" strong info @click="changeDay(1)">&rarr;</n-button>
             </n-flex>
-            <n-list bordred>
-                <n-list-item
+            <n-row :gutter="[0, 24]"
                     v-for="lesson in currentLessons"
                     :key="lesson.id"
                     :class="{ 'lesson-passed': hasLessonPassed(lesson.dateTime) }"
+
                 >
-                        <div class="lesson-details">
-                            <strong>{{ lesson.name }}</strong>
-                            <span class="lesson-time"> - {{ formatTime(lesson.dateTime) }}</span>
+                <n-col :span="24" style="text-align: center">
+                        <div class="changing-text-size">
+                            <strong >{{ lesson.name }}</strong>
+                            <span > - {{ formatTime(lesson.dateTime) }}</span>
                         </div>
-                </n-list-item>
-            </n-list>
+                </n-col>
+            </n-row>
         </template>
 
         <template v-slot:styleConfiguration>
@@ -35,7 +36,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { ComponentTypes } from '@/enums/ComponentTypes';
 import LessonsConfiguration from '@/components/Lesson/LessonsConfiguration.vue';
-import { NButton,NList,NFlex,NListItem } from 'naive-ui';
+import { NButton, NFlex, NRow, NCol } from 'naive-ui';
 import { useAuth } from '@/stores/useAuth';
 import type { Lesson } from '@/components/Lesson/interfaces/Lesson';
 const auth = useAuth();
@@ -94,5 +95,11 @@ const formatTime = (dateTime: string) => {
 .lesson-passed {
     color: gray;
     text-decoration: line-through;
+}
+
+.changing-text-size{
+    text-decoration: underline;
+    font-size: inherit;
+    text-align: left;
 }
 </style>
