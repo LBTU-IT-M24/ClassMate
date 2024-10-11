@@ -104,7 +104,7 @@ const columns = [
     },
 ];
 
-const submitLesson = async () => {
+const submitLesson = () => {
     if (!isValid()) return;
 
     if (lessonDate.value && lessonTime.value) {

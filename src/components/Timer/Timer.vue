@@ -277,7 +277,7 @@ export default {
         display: flex;
         justify-content: center;
         text-align: center;
-        font-size: 48px;
+        font-size: 2em;
         text-decoration: underline;
         text-decoration-thickness: from-font;
         outline: none;
