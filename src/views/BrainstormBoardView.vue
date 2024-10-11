@@ -135,7 +135,7 @@
             <template #footer>
                 <n-space justify="space-between">
                     <n-button type="tertiary" @click="showAddingModal = false">Close</n-button>
-                    <n-button v-if="isEdit" type="error" @click="removeCard(card)">Delete</n-button>
+                    <n-button v-if="isEdit" type="error" @click="removeCard">Delete</n-button>
                     <n-button v-if="isEdit" type="primary" @click="updateCard">Update</n-button>
                     <n-button v-else type="primary" @click="addCard">Add</n-button>
                 </n-space>
@@ -178,11 +178,30 @@ import { mapActions, mapState, mapStores } from 'pinia';
 import { useAuth } from '@/stores/useAuth';
 import BrainstormBoardCard from '@/components/BrainstormBoard/BrainstormBoardCard.vue';
 import { useBrainstormBoard } from '@/stores/useBrainstormBoard';
+import type { BrainstormCard } from '@/stores/useBrainstormBoard';
 import { useGlobalSettings } from '@/stores/useGlobalSettings';
 import { guid } from '@/helpers/Random/guid';
 import NavConfigurationTools from '@/App/Navbar/NavConfigurationTools.vue';
-import {useWidget} from "@/stores/useWidget";
-import router from "@/router";
+import router from '@/router';
+
+interface BrainstormBoardViewData {
+    hoveredCard?: BrainstormCard|null;
+    isHoveringCard: boolean;
+    isEdit: boolean;
+    showOptions: boolean;
+    editingCard: BrainstormCard|null;
+    currentConnectingStep: number;
+    newCardTitle: string;
+    newCardValue: string;
+    showAddingModal: boolean;
+    isDragging: boolean;
+    startX: number;
+    startY: number;
+    cursorX: number;
+    cursorY: number;
+    x: number;
+    y: number;
+}
 
 export default defineComponent({
     name: 'BrainstormBoard',
@@ -215,7 +234,7 @@ export default defineComponent({
         NSpace,
         NavConfigurationModal,
     },
-    data() {
+    data(): BrainstormBoardViewData {
         return {
             hoveredCard: null,
             isHoveringCard: false,
@@ -314,13 +333,17 @@ export default defineComponent({
             router.push({ name: 'signIn' });
         },
         removeCard() {
-            this.remove(this.editingCard);
+            if (this.editingCard) {
+                this.remove(this.editingCard);
+            }
             this.clearCardData();
             this.cardRemoved();
         },
         updateCard() {
-            this.editingCard.title = this.newCardTitle;
-            this.editingCard.content = this.newCardValue;
+            if (this.editingCard) {
+                this.editingCard.title = this.newCardTitle;
+                this.editingCard.content = this.newCardValue;
+            }
             this.clearCardData();
             this.cardModified();
         },
@@ -338,14 +361,16 @@ export default defineComponent({
             this.isEdit = false;
             this.editingCard = null;
         },
-        hoverCard(isHovering: boolean, card: any = null) {
+        hoverCard(isHovering: boolean, card: BrainstormCard|null = null) {
             if (card) {
                 card.isHovering = isHovering;
                 this.hoveredCard = card;
                 return;
             }
 
-            this.hoveredCard.isHovering = false;
+            if (this.hoveredCard) {
+                this.hoveredCard.isHovering = false;
+            }
         },
         nextStep(step: number) {
             this.currentConnectingStep = step;
@@ -353,21 +378,20 @@ export default defineComponent({
         resetStep() {
             this.currentConnectingStep = 1;
         },
-        cardClick(card: any) {
+        cardClick(card: BrainstormCard) {
             if (!this.isConnectingMode) {
                 return;
             }
 
             if (!this.selectedCard) {
                 this.setSelected(card);
-                this.selectedCard.isSelected = false;
                 card.isSelected = true;
                 this.nextStep(2);
                 return;
             }
 
             if (
-                card.connections.filter((connection) => this.selectedCard.id === connection.id).length ||
+                card.connections.filter((connection) => this.selectedCard?.id === connection.id).length ||
                 this.selectedCard.connections.filter((connection) => card.id === connection.id).length ||
                 this.selectedCard.id === card.id
             ) {
@@ -419,12 +443,14 @@ export default defineComponent({
                 content: this.newCardValue,
                 connections: [],
                 isDragging: false,
+                isHovering: false,
+                isSelected: false,
                 width: width,
                 height: height,
                 offsetX: 0,
                 offsetY: 0,
                 headerHeight: headerHeight,
-                rotation: Math.floor(Math.random() * (15 - -15 + 1) + -15),
+                rotation: 0,
                 position: { left: left, top: top },
             });
 
@@ -445,25 +471,29 @@ export default defineComponent({
                 return;
             }
 
-            this.cursorX = event.pageX - this.$refs.content.offsetLeft;
-            this.cursorY = event.pageY - this.$refs.content.offsetTop;
+            const content = this.$refs.content as HTMLElement;
+            this.cursorX = event.pageX - content.offsetLeft;
+            this.cursorY = event.pageY - content.offsetTop;
         },
         preserveMousePosition(event: MouseEvent) {
             if (this.isConnectingMode && this.selectedCard) {
+                const content = this.$refs.content as HTMLElement;
                 this.setMousePosition(
-                    (event.pageX - this.$refs.content.offsetLeft) / this.scale,
-                    (event.pageY - this.$refs.content.offsetTop) / this.scale,
+                    (event.pageX - content.offsetLeft) / this.scale,
+                    (event.pageY - content.offsetTop) / this.scale,
                 );
             }
         },
         onMouseDown(event: MouseEvent) {
-            if (event.target?.classList?.contains('n-card__content') || event.target?.classList?.contains('line')) {
+            const target = event.target as HTMLElement;
+            if (target.classList.contains('n-card__content') || target.classList.contains('line')) {
                 return;
             }
 
+            const element = this.$refs.content as HTMLElement;
             this.isDragging = true;
-            this.startX = event.pageX - this.$refs.content.offsetLeft;
-            this.startY = event.pageY - this.$refs.content.offsetTop;
+            this.startX = event.pageX - element.offsetLeft;
+            this.startY = event.pageY - element.offsetTop;
 
             document.addEventListener('mousemove', this.onMouseMove);
             document.addEventListener('mouseup', this.onMouseUp);

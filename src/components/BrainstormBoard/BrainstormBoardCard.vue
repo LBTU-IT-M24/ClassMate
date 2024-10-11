@@ -32,15 +32,16 @@
             v-for="connection in card?.connections"
             :key="`${card?.id}-connection-to-${connection.id}`"
             class="line"
-            :style="getLineStyle(card, null, connection)"
-            @mouseup.right="removeConnection($event, card, connection)"
+            :style="getLineStyle(card ?? null, null, connection)"
+            @mouseup.right="removeConnection($event, card ?? null, connection)"
         />
         <span v-if="selectedCard === card && scale === 1" class="line" :style="getLineStyle(selectedCard, true)" />
     </n-card>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent } from 'vue';
+import type { PropType } from 'vue';
 import { NButton, NRow, NCol, NCard, NFlex, NH2, NText, NElement } from 'naive-ui';
 import type { BrainstormCard } from '@/stores/useBrainstormBoard';
 import { mapState, mapStores } from 'pinia';
@@ -51,7 +52,10 @@ export default defineComponent({
     name: 'BrainstormBoardCard',
     components: { NElement, NText, NH2, NFlex, NCard, NButton, NRow, NCol },
     props: {
-        card: Object as PropType<BrainstormCard>,
+        card: {
+            type: Object as PropType<BrainstormCard>,
+            required: true,
+        },
     },
     computed: {
         ...mapStores(useBrainstormBoard, useGlobalSettings),
@@ -65,19 +69,19 @@ export default defineComponent({
             if (this.isDarkMode) {
                 return {
                     draggable: true,
-                    'hovering-dark': this.card.isSelected || this.card.isHovering,
+                    'hovering-dark': this.card?.isSelected || this.card?.isHovering,
                 };
             }
 
             return {
                 draggable: true,
-                'hovering-light': this.card.isSelected || this.card.isHovering,
+                'hovering-light': this.card?.isSelected || this.card?.isHovering,
             };
         },
         draggableStyle() {
             return {
-                width: `${this.card.width}px`,
-                height: `${this.card.height}px`,
+                width: `${this.card?.width ?? 0}px`,
+                height: `${this.card?.height ?? 0}px`,
                 left: `${this.position.left}px`,
                 top: `${this.position.top}px`,
                 transform: `rotate(${this.card?.rotation}deg)`,
@@ -107,23 +111,28 @@ export default defineComponent({
         };
     },
     beforeMount() {
-        if (this.card.position.top === 0) {
+        if (this.card && this.card.position.top === 0) {
             this.position.top = window.innerHeight / 2 - this.card.height / 2 + this.headerHeight;
         } else {
-            this.position.top = this.card.position.top;
+            this.position.top = this.card?.position?.top ?? 0;
         }
 
-        if (this.card.position.left === 0) {
+        if (this.card && this.card.position.left === 0) {
             this.position.left = window.innerWidth / 2 - this.card.width / 2;
         } else {
-            this.position.left = this.card.position.left;
+            this.position.left = this.card?.position?.left ?? 0;
         }
 
-        this.updateCard(this.card);
+        this.updateCard(this.card ?? null);
     },
     methods: {
-        removeConnection(event: MouseEvent, sourceCard: BrainstormCard, connectionCard: BrainstormCard) {
-            if (event.target?.classList?.contains('line')) {
+        removeConnection(event: MouseEvent, sourceCard: BrainstormCard | null, connectionCard: BrainstormCard | null) {
+            if (!sourceCard || !connectionCard) {
+                return;
+            }
+
+            const target = event.target as HTMLElement;
+            if (target.classList.contains('line')) {
                 event.preventDefault();
                 setTimeout(() => {
                     sourceCard.connections = sourceCard.connections.filter((card) => card.id !== connectionCard.id);
@@ -131,7 +140,15 @@ export default defineComponent({
                 return;
             }
         },
-        getLineStyle(sourceCard: BrainstormCard, followCursor: any = null, targetCard: any = null): string {
+        getLineStyle(
+            sourceCard: BrainstormCard | null,
+            followCursor: any = null,
+            targetCard: BrainstormCard | null = null,
+        ): string {
+            if (!sourceCard) {
+                return '';
+            }
+
             const viewportWidth = window.innerWidth;
             const viewportHeight = window.innerHeight;
 
@@ -162,7 +179,7 @@ export default defineComponent({
             const color = this.isDarkMode ? 'green' : 'red';
             const style = followCursor ? 'dashed' : 'solid';
 
-            return `border: ${style} 3px ${color}; transform-origin: top left; width: ${width}px; transform: rotate(${radians * (180 / Math.PI) - sourceCard.rotation}deg);`;
+            return `border: ${style} 3px ${color}; transform-origin: top left; width: ${width}px; transform: rotate(${radians * (180 / Math.PI) - (sourceCard?.rotation ?? 0)}deg);`;
         },
         onMouseDown(event: MouseEvent) {
             if (this.isConnectingMode) {
@@ -192,14 +209,14 @@ export default defineComponent({
             this.isDragging = false;
             document.removeEventListener('mousemove', this.onMouseMove);
         },
-        updateCard(card?: BrainstormCard) {
+        updateCard(card: BrainstormCard | null) {
             if (!card) {
                 return;
             }
 
             card.isDragging = this.isDragging;
-            card.width = this.card.width;
-            card.height = this.card.height;
+            card.width = this.card?.width ?? 0;
+            card.height = this.card?.height ?? 0;
             card.offsetX = this.offsetX;
             card.offsetY = this.offsetY;
             card.headerHeight = this.headerHeight;
