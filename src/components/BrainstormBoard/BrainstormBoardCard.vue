@@ -11,7 +11,7 @@
                 <n-element>
                     <div class="w-100 d-flex justify-content-center me-4">
                         <img
-                            :src="`./${pushpinImagePath}`"
+                            :src="pushpinImagePath"
                             alt="pushpin"
                             class="img-fluid pushpin"
                             width="574"
@@ -34,6 +34,7 @@
                 :key="`${card?.id}-connection-to-${connection.id}`"
                 class="line"
                 :style="getLineStyle(card ?? null, null, connection)"
+                @contextmenu.stop="() => {}"
                 @mouseup.right="removeConnection($event, card ?? null, connection)"
             />
             <span v-if="selectedCard === card && scale === 1" class="line" :style="getLineStyle(selectedCard, true)" />
@@ -49,6 +50,8 @@ import type { BrainstormCard } from '@/stores/useBrainstormBoard';
 import { mapState, mapStores } from 'pinia';
 import { useBrainstormBoard } from '@/stores/useBrainstormBoard';
 import { useGlobalSettings } from '@/stores/useGlobalSettings';
+import pushpin from '@/assets/pushpin.png';
+import pushpinGreen from '@/assets/pushpin_green.png';
 
 export default defineComponent({
     name: 'BrainstormBoardCard',
@@ -65,7 +68,7 @@ export default defineComponent({
         ...mapState(useBrainstormBoard, ['scale', 'selectedCard', 'mouseX', 'mouseY', 'isConnectingMode']),
 
         pushpinImagePath() {
-            return this.isDarkMode ? 'pushpin_green.png' : 'pushpin.png';
+            return this.isDarkMode ? pushpinGreen : pushpin;
         },
         draggableClass() {
             if (this.isDarkMode) {
@@ -138,7 +141,7 @@ export default defineComponent({
                 event.preventDefault();
                 setTimeout(() => {
                     sourceCard.connections = sourceCard.connections.filter((card) => card.id !== connectionCard.id);
-                }, 10);
+                }, 20);
                 return;
             }
         },
