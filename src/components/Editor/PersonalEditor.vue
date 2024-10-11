@@ -94,8 +94,6 @@ $border-color: var(--border-color);
             border-color: $border-color !important;
         }
     }
-
-    resize: both;
 }
 
 .ql-editor {
