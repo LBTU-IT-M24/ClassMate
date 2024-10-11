@@ -3,25 +3,25 @@
         :title="`Lessons`"
         :type="ComponentTypes.LESSONS"
         @update-position="$emit('update-position')"
-        style="width:400px"
+        style="width: 400px"
     >
         <template v-slot:widget>
             <n-flex class="mb-3" direction="row" align="center" justify="center">
                 <n-button class="mr-2" strong info @click="changeDay(-1)">&larr;</n-button>
-                    <strong>{{ formattedDate }}</strong>
+                <strong>{{ formattedDate }}</strong>
                 <n-button class="ml-4" strong info @click="changeDay(1)">&rarr;</n-button>
             </n-flex>
-            <n-row :gutter="[0, 24]"
-                    v-for="lesson in currentLessons"
-                    :key="lesson.id"
-                    :class="{ 'lesson-passed': hasLessonPassed(lesson.dateTime) }"
-
-                >
+            <n-row
+                :gutter="[0, 24]"
+                v-for="lesson in currentLessons"
+                :key="lesson.id"
+                :class="{ 'lesson-passed': hasLessonPassed(lesson.dateTime) }"
+            >
                 <n-col :span="24" style="text-align: center">
-                        <div class="changing-text-size">
-                            <strong >{{ lesson.name }}</strong>
-                            <span > - {{ formatTime(lesson.dateTime) }}</span>
-                        </div>
+                    <div class="changing-text-size">
+                        <strong>{{ lesson.name }}</strong>
+                        <span> - {{ formatTime(lesson.dateTime) }}</span>
+                    </div>
                 </n-col>
             </n-row>
         </template>
@@ -41,7 +41,6 @@ import { useAuth } from '@/stores/useAuth';
 import type { Lesson } from '@/components/Lesson/interfaces/Lesson';
 const auth = useAuth();
 const { isTeacher } = auth;
-
 
 const lessons = ref<Lesson[]>([]);
 
@@ -82,7 +81,7 @@ const changeDay = (days: number) => {
 };
 
 const hasLessonPassed = (lessonDateTime: string) => {
-    return new Date() > new Date(lessonDateTime)
+    return new Date() > new Date(lessonDateTime);
 };
 
 const formatTime = (dateTime: string) => {
@@ -97,7 +96,7 @@ const formatTime = (dateTime: string) => {
     text-decoration: line-through;
 }
 
-.changing-text-size{
+.changing-text-size {
     text-decoration: underline;
     font-size: inherit;
     text-align: left;

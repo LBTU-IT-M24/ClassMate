@@ -1,29 +1,23 @@
 <template>
     <BaseWidgetDraggable
-        style="width: 500px;"
+        style="width: 500px"
         :title="`Playlist`"
         :type="ComponentTypes.PLAYLIST"
         @update-position="$emit('update-position')"
     >
         <template v-slot:widget>
             <div v-if="playlists?.length" class="playlist-container">
-                <iframe
-                    :src="iframeSrc"
-                    allow="encrypted-media"
-                    class="spotify-embed"
-                ></iframe>
+                <iframe :src="iframeSrc" allow="encrypted-media" class="spotify-embed"></iframe>
             </div>
 
-            <div v-else class="empty-message">
-                You need to add a playlist!
-            </div>
+            <div v-else class="empty-message">You need to add a playlist!</div>
 
             <n-row :gutter="[10, 10]" justify="center" class="mt-3">
                 <n-col :span="12">
-                    <n-button @click="prevPlaylist" strong info >Previous</n-button>
+                    <n-button @click="prevPlaylist" strong info>Previous</n-button>
                 </n-col>
                 <n-col :span="12">
-                    <n-button @click="nextPlaylist" strong info >Next</n-button>
+                    <n-button @click="nextPlaylist" strong info>Next</n-button>
                 </n-col>
             </n-row>
         </template>
@@ -39,12 +33,12 @@ import { ref, computed } from 'vue';
 import { ComponentTypes } from '@/enums/ComponentTypes';
 import PlaylistConfiguration from '@/components/Playlist/PlaylistConfiguration.vue';
 import { type Playlist } from './interfaces/Playlist';
-import {NRow,NCol, NButton } from 'naive-ui';
+import { NRow, NCol, NButton } from 'naive-ui';
 
 const playlists = ref<Playlist[]>([
     { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DWXRqgorJj26U' },
     { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M' },
-    { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd' }
+    { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd' },
 ]);
 
 const currentIndex = ref(0);
