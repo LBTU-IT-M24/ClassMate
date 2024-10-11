@@ -146,7 +146,7 @@ export const useBrainstormBoard = defineStore('brainstormBoard', {
 
         return {
             cards: [card1, card2, card3, card4, card5, card6] as BrainstormCard[],
-            selectedCard: null,
+            selectedCard: null as BrainstormCard|null,
             scale: 1,
             mouseX: 0,
             mouseY: 0,
@@ -162,27 +162,27 @@ export const useBrainstormBoard = defineStore('brainstormBoard', {
             this.cards = [];
         },
         remove(cardToRemove: BrainstormCard) {
-            this.cards.forEach((card) => {
+            this.cards.forEach((card: BrainstormCard) => {
                 card.connections.forEach((connection) => {
                     if (connection.id === cardToRemove.id) {
                         card.connections = card.connections.filter((conn) => conn.id !== cardToRemove.id);
                     }
                 }) ;
             });
-            this.cards = this.cards.filter((card) => card.id !== cardToRemove.id);
+            this.cards = this.cards.filter((card: BrainstormCard) => card.id !== cardToRemove.id);
         },
         setScale(scale: number) {
             this.scale = scale;
         },
-        setSelected(card: any) {
+        setSelected(card: BrainstormCard|null) {
             this.selectedCard = card;
         },
-        clearSelected(card: any) {
+        clearSelected(card: BrainstormCard) {
             this.selectedCard = null;
             card.isSelected = false;
         },
         clearHover() {
-            this.cards.forEach((card: any) => card.isHovering = false);
+            this.cards.forEach((card: BrainstormCard) => card.isHovering = false);
         },
         setMousePosition(x: number, y: number) {
               this.mouseX = x;
