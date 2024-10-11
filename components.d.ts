@@ -11,6 +11,7 @@ declare module 'vue' {
     BookmarkConfiguration: typeof import('./src/components/Bookmark/BookmarkConfiguration.vue')['default']
     BookmarkConfigurationToolsAdd: typeof import('./src/components/Bookmark/BookmarkConfigurationToolsAdd.vue')['default']
     Bookmarks: typeof import('./src/components/Bookmark/Bookmarks.vue')['default']
+    BrainstormBoardCard: typeof import('./src/components/BrainstormBoard/BrainstormBoardCard.vue')['default']
     Clock: typeof import('./src/components/Clock/Clock.vue')['default']
     ClockDraggable: typeof import('./src/components/Clock/ClockDraggable.vue')['default']
     IconBookmarks: typeof import('./src/components/icons/IconBookmarks.vue')['default']
