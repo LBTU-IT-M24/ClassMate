@@ -1,15 +1,14 @@
  per_author:
-    engineers:
-      - engineers # group
-      - team:engineering-managers # GitHub team
-    lead_designer:
-      - js-lovers # group
-      - desinger_a # username
-    designer_a:
-      - lead_designer # username
-    designer_b:
-      - lead_desinger # username
-      - desinger_a # username
+    arturslast:
+      - SandisAbele
+    andrejste7:
+      - SandisAbele
+    mesahil321:
+      - SandisAbele
+    LabaisLatvietis:
+      - SandisAbele
+    stnix:
+      - SandisAbele
 
 options:
   ignore_draft: true
