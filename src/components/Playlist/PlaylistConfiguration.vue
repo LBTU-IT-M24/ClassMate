@@ -1,11 +1,8 @@
 <template>
     <n-config-provider v-if="!showAddForm">
-        <n-button size="small" class="mb-3" strong secondary @click="handleAddForm(true)">
-            Add Playlist
-        </n-button>
+        <n-button size="small" class="mb-3" strong secondary @click="handleAddForm(true)"> Add Playlist </n-button>
 
         <n-data-table :columns="columns" :data="playlists" :bordered="false" />
-
     </n-config-provider>
 
     <n-form ref="formRef" v-else :label-width="80" :model="newPlaylist" :rules="rules">
@@ -16,7 +13,9 @@
         <n-row :gutter="[0, 24]">
             <n-col :span="24">
                 <n-button @click="handleAddForm(false)" strong secondary>Cancel</n-button>
-                <n-button @click="submitPlaylist" strong secondary type="primary" style="float: right">Add Playlist</n-button>
+                <n-button @click="submitPlaylist" strong secondary type="primary" style="float: right"
+                    >Add Playlist</n-button
+                >
             </n-col>
         </n-row>
     </n-form>
@@ -24,7 +23,7 @@
 
 <script setup lang="ts">
 import { ref, defineProps, h } from 'vue';
-import {NConfigProvider, NDataTable, NButton, NForm, NFormItem, NInput, NRow, NCol } from 'naive-ui';
+import { NConfigProvider, NDataTable, NButton, NForm, NFormItem, NInput, NRow, NCol } from 'naive-ui';
 import { type Playlist } from './interfaces/Playlist';
 
 const props = defineProps<{
@@ -39,13 +38,13 @@ const rules = {
         required: true,
         message: 'Please input playlist URL',
         trigger: 'blur',
-    }
+    },
 };
 
 const columns = [
     {
         title: 'Playlist URL',
-        key: 'url'
+        key: 'url',
     },
     {
         title: 'Actions',
@@ -61,14 +60,14 @@ const columns = [
                     type: 'error',
                     secondary: true,
                 },
-                { default: () => 'Remove' }
+                { default: () => 'Remove' },
             );
-        }
-    }
+        },
+    },
 ];
 
-const submitPlaylist =  () => {
-    if (!(isValid())) {
+const submitPlaylist = () => {
+    if (!isValid()) {
         return;
     }
 
@@ -92,10 +91,9 @@ const resetForm = () => {
     newPlaylist.value = { url: '' };
 };
 
-const isValid =  (): boolean => {
+const isValid = (): boolean => {
     return !!newPlaylist.value.url;
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
