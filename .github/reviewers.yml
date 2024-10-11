@@ -1,31 +1,26 @@
-# Set to true to add reviewers to pull requests
-addReviewers: true
+ per_author:
+    engineers:
+      - engineers # group
+      - team:engineering-managers # GitHub team
+    lead_designer:
+      - js-lovers # group
+      - desinger_a # username
+    designer_a:
+      - lead_designer # username
+    designer_b:
+      - lead_desinger # username
+      - desinger_a # username
 
-# Set to true to add assignees to pull requests
-addAssignees: Author
+options:
+  ignore_draft: true
+  ignored_keywords:
+    - DO NOT REVIEW
+  enable_group_assignment: false
 
-# A list of reviewers to be added to pull requests (GitHub user name)
-reviewers:
-  - RJSkudra
+  # Randomly pick reviewers up to this number.
+  # Do not set this option if you'd like to assign all matching reviewers.
+  number_of_reviewers: 1
 
-
-# A number of reviewers added to the pull request
-# Set 0 to add all the reviewers (default: 0)
-numberOfReviewers: 0
-# A list of assignees, overrides reviewers if set
-# assignees:
-#   - assigneeA
-
-# A number of assignees to add to the pull request
-# Set to 0 to add all of the assignees.
-# Uses numberOfReviewers if unset.
-# numberOfAssignees: 2
-
-# A list of keywords to be skipped the process that add reviewers if pull requests include it
-# skipKeywords:
-#   - wip
-filterLabels:
-  # Run
-  include:
-    - ny_label
-    - another_label
+  # If it's true, the last matching files-change pattern takes the most precedence (CODEOWNERS-compatible)
+  # See https://github.com/necojackarc/auto-request-review/pull/80 for more details.
+  last_files_match_only: false
