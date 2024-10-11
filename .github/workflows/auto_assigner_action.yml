@@ -5,6 +5,7 @@ on:
     types: [opened, ready_for_review, reopened]
     branches:
       - main
+      - test
 
 jobs:
   auto-request-review:
