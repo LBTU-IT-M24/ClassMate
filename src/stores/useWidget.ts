@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { markRaw } from 'vue';
+import { markRaw, type Component } from 'vue';
 import { ComponentTypes } from '@/enums/ComponentTypes';
 import Bookmarks from '@/components/Bookmark/Bookmarks.vue';
 import Lessons from '@/components/Lesson/Lessons.vue';
@@ -13,9 +13,23 @@ import IconLessons from '@/components/icons/IconLessons.vue';
 import IconPlaylist from '@/components/icons/IconPlaylist.vue';
 import IconTimer from '@/components/icons/IconTimer.vue';
 import ClockDraggable from '@/components/Clock/ClockDraggable.vue';
+import type { IDraggablePosition } from '@/components/Draggable/interfaces/IDraggablePosition';
+
+export interface IUseWidgetState {
+    widgets: IWidget[];
+}
+
+interface IWidget {
+    renderer: Component;
+    customData: object;
+    isVisible: boolean;
+    type: ComponentTypes;
+    icon: Component;
+    position: IDraggablePosition;
+}
 
 export const useWidget: any = defineStore('widget', {
-    state: () => ({
+    state: (): IUseWidgetState => ({
         widgets: [
             {
                 renderer: markRaw(Bookmarks),
@@ -134,19 +148,19 @@ export const useWidget: any = defineStore('widget', {
         ],
     }),
     getters: {
-        activeWidgets(state: any) {
-            return state.widgets.filter((widget: any) => widget.isVisible);
+        activeWidgets(state) {
+            return state.widgets.filter((widget) => widget.isVisible);
         },
-        widgetVisibility(state: any) {
-            return new Map<string, boolean>(state.widgets.map((widget: any) => [widget.type, widget.isVisible]));
+        widgetVisibility(state) {
+            return new Map<string, boolean>(state.widgets.map((widget) => [widget.type, widget.isVisible]));
         },
-        widgetByType(state: any) {
-            return (type: string) => state.widgets.find((widget: any) => widget.type === type);
+        widgetByType(state) {
+            return (type: string) => state.widgets.find((widget) => widget.type === type);
         },
     },
     actions: {
         updateVisibility(type: string, visibility: boolean) {
-            const widget = this.widgets.find((widget: any) => widget.type === type);
+            const widget = this.widgets.find((widget) => widget.type === type);
 
             if (!widget) {
                 return;
@@ -155,13 +169,18 @@ export const useWidget: any = defineStore('widget', {
             widget.isVisible = visibility;
         },
         getPosition(type: string) {
-            return this.widgets.find((widget: any) => widget.type === type).position;
+            return this.widgets.find((widget) => widget.type === type)?.position;
         },
         getIcon(type: string) {
-            return this.widgets.find((widget: any) => widget.type === type).icon;
+            return this.widgets.find((widget) => widget.type === type)?.icon;
         },
-        updatePosition(type: string, position: object) {
-            const widget = this.widgets.find((widget: any) => widget.type === type);
+        updatePosition(type: string, position: IDraggablePosition) {
+            const widget = this.widgets.find((widget) => widget.type === type);
+
+            if (!widget) {
+                return;
+            }
+
             widget.position = position;
         },
     },

@@ -1,8 +1,6 @@
 <template>
     <n-config-provider v-if="!showAddForm">
-        <n-button size="small" class="mb-3" strong secondary @click="setIsAddFormOpen(true)">
-            Add Lesson
-        </n-button>
+        <n-button size="small" class="mb-3" strong secondary @click="setIsAddFormOpen(true)"> Add Lesson </n-button>
         <n-data-table :columns="columns" :data="lessons" :bordered="false" />
     </n-config-provider>
 
@@ -11,15 +9,17 @@
             <n-input v-model:value="newLesson.name" placeholder="Lesson Name" />
         </n-form-item>
         <n-form-item label="Lesson Date" path="date">
-            <n-date-picker v-model:value="lessonDate"  placeholder="Select Lesson Date" />
+            <n-date-picker v-model:value="lessonDate" placeholder="Select Lesson Date" />
         </n-form-item>
         <n-form-item label="Lesson Time" path="time">
-            <n-time-picker v-model:value="lessonTime" use-12-hours format="hh:mm a"   placeholder="Select Lesson Time" />
+            <n-time-picker v-model:value="lessonTime" use-12-hours format="hh:mm a" placeholder="Select Lesson Time" />
         </n-form-item>
         <n-row :gutter="[0, 24]">
             <n-col :span="24">
                 <n-button @click="setIsAddFormOpen(false)" strong secondary>Cancel</n-button>
-                <n-button @click="submitLesson" strong secondary type="primary" style="float: right">Add Lesson</n-button>
+                <n-button @click="submitLesson" strong secondary type="primary" style="float: right"
+                    >Add Lesson</n-button
+                >
             </n-col>
         </n-row>
     </n-form>
@@ -28,14 +28,25 @@
 <script setup lang="ts">
 import { ref, defineProps, h } from 'vue';
 import type { Lesson } from './interfaces/Lesson';
-import { NDatePicker, NTimePicker, NDataTable, NButton, NConfigProvider, NForm, NFormItem, NInput, NRow, NCol } from 'naive-ui';
+import {
+    NDatePicker,
+    NTimePicker,
+    NDataTable,
+    NButton,
+    NConfigProvider,
+    NForm,
+    NFormItem,
+    NInput,
+    NRow,
+    NCol,
+} from 'naive-ui';
 
 const props = defineProps<{
     lessons: Lesson[];
 }>();
 
 const getMaxId = (lessons: Lesson[]): number => {
-    return lessons.length ? Math.max(...lessons.map(lesson => lesson.id)) : 0;
+    return lessons.length ? Math.max(...lessons.map((lesson) => lesson.id)) : 0;
 };
 
 let idCounter = getMaxId(props.lessons) + 1;
@@ -66,7 +77,7 @@ const rules = {
 const columns = [
     {
         title: 'Lesson Name',
-        key: 'name'
+        key: 'name',
     },
     {
         title: 'Date & Time',
@@ -94,7 +105,7 @@ const columns = [
 ];
 
 const submitLesson = async () => {
-    if (!( isValid())) return;
+    if (!isValid()) return;
 
     if (lessonDate.value && lessonTime.value) {
         const date = new Date(lessonDate.value);
@@ -134,10 +145,9 @@ const setIsAddFormOpen = (value: boolean) => {
     showAddForm.value = value;
 };
 
-const isValid = async (): boolean => {
+const isValid = (): boolean => {
     return !!(newLesson.value.name && lessonDate.value && lessonTime.value);
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
