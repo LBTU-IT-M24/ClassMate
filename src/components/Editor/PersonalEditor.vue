@@ -58,6 +58,16 @@ export default {
                 ],
             },
         });
+
+        const Link = Quill.import('formats/link');
+        Link.sanitize = (url: string) => {
+            if (!url.startsWith('http')) {
+                return `https://${url}`;
+            }
+            return url;
+        };
+        Quill.register(Link, true);
+
         document.querySelectorAll('.ql-toolbar').forEach((item) => {
             item.classList.add('editor__wrapper__toolbar');
         });
