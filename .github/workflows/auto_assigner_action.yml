@@ -7,6 +7,10 @@ on:
       - main
       - test
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   auto-request-review:
     name: Auto Request Review
