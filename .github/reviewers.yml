@@ -9,6 +9,8 @@ per_author:
     - SandisAbele
   stnix:
     - SandisAbele
+  RJSkudra:
+    - SandisAbele
 
 options:
   ignore_draft: true
