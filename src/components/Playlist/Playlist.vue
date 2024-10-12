@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, provide } from 'vue';
 import { ComponentTypes } from '@/enums/ComponentTypes';
 import PlaylistConfiguration from '@/components/Playlist/PlaylistConfiguration.vue';
 import { type Playlist } from './interfaces/Playlist';
@@ -36,6 +36,14 @@ const playlists = ref<Playlist[]>([
     { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M' },
     { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd' },
 ]);
+
+const disabledOptions = {
+    isOpacityDisabled: false,
+    isFontSizeDisabled: true,
+    isBackgroundColorDisabled: false,
+};
+
+provide('disabledOptions', disabledOptions);
 
 const currentIndex = ref(0);
 
