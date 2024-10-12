@@ -1,16 +1,17 @@
-per_author:
-  arturslast:
-    - SandisAbele
-  andrejste7:
-    - SandisAbele
-  mesahil321:
-    - SandisAbele
-  LabaisLatvietis:
-    - SandisAbele
-  stnix:
-    - SandisAbele
-  RJSkudra:
-    - SandisAbele
+reviewers:
+  per_author:
+    arturslast:
+      - SandisAbele
+    andrejste7:
+      - SandisAbele
+    mesahil321:
+      - SandisAbele
+    LabaisLatvietis:
+      - SandisAbele
+    stnix:
+      - SandisAbele
+    RJSkudra:
+      - SandisAbele
 
 options:
   ignore_draft: true
