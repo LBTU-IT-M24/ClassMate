@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    image: classmate-app
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://classmate_user:classmate_password@db:5432/classmate_db
+
+  db:
+    image: postgres:14-alpine
+    environment:
+      POSTGRES_DB: classmate_db
+      POSTGRES_USER: classmate_user
+      POSTGRES_PASSWORD: classmate_password
+    ports:
+      - "5432:5432"
