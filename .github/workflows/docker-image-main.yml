@@ -33,7 +33,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
 
       - name: Build and push Docker image
         id: push
@@ -47,7 +47,7 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:main
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
 
@@ -74,7 +74,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test
 
       - name: Build and push Docker image
         id: push
@@ -88,6 +88,6 @@ jobs:
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:test
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
