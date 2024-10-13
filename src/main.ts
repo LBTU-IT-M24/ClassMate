@@ -23,10 +23,15 @@ app.component('VueDatePicker', VueDatePicker);
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import Quill from 'quill';
+import { sanitizeUrl } from '@/helpers/PersonalEditorDefinitionHelpers/SanitizeUrl';
 
 library.add(fas);
 app.component('font-awesome-icon', FontAwesomeIcon);
 
+const Link = Quill.import('formats/link')as any;
+Link.sanitize = (url: string) => sanitizeUrl(url);
+Quill.register(Link, true);
 // @ts-ignore
 import naive from './naive-ui';
 app.use(naive);
