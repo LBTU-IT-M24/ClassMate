@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: classmate-app
+    image: ghcr.io/RJSkudra/classmate:main
     build: .
     ports:
       - "3000:5002"
