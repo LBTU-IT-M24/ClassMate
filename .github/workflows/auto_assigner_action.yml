@@ -5,6 +5,8 @@ on:
     types: [opened, ready_for_review, reopened]
     branches:
       - main
+    paths-ignore:
+      - '.github/**'
 
 jobs:
   auto-request-review:
