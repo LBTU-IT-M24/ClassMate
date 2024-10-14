@@ -1,20 +1,23 @@
-
-per_author:
-  arturslast:
-    - SandisAbele
-  andrejste7:
-    - SandisAbele
-  mesahil321:
-    - SandisAbele
-  LabaisLatvietis:
-    - SandisAbele
-  stnix:
-    - SandisAbele
+reviewers:
+  per_author:
+    arturslast:
+      - SandisAbele
+    andrejste7:
+      - SandisAbele
+    mesahil321:
+      - SandisAbele
+    LabaisLatvietis:
+      - SandisAbele
+    stnix:
+      - SandisAbele
+    RJSkudra:
+      - SandisAbele
 
 options:
   ignore_draft: true
   ignored_keywords:
     - DO NOT REVIEW
+    - DNR
   enable_group_assignment: false
   number_of_reviewers: 1
   last_files_match_only: false
