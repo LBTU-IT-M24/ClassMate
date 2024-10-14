@@ -12,14 +12,10 @@
 
             <div v-else class="empty-message">You need to add a playlist!</div>
 
-            <n-row :gutter="[10, 10]" justify="center" class="mt-3">
-                <n-col :span="12">
-                    <n-button @click="prevPlaylist" strong info>Previous</n-button>
-                </n-col>
-                <n-col :span="12">
-                    <n-button @click="nextPlaylist" strong info>Next</n-button>
-                </n-col>
-            </n-row>
+            <n-flex justify="center" class="mt-3">
+                <n-button @click="prevPlaylist" strong info>Previous</n-button>
+                <n-button @click="nextPlaylist" strong info>Next</n-button>
+            </n-flex>
         </template>
 
         <template v-slot:styleConfiguration>
@@ -29,17 +25,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, provide } from 'vue';
 import { ComponentTypes } from '@/enums/ComponentTypes';
 import PlaylistConfiguration from '@/components/Playlist/PlaylistConfiguration.vue';
 import { type Playlist } from './interfaces/Playlist';
-import { NRow, NCol, NButton } from 'naive-ui';
+import { NButton, NFlex } from 'naive-ui';
 
 const playlists = ref<Playlist[]>([
     { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DWXRqgorJj26U' },
     { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M' },
     { url: 'https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd' },
 ]);
+
+const disabledOptions = {
+    isOpacityDisabled: false,
+    isFontSizeDisabled: true,
+    isBackgroundColorDisabled: false,
+};
+
+provide('disabledOptions', disabledOptions);
 
 const currentIndex = ref(0);
 
