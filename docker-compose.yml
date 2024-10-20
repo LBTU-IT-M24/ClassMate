@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  classmate:
+    container_name: classmate
+    image: ghcr.io/LBTU-IT-M24/classmate:main
+    restart: unless-stopped
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
