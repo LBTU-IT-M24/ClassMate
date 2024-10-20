@@ -92,7 +92,7 @@
         <n-layout>
             <n-layout-content
                 ref="board"
-                class="card-boar woosh_background"
+                class="woosh_background"
                 :style="layoutStyle"
                 @mousemove="preserveMousePosition"
                 @mousedown="onMouseDown"
