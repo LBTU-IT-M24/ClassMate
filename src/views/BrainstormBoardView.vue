@@ -11,7 +11,7 @@
                           to: 'rgb(244, 200, 212)',
                         }"
                     >
-                        Detective Brainstorm Board
+                        Brainstorm Board
                     </n-gradient-text>
                 </n-h2>
             </RouterLink>
@@ -92,7 +92,7 @@
         <n-layout>
             <n-layout-content
                 ref="board"
-                class="card-board"
+                class="card-boar woosh_background"
                 :style="layoutStyle"
                 @mousemove="preserveMousePosition"
                 @mousedown="onMouseDown"
@@ -185,11 +185,11 @@ import NavConfigurationTools from '@/App/Navbar/NavConfigurationTools.vue';
 import router from '@/router';
 
 interface BrainstormBoardViewData {
-    hoveredCard?: BrainstormCard|null;
+    hoveredCard?: BrainstormCard | null;
     isHoveringCard: boolean;
     isEdit: boolean;
     showOptions: boolean;
-    editingCard: BrainstormCard|null;
+    editingCard: BrainstormCard | null;
     currentConnectingStep: number;
     newCardTitle: string;
     newCardValue: string;
@@ -361,7 +361,7 @@ export default defineComponent({
             this.isEdit = false;
             this.editingCard = null;
         },
-        hoverCard(isHovering: boolean, card: BrainstormCard|null = null) {
+        hoverCard(isHovering: boolean, card: BrainstormCard | null = null) {
             if (card) {
                 card.isHovering = isHovering;
                 this.hoveredCard = card;
@@ -516,9 +516,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.card-board {
-    height: 100%;
-}
 .inner-board {
     height: 100%;
     position: absolute;

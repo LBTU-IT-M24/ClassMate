@@ -10,13 +10,7 @@
             <n-flex justify="space-between" class="user-select-none" style="pointer-events: none">
                 <n-element>
                     <div class="w-100 d-flex justify-content-center me-4">
-                        <img
-                            :src="pushpinImagePath"
-                            alt="pushpin"
-                            class="img-fluid pushpin"
-                            width="574"
-                            height="434"
-                        />
+                        <img :src="pushpinImagePath" alt="pushpin" class="img-fluid pushpin" width="574" height="434" />
                     </div>
 
                     <div class="w-100">
