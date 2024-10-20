@@ -1,21 +1,15 @@
 <template>
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        width="400"
-        height="150"
-        viewBox="0 0 400 150"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 10 350 90" style="width: auto; height: auto">
         <defs>
             <filter id="ClassMate" x="0" y="0" width="390" height="120" filterUnits="userSpaceOnUse">
-                <feOffset dx="-4" dy="-4" input="SourceAlpha" />
+                <feOffset dx="-4" dy="-4"  />
                 <feGaussianBlur stdDeviation="6" result="blur" />
                 <feFlood flood-color="#fff" />
                 <feComposite operator="in" in2="blur" />
                 <feComposite in="SourceGraphic" />
             </filter>
             <filter id="ClassMate-2" x="8" y="8" width="390" height="120" filterUnits="userSpaceOnUse">
-                <feOffset dx="4" dy="4" input="SourceAlpha" />
+                <feOffset dx="4" dy="4" />
                 <feGaussianBlur stdDeviation="6" result="blur-2" />
                 <feFlood flood-color="#919191" flood-opacity="0.702" />
                 <feComposite operator="in" in2="blur-2" />
@@ -23,7 +17,7 @@
             </filter>
         </defs>
 
-        <g id="Group_43" data-name="Group 43" transform="translate(-116 -340)">
+        <g id="Group_43" data-name="Group 43" transform="translate(-126 -390)">
             <g transform="matrix(1, 0, 0, 1, 116, 340)" filter="url(#ClassMate)">
                 <text
                     id="ClassMate-3"

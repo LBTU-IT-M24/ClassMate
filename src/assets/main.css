@@ -10,7 +10,15 @@ body {
 
 #app {
   height: 100vh !important;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.woosh_background {
+    width: 100vw;
+    height: 100vh;
+    background: url('../assets/Green Woosh.svg') no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
 }

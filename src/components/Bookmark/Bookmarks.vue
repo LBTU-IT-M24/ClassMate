@@ -6,13 +6,18 @@
     >
         <template v-slot:widget>
             <div class="d-flex flex-column bookmarks h-100">
-                <n-row :gutter="[0, 24]" v-for="{ url, name } in bookmarks">
-                    <n-col :span="24" style="text-align: center">
-                        <n-button class="bookmarks__link-button" text type="info" @click="onBookmarkClick(url)">
-                            {{ name }}
-                        </n-button>
-                    </n-col>
-                </n-row>
+                <n-flex>
+                    <n-button
+                        v-for="{ url, name } in bookmarks"
+                        class="bookmarks__link-button"
+                        text-color="white"
+                        type="primary"
+                        round
+                        @click="onBookmarkClick(url)"
+                    >
+                        {{ name }}
+                    </n-button>
+                </n-flex>
             </div>
         </template>
         <template v-slot:styleConfiguration>
@@ -67,9 +72,7 @@ export default {
     }
 
     &__link-button {
-        text-decoration: underline;
         font-size: inherit;
-        text-align: center;
     }
 }
 </style>

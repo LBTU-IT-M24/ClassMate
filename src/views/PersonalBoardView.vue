@@ -1,5 +1,5 @@
 <template>
-    <n-page-header class="w-100 p-3 shadow-sm">
+    <n-page-header class="w-100 p-3 shadow-sm border-bottom">
         <template #title>
             <RouterLink to="/">
                 <n-h2 class="mb-0">
@@ -25,7 +25,7 @@
         </template>
     </n-page-header>
 
-    <div class="w-100 p-4">
+    <div class="w-100 p-4 woosh_background">
         <div v-if="activeWidgets.length" v-for="item in activeWidgets" :key="item.type">
             <component
                 v-if="item.isVisible"
@@ -35,10 +35,12 @@
             />
         </div>
         <div v-else class="d-flex main-area justify-content-center align-items-center">
-            <n-h1>
-                Looks like your board <n-gradient-text type="danger"> has no active tools! </n-gradient-text> Open
-                settings section and <n-gradient-text type="success"> enable some! </n-gradient-text>
-            </n-h1>
+            <div class="text-left">
+                <n-h1>
+                    Looks like your board <n-gradient-text type="danger">has no active tools!</n-gradient-text>
+                </n-h1>
+                <n-h1> Open settings & <n-gradient-text type="success">enable some!</n-gradient-text> </n-h1>
+            </div>
         </div>
     </div>
 </template>
@@ -80,5 +82,9 @@ export default defineComponent({
 <style scoped>
 .main-area {
     height: calc(100vh - 119px);
+}
+.text-left {
+    text-align: left;
+    width: 75%;
 }
 </style>

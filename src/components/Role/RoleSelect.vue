@@ -1,22 +1,27 @@
 <template>
     <n-flex justify="center">
         <div class="row custom-width align-items-center vh-100">
-            <div class="col-12 col-md-5 d-flex flex-column align-items-center justify-content-center">
-                <n-card class="p-3">
-                    <h2 class="text-center mb-3">Choose your role</h2>
-                    <n-flex vertical class="w-100">
-                        <n-button size="large" @click="authenticate(true)"> Teacher </n-button>
-                        <n-button size="large" strong secondary @click="authenticate()"> Student </n-button>
-                    </n-flex>
-                </n-card>
+            <div class="col-5 d-flex flex-column align-items-end">
+                <n-flex vertical class="w-75">
+                    <n-button
+                        class="mb-5"
+                        size="large"
+                        type="primary"
+                        round
+                        text-color="white"
+                        @click="authenticate(true)"
+                    >
+                        Teacher
+                    </n-button>
+
+                    <n-button size="large" ghost strong type="primary" round @click="authenticate()">
+                        Student
+                    </n-button>
+                </n-flex>
             </div>
-            <div class="col-12 col-md-7 d-flex flex-column align-items-start">
+            <div class="col-5 d-flex flex-column align-items-start">
+                <ClassmateWelcomeIcon />
                 <IconClassMate />
-                <p>
-                    Welcome to Classmate, your shared digital board for students and teachers alike. Choose your role
-                    now to collaborate and elevate your classroom experience
-                    <n-gradient-text type="info"> together! </n-gradient-text>
-                </p>
             </div>
         </div>
     </n-flex>
@@ -28,9 +33,10 @@ import { useAuth } from '@/stores/useAuth';
 import router from '@/router';
 import { NButton, NCard, NFlex, NGradientText, NH1 } from 'naive-ui';
 import IconClassMate from '../icons/IconClassMate.vue';
+import ClassmateWelcomeIcon from '@/components/Role/Cloud.vue';
 
 export default {
-    components: { NGradientText, NH1, NCard, NButton, NFlex, IconClassMate },
+    components: { ClassmateWelcomeIcon, NGradientText, NH1, NCard, NButton, NFlex, IconClassMate },
     computed: {
         ...mapStores(useAuth),
     },

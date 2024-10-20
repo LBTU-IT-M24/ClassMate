@@ -3,22 +3,21 @@
         <n-element>
             <div class="widget" :style="widgetStyle">
                 <div class="d-flex pb-2 widget__header">
-                    <div>
-                        <h4>{{ title }}</h4>
-                    </div>
-                    <div v-if="isTeacher" style="display: flex; align-items: center">
+                    <h4>{{ title }}</h4>
+                </div>
+                <slot name="widget"></slot>
+                <div class="widget__configuration">
+                    <div v-if="isTeacher" style="display: flex; justify-content: flex-end">
                         <n-tooltip>
                             <template #trigger>
-                                <n-button @click="isModalOpen = true" text class="d-flex widget__configuration__button"
-                                    ><font-awesome-icon :icon="['fas', 'cog']" />
+                                <n-button @click="isModalOpen = true" text class="widget__configuration__button">
+                                    <font-awesome-icon :icon="['fas', 'cog']" />
                                 </n-button>
                             </template>
                             Open configuration
                         </n-tooltip>
                     </div>
                 </div>
-
-                <slot name="widget"></slot>
             </div>
             <div>
                 <n-modal v-model:show="isModalOpen">
@@ -40,7 +39,6 @@
         </n-element>
     </div>
 </template>
-
 <script lang="ts">
 import type { IStyleConfiguration } from '@/models/StyleConfiguration/IStyleConfiguration';
 import type { IDraggablePosition } from './interfaces/IDraggablePosition';
@@ -222,19 +220,15 @@ export default {
     box-shadow: var(--bs-box-shadow) !important;
     display: flex !important;
     flex-direction: column;
-    margin: 0px auto;
+    margin: 0 auto;
     padding: 1rem;
     overflow: auto;
 
     &__configuration {
-        &__button {
-            float: right;
-            align-content: center;
-        }
-
-        &__title {
-            float: left;
-        }
+        position: relative;
+        margin-top: 1rem;
+        display: flex;
+        justify-content: flex-end;
     }
 
     &__header {
