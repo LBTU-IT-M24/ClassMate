@@ -1,5 +1,19 @@
 # ClassMate
 
+## 💻 Docker setup
+
+You can use the [docker-compose](https://github.com/LBTU-IT-M24/ClassMate/blob/main/docker-compose.yml) file or the ```docker run``` command:
+
+```
+docker run --name classmate \
+  -p 3000:3000 \
+  --restart unless-stopped \
+  ghcr.io/LBTU-IT-M24/classmate:main
+```
+
+
+## 🔨 Contribution
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
