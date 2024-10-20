@@ -4,8 +4,8 @@ FROM node:20-alpine AS build
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the package.json and package-lock.json files to the working directory
-COPY package*.json ./
+# Copy the package.json file to the working directory
+COPY package.json ./
 
 # Install the project dependencies
 RUN npm install
@@ -34,7 +34,7 @@ FROM node:20-alpine AS final
 WORKDIR /app
 
 # Copy the built application from the build stage
-#COPY --from=build /app .
+COPY --from=build /app .
 
 # Copy the database setup from the db stage
 #COPY --from=db /var/lib/postgresql/data /var/lib/postgresql/data
