@@ -8,7 +8,7 @@ You can use the [docker-compose](https://github.com/LBTU-IT-M24/ClassMate/blob/m
 docker run --name classmate \
   -p 3000:3000 \
   --restart unless-stopped \
-  ghcr.io/LBTU-IT-M24/classmate:main
+  ghcr.io/lbtu-it-m24/classmate:main
 ```
 
 
