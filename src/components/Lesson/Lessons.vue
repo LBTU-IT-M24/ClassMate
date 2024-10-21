@@ -3,7 +3,7 @@
         :title="`Lessons`"
         :type="ComponentTypes.LESSONS"
         @update-position="$emit('update-position')"
-        style="width: 400px"
+        style="min-width: 300px"
     >
         <template v-slot:widget>
             <n-flex class="mb-3" direction="row" align="center" justify="center">

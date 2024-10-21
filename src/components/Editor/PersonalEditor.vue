@@ -4,13 +4,14 @@
         :type="ComponentTypes.NOTES"
         @update-position="$emit('update-position')"
         class="editor"
+        style="min-width: 420px"
     >
         <template v-slot:widget>
             <n-el class="editor__wrapper">
                 <div
                     ref="quillEditor"
                     class="quill-editor editor__wrapper__text-area"
-                    style="width: 400px; height: 320px; overflow: auto"
+                    style="width: 100%; height: 320px; overflow: auto"
                 ></div>
             </n-el>
         </template>
@@ -23,7 +24,7 @@ import { ComponentTypes } from '@/enums/ComponentTypes';
 import Quill from 'quill';
 
 export interface IPersonalEditorData {
-    value: string; // Note - this is an HTML value. For example text - woo, will be translated to <p>woo</p>
+    value: string;
     quill: any;
 }
 

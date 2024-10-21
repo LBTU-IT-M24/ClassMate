@@ -1,7 +1,6 @@
 <template>
-    <div class="clock" :style="{ width: String(size) + 'px', textAlign: 'center' }">
+    <div class="clock" :style="{ width: String(size) + 'px' }">
         <canvas :width="size" :height="size" ref="clockCanvas" />
-
         <p v-if="showLabel">Current time: {{ timeFormatted }}</p>
     </div>
 </template>
@@ -16,13 +15,11 @@ const DEFAULT_SIZE = 280;
 export interface IClockData {
     time: Date | null;
     timeFormatted: string;
-    radius: number;
     drawingContext: ConvasRenderingType;
     clockCanvas: HTMLCanvasElement | null;
     draw24hour: boolean;
     drawRoman: boolean;
     timerId: number | undefined;
-    size: number;
 }
 
 export default {
@@ -30,6 +27,12 @@ export default {
     computed: {
         ComponentTypes() {
             return ComponentTypes;
+        },
+        size() {
+            return this.clockSize ;
+        },
+        radius() {
+            return (this.size) / 2;
         },
     },
     props: {
@@ -66,8 +69,6 @@ export default {
         return {
             time: null,
             timeFormatted: '',
-            size: this.clockSize,
-            radius: this.clockSize / 2,
             drawingContext: null,
             clockCanvas: null,
             draw24hour: this.timeFormat.toLowerCase().trim() === '24hour',
@@ -197,22 +198,26 @@ export default {
         },
         tick() {
             this.time = new Date();
-            const r = this.radius;
             const ctx = this.drawingContext;
 
-            this.drawFace(ctx, r);
-            this.drawNumbers(ctx, r);
-            this.drawTicks(ctx, r);
-            this.drawTime(ctx, r);
+
+            ctx?.clearRect(-this.radius, -this.radius, this.size, this.size);
+            ctx?.save();
+            ctx?.translate(this.radius, this.radius);
+
+
+            this.drawFace(ctx, this.radius*0.9);
+            this.drawNumbers(ctx, this.radius*0.9);
+            this.drawTicks(ctx, this.radius*0.9);
+            this.drawTime(ctx, this.radius*0.9);
 
             this.timeFormatted = formatDate(this.time);
+
+            ctx?.restore();
         },
     },
     mounted() {
         this.drawingContext = (this.$refs.clockCanvas as HTMLCanvasElement).getContext('2d');
-        this.drawingContext?.translate(this.radius, this.radius);
-        this.radius *= 0.9;
-
         this.timerId = setInterval(() => this.tick(), 1000);
     },
     beforeUnmount() {
@@ -221,4 +226,17 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.clock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centers items horizontally */
+    justify-content: center; /* Centers items vertically */
+    text-align: center;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+}
+</style>
