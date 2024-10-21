@@ -1,6 +1,6 @@
 <template>
     <BaseWidgetDraggable
-        style="width: 500px"
+        style="min-width: 500px"
         :title="`Playlist`"
         :type="ComponentTypes.PLAYLIST"
         @update-position="$emit('update-position')"

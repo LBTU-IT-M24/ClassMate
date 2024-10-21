@@ -1,185 +1,196 @@
 <template>
-    <div class="stopwatch">
-        <span class="stopwatch__time">{{ time }}</span>
+    <div class="stopwatch" :style="{ width: widgetWidth/1.2 + 'px' }">
+        <span class="stopwatch__time" :style="{ fontSize: widgetWidth / 11 + 'px' }">{{ time }}</span>
         <n-flex justify="space-between">
             <div>
-                <n-button v-if="!isRunning" strong secondary type="primary" @click="start"
-                    ><font-awesome-icon :icon="['fas', 'play']"
-                /></n-button>
-                <n-button v-else @click="lapTime" strong secondary type="primary">
-                    <font-awesome-icon :icon="['fas', 'list-ol']" /> &nbsp; Lap</n-button
+                <n-button
+                    v-if="!isRunning"
+                    :style="{width: widgetWidth / 7 + 'px', height: widgetWidth / 10 + 'px',fontSize: widgetWidth / 30 + 'px'}"
+                    strong
+                    secondary
+                    type="primary"
+                    @click="start"
                 >
+                    <font-awesome-icon  :icon="['fas', 'play']" />
+                </n-button>
+                <n-button
+                    v-else
+                    :style="{ width: widgetWidth / 6 + 'px', height: widgetWidth / 10 + 'px',fontSize: widgetWidth / 30 + 'px'}"
+                    strong
+                    secondary
+                    type="primary"
+                    @click="lapTime"
+                >
+                    <font-awesome-icon  :icon="['fas', 'list-ol']" /> &nbsp; Lap
+                </n-button>
             </div>
             <div>
-                <n-button strong secondary type="primary" @click="stop"
-                    ><font-awesome-icon :icon="['fas', 'pause']"
-                /></n-button>
+                <n-button
+                    :style="{ width: widgetWidth / 7 + 'px', height: widgetWidth / 10 + 'px',fontSize: widgetWidth / 30 + 'px' }"
+                    strong
+                    secondary
+                    type="primary"
+                    @click="stop"
+                >
+                    <font-awesome-icon  :icon="['fas', 'pause']" />
+                </n-button>
             </div>
             <div>
-                <n-button strong secondary type="primary" @click="reset"
-                    ><font-awesome-icon :icon="['fas', 'arrow-rotate-left']"
-                /></n-button>
+                <n-button
+                    :style="{ width: widgetWidth / 7 + 'px', height: widgetWidth / 10 + 'px',fontSize: widgetWidth / 30 + 'px' }"
+                    strong
+                    secondary
+                    type="primary"
+                    @click="reset"
+                >
+                    <font-awesome-icon  :icon="['fas', 'arrow-rotate-left']" />
+                </n-button>
             </div>
         </n-flex>
         <n-config-provider>
-            <n-data-table v-if="lapTimes.length" class="mt-3" :columns="columns" :data="lapTimes" :bordered="false" />
+            <n-data-table :style="{ fontSize: widgetWidth / 23 + 'px' }" v-if="lapTimes.length" class="mt-3" :columns="columns" :data="lapTimes" :bordered="false" />
         </n-config-provider>
     </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import type { ILapTime } from './interfaces/ILapTime';
 import { NButton, type DataTableColumns, NDataTable, NConfigProvider, NFlex } from 'naive-ui';
+import { defineProps, ref, onMounted } from 'vue';
 
-interface IStopwatchData {
-    time: string;
-    timeBegan: Date | null;
-    timeStopped: Date | null;
-    stopDuration: number;
-    started: number | undefined;
-    isRunning: boolean;
-    lapTimes: ILapTime[];
-    columns: DataTableColumns<ILapTime>;
-}
+const props = defineProps<{
+    widgetWidth: number;
+}>();
 
-export default {
-    components: {
-        NButton,
-        NDataTable,
-        NConfigProvider,
-        NFlex,
-    },
-    data(): IStopwatchData {
-        return {
-            time: '00:00:00.000',
-            isRunning: false,
-            timeStopped: null,
-            timeBegan: null,
-            stopDuration: 0,
-            started: undefined,
-            lapTimes: [],
-            columns: [],
-        };
-    },
-    created() {
-        this.columns = this.createColumns();
-    },
-    methods: {
-        start() {
-            if (this.isRunning) {
-                return;
-            }
+const time = ref('00:00:00.000');
+const isRunning = ref(false);
+const timeBegan = ref<Date | null>(null);
+const timeStopped = ref<Date | null>(null);
+const stopDuration = ref(0);
+const started = ref<number | undefined>(undefined);
+const lapTimes = ref<ILapTime[]>([]);
+const columns = ref<DataTableColumns<ILapTime>>([]);
 
-            if (!this.timeBegan) {
-                this.reset();
-                this.timeBegan = new Date();
-            }
+onMounted(() => {
+    columns.value = createColumns();
+});
 
-            if (this.timeStopped) {
-                this.stopDuration += new Date().getTime() - this.timeStopped.getTime();
-            }
+const start = () => {
+    if (isRunning.value) {
+        return;
+    }
 
-            this.started = setInterval(this.clockRunning, 10);
-            this.isRunning = true;
+    if (!timeBegan.value) {
+        reset();
+        timeBegan.value = new Date();
+    }
+
+    if (timeStopped.value) {
+        stopDuration.value += new Date().getTime() - timeStopped.value.getTime();
+    }
+
+    started.value = setInterval(clockRunning, 10);
+    isRunning.value = true;
+};
+
+const stop = () => {
+    isRunning.value = false;
+    timeStopped.value = new Date();
+    clearInterval(started.value);
+};
+
+const reset = () => {
+    isRunning.value = false;
+    clearInterval(started.value);
+    stopDuration.value = 0;
+    timeBegan.value = null;
+    lapTimes.value = [];
+    timeStopped.value = null;
+    time.value = '00:00:00.000';
+};
+
+const getFormmatedDate = (timeElapsed: number): string => {
+    const date = new Date(timeElapsed);
+    const hour = date.getUTCHours();
+    const min = date.getUTCMinutes();
+    const sec = date.getUTCSeconds();
+    const ms = date.getUTCMilliseconds();
+
+    return (
+        zeroPrefix(hour, 2) +
+        ':' +
+        zeroPrefix(min, 2) +
+        ':' +
+        zeroPrefix(sec, 2) +
+        '.' +
+        zeroPrefix(ms, 3)
+    );
+};
+
+const lapTime = () => {
+    const lapTimeLength = lapTimes.value.length;
+    const previousTime = lapTimes.value[lapTimeLength - 1];
+
+    let lapTimeStr = time.value;
+    if (previousTime) {
+        const previousTimeDate = convertTimeToDate(previousTime.overallTime);
+        const currentTime = convertTimeToDate(time.value);
+
+        const difference = currentTime.getTime() - previousTimeDate.getTime();
+        lapTimeStr = getFormmatedDate(difference);
+    }
+
+    const lap = lapTimes.value.length + 1;
+    const overallTime = time.value;
+
+    lapTimes.value.push({ lap, lapTime: lapTimeStr, overallTime });
+};
+
+const clockRunning = () => {
+    const currentTime = new Date();
+    const elapsed = currentTime.getTime() - (timeBegan.value?.getTime() || 0) - stopDuration.value;
+
+    time.value = getFormmatedDate(elapsed);
+};
+
+const zeroPrefix = (num: number, digit: number) => {
+    const zero = '0'.repeat(digit);
+    return (zero + num).slice(-digit);
+};
+
+const convertTimeToDate = (timeStr: string): Date => {
+    const date = new Date();
+
+    if (!timeStr) {
+        return date;
+    }
+
+    const [hours, minutes, seconds] = timeStr.split(':');
+    const [secs, millis] = seconds.split('.');
+
+    date.setHours(parseInt(hours));
+    date.setMinutes(parseInt(minutes));
+    date.setSeconds(parseInt(secs));
+    date.setMilliseconds(parseInt(millis));
+
+    return date;
+};
+
+const createColumns = (): DataTableColumns<ILapTime> => {
+    return [
+        {
+            title: 'No.',
+            key: 'lap',
         },
-        stop() {
-            this.isRunning = false;
-            this.timeStopped = new Date();
-            clearInterval(this.started);
+        {
+            title: 'Lap time',
+            key: 'lapTime',
         },
-        reset() {
-            this.isRunning = false;
-            clearInterval(this.started);
-            this.stopDuration = 0;
-            this.timeBegan = null;
-            this.lapTimes = [];
-            this.timeStopped = null;
-            this.time = '00:00:00.000';
+        {
+            title: 'Overall time',
+            key: 'overallTime',
         },
-        getFormmatedDate(time: number): string {
-            const timeElapsed = new Date(time);
-
-            const hour = timeElapsed.getUTCHours();
-            const min = timeElapsed.getUTCMinutes();
-            const sec = timeElapsed.getUTCSeconds();
-            const ms = timeElapsed.getUTCMilliseconds();
-
-            return (
-                this.zeroPrefix(hour, 2) +
-                ':' +
-                this.zeroPrefix(min, 2) +
-                ':' +
-                this.zeroPrefix(sec, 2) +
-                '.' +
-                this.zeroPrefix(ms, 3)
-            );
-        },
-        lapTime() {
-            const lapTimeLength = this.lapTimes.length;
-            const previousTime = this.lapTimes[lapTimeLength - 1];
-
-            let lapTime = this.time;
-            if (previousTime) {
-                const previousTimeDate = this.convertTimeToDate(previousTime.overallTime);
-                const currentTime = this.convertTimeToDate(this.time);
-
-                const difference = currentTime.getTime() - previousTimeDate.getTime();
-                lapTime = this.getFormmatedDate(difference);
-            }
-
-            const lap = this.lapTimes.length + 1;
-            const overallTime = this.time;
-
-            this.lapTimes.push({ lap, lapTime, overallTime });
-        },
-        clockRunning() {
-            const currentTime = new Date();
-            const elapsed = currentTime.getTime() - (this.timeBegan?.getTime() || 0) - this.stopDuration;
-
-            this.time = this.getFormmatedDate(elapsed);
-        },
-        zeroPrefix(num: number, digit: number) {
-            var zero = '';
-            for (var i = 0; i < digit; i++) {
-                zero += '0';
-            }
-            return (zero + num).slice(-digit);
-        },
-        convertTimeToDate(time: string): Date {
-            const date = new Date();
-
-            if (!time) {
-                return date;
-            }
-
-            const [hours, minutes, seconds] = time.split(':');
-            const [secs, millis] = seconds.split('.');
-
-            date.setHours(parseInt(hours));
-            date.setMinutes(parseInt(minutes));
-            date.setSeconds(parseInt(secs));
-            date.setMilliseconds(parseInt(millis));
-
-            return date;
-        },
-
-        createColumns(): DataTableColumns<ILapTime> {
-            return [
-                {
-                    title: 'No.',
-                    key: 'lap',
-                },
-                {
-                    title: 'Lap time',
-                    key: 'lapTime',
-                },
-                {
-                    title: 'Overall time',
-                    key: 'overallTime',
-                },
-            ];
-        },
-    },
+    ];
 };
 </script>
 
@@ -190,7 +201,6 @@ export default {
     align-self: center;
     color: rgb(200, 200, 200);
     text-align: center;
-
     &__time {
         font-size: 2em;
     }

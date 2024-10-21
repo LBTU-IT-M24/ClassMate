@@ -1,6 +1,6 @@
 <template>
-    <div class="base-timer">
-        <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <div class="base-timer" :style="{ width: widgetWidth*0.9 + 'px', height: widgetWidth*0.9 + 'px'}" >
+        <svg class="base-timer__svg-container" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"   :style="{   height: widgetWidth*0.9 + 'px' }">
             <g class="base-timer__circle">
                 <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
                 <path
@@ -17,31 +17,30 @@
             </g>
         </svg>
         <div class="base-timer__body">
-            <span class="base-timer__label" @click="onModalOpen">
+            <span class="base-timer__label" @click="onModalOpen" :style="{ fontSize: widgetWidth / 10 + 'px' }">
                 {{ formattedTimeLeft }}
             </span>
         </div>
     </div>
-
-    <n-flex justify="content-between">
+    <n-flex justify="content-between" class="controls">
         <div v-if="!isEnabled" @click="startTimer">
-            <n-button class="w-100 m-1" strong secondary type="primary"
-                ><font-awesome-icon :icon="['fas', 'play']" />
+            <n-button class=" m-1" :style="{ fontSize: widgetWidth / 30 + 'px' , height: widgetWidth / 10 + 'px',width: widgetWidth / 6 + 'px'}" strong secondary type="primary">
+                <font-awesome-icon  :icon="['fas', 'play']" />
             </n-button>
         </div>
         <div v-else>
-            <n-button class="w-100 m-1" @click="pauseTimer" strong secondary type="primary"
-                ><font-awesome-icon :icon="['fas', 'pause']" />
+            <n-button class=" m-1" :style="{ fontSize: widgetWidth / 30 + 'px', height: widgetWidth / 10 + 'px' ,width: widgetWidth / 6 + 'px'}" @click="pauseTimer" strong secondary type="primary">
+                <font-awesome-icon  :icon="['fas', 'pause']" />
             </n-button>
         </div>
         <div>
-            <n-button strong secondary type="primary" class="w-100 m-1" @click="resetTimer"
-                ><font-awesome-icon :icon="['fas', 'arrow-rotate-left']" />
+            <n-button strong secondary type="primary" class=" m-1" @click="resetTimer" :style="{ fontSize: widgetWidth / 30 + 'px' , height: widgetWidth / 10 + 'px',width: widgetWidth / 6 + 'px' }">
+                <font-awesome-icon  :icon="['fas', 'arrow-rotate-left']" />
             </n-button>
         </div>
     </n-flex>
     <n-modal v-model:show="isModalOpen">
-        <n-card style="width: 600px" :bordered="false" size="small">
+        <n-card :style="{ width: widgetWidth > 600 ? '600px' : '90%' }" :bordered="false" size="small">
             <VueDatePicker v-model="time" @closed="closedModal" time-picker enable-seconds :clearable="false" />
         </n-card>
     </n-modal>
@@ -105,6 +104,10 @@ export default {
         defaultTime: {
             default: 600,
             type: Number,
+        },
+        widgetWidth: {
+            type: Number,
+            required: true,
         },
     },
     computed: {
@@ -218,8 +221,10 @@ export default {
     min-width: 280px;
     height: 280px;
 
-    &__svg {
-        transform: scaleX(-1);
+    &__svg-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 
     &__circle {

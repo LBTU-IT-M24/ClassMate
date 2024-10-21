@@ -19,26 +19,23 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <n-modal v-model:show="isModalOpen">
-                    <n-card
-                        style="width: 600px"
-                        :title="`${title} Settings`"
-                        :bordered="false"
-                        size="huge"
-                        role="dialog"
-                    >
-                        <StyleConfiguration :styleConfiguration="styleConfiguration">
-                            <template v-slot:customTabs v-if="$slots.styleConfiguration">
-                                <slot name="styleConfiguration"></slot>
-                            </template>
-                        </StyleConfiguration>
-                    </n-card>
-                </n-modal>
-            </div>
+            <div class="resize-handle" @mousedown="onResizeStart"></div>
+            <n-modal v-model:show="isModalOpen">
+                <n-card style="width: 600px" :title="`${title} Settings`" :bordered="false" size="huge" role="dialog">
+                    <StyleConfiguration :styleConfiguration="styleConfiguration">
+                        <template v-slot:customTabs v-if="$slots.styleConfiguration">
+                            <slot name="styleConfiguration"></slot>
+                        </template>
+                    </StyleConfiguration>
+                </n-card>
+            </n-modal>
+
         </n-element>
+
     </div>
+
 </template>
+
 <script lang="ts">
 import type { IStyleConfiguration } from '@/models/StyleConfiguration/IStyleConfiguration';
 import type { IDraggablePosition } from './interfaces/IDraggablePosition';
@@ -51,6 +48,7 @@ interface IDraggableData {
     position: IDraggablePosition;
     styleConfiguration: IStyleConfiguration;
     isModalOpen: boolean;
+    isResizing: boolean;
 }
 
 const HEIGHT_BOUNDRY_LIMIT = -50;
@@ -91,30 +89,23 @@ export default {
             position: this.initialPosition,
             styleConfiguration: {} as IStyleConfiguration,
             isModalOpen: false,
+            isResizing: false,
         };
     },
     computed: {
         style() {
-            const basePosition = {
+            return {
                 left: this.position.x + 'px',
                 top: this.position.y + 'px',
+                width: this.position.width + 'px',
+                height: this.position.height + 'px',
                 boxShadow: this.position.isDragging ? '3px 6px 16px rgba(0, 0, 0, 0.15)' : '',
                 transform: this.position.isDragging ? 'translate(-3px, -6px)' : '',
                 cursor: this.position.isDragging ? 'grab' : 'pointer',
             };
-
-            if (this.position.init) {
-                return {
-                    ...basePosition,
-                    width: this.position.width + 'px',
-                };
-            }
-
-            return basePosition;
         },
         widgetStyle() {
             const { transparency, color, fontSize } = this.styleConfiguration;
-
             return {
                 opacity: transparency / 100,
                 backgroundColor: `${color}`,
@@ -147,13 +138,46 @@ export default {
         if (position.y === 0) {
             position.y = (window.innerHeight - position.height) / 2;
         }
+
+        this.$emit('update:width', this.position.width);
     },
     beforeUnmount() {
         this.$emit('update-position', { type: this.type, position: this.position });
     },
     methods: {
+        onResizeStart(e: MouseEvent) {
+            e.stopPropagation();
+            this.isResizing = true;
+            document.addEventListener('mousemove', this.onResizeMove);
+            document.addEventListener('mouseup', this.onResizeEnd);
+        },
+        onResizeMove(e: MouseEvent) {
+            if (!this.isResizing) return;
+
+            const newWidth = e.clientX - this.position.x;
+            const newHeight = e.clientY - this.position.y;
+
+
+            if (newWidth > 250) {
+                this.position.width = newWidth;
+                this.$emit('update:width', this.position.width);
+            }
+            if (newHeight > 150) {
+                this.position.height = newHeight;
+            }
+        },
+        onResizeEnd() {
+            this.isResizing = false;
+            document.removeEventListener('mousemove', this.onResizeMove);
+            document.removeEventListener('mouseup', this.onResizeEnd);
+        },
         onMouseDown(e: MouseEvent) {
-            const element = e.target as HTMLInputElement;
+            const element = e.target as HTMLElement;
+
+            if (element.classList.contains('resize-handle')) {
+                return;
+            }
+
             if (
                 (!element?.classList?.contains('widget__header') &&
                     !element?.classList?.contains('widget') &&
@@ -166,25 +190,26 @@ export default {
             }
 
             e.stopPropagation();
-
             const { clientX, clientY } = e;
             this.position.dragStartX = clientX - this.position.x;
             this.position.dragStartY = clientY - this.position.y;
-
             this.position.isDragging = true;
 
             document.addEventListener('mouseup', this.onMouseUp);
             document.addEventListener('mousemove', this.onMouseMove);
         },
         onMouseMove(e: MouseEvent) {
+            if (this.isResizing) {
+                return;
+            }
+
             e.stopPropagation();
             const { clientX, clientY } = e;
 
             const dragStartX = this.position.dragStartX || 0;
-
             const widthLimit = window.innerWidth + -WIDTH_BOUNDRY_LIMIT;
-
             const newXPos = clientX - dragStartX;
+
             if (newXPos < WIDTH_BOUNDRY_LIMIT || newXPos + this.position.width > widthLimit) {
                 return;
             }
@@ -213,6 +238,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.resize-handle {
+    width: 16px;
+    height: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    margin-left: auto;
+    margin-top: -16px;
+    cursor: nwse-resize;
+    border-radius: 0 0 4px 0;
+    z-index: 10;
+}
 .widget {
     border-radius: var(--bs-border-radius) !important;
     --bs-bg-opacity: 1;
@@ -220,6 +255,8 @@ export default {
     box-shadow: var(--bs-box-shadow) !important;
     display: flex !important;
     flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
     margin: 0 auto;
     padding: 1rem;
     overflow: auto;
