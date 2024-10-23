@@ -3,6 +3,7 @@ import 'v-calendar/style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import '@vuepic/vue-datepicker/dist/main.css';
 import 'quill/dist/quill.snow.css';
+import 'typeface-barlow';
 
 import { createApp } from 'vue';
 import App from './App.vue';

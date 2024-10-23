@@ -1,17 +1,15 @@
 <template>
-  <RoleSelect />
+    <RoleSelect class="woosh_background" />
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
-import RoleSelect from "@/components/Role/RoleSelect.vue";
+import { defineComponent } from 'vue';
+import RoleSelect from '@/components/Role/RoleSelect.vue';
 
 export default defineComponent({
-  name: "AuthorizationView",
-  components: {RoleSelect},
-})
+    name: 'AuthorizationView',
+    components: { RoleSelect },
+});
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
