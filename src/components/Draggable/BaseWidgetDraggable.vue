@@ -99,7 +99,6 @@ export default {
                 top: this.position.y + 'px',
                 width: this.position.width + 'px',
                 height: this.position.height + 'px',
-                boxShadow: this.position.isDragging ? '3px 6px 16px rgba(0, 0, 0, 0.15)' : '',
                 transform: this.position.isDragging ? 'translate(-3px, -6px)' : '',
                 cursor: this.position.isDragging ? 'grab' : 'pointer',
             };
